@@ -4,6 +4,7 @@ sistema:		<Object>
 tema:		<Theme>
 header:	<Morph>
 body:		<Morph>
+logo: 	 	<Form>
 "
 Class {
 	#name : #Ventana,
@@ -14,7 +15,8 @@ Class {
 		'header',
 		'body',
 		'botonAtras',
-		'contenedor'
+		'contenedor',
+		'logo'
 	],
 	#category : #'POOTPF-UI-Views'
 }
@@ -62,12 +64,18 @@ Ventana >> addContenedor: dim [
 { #category : #adding }
 Ventana >> addHeader [
 	"Primero se agrega el header a la ventana, luego el body"
-	|head|.
-	head := Morph new.
-	head color: tema header.
-	head extent: 800@110; borderWidth: 1; borderColor: Color black.
-	header := head.
-	self addMorph: head.
+	header := Morph new.
+	header color: tema header; extent: 800@110; borderWidth: 1; borderColor: Color black.
+
+	"Logo cargado desde el directorio"
+	logo := (Form fromFileNamed: tema logoPath) asMorph.
+	"Posiciono logo"
+	logo center: header center.
+	logo right: header right-10.
+	
+	header addMorph: logo.
+
+	self addMorph: header.
 	
 ]
 

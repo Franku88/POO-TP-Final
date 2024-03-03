@@ -29,11 +29,10 @@ Class {
 		'contrast',
 		'header',
 		'headerLine',
-		'icon',
-		'iconColor',
 		'panel',
 		'shape',
-		'table'
+		'table',
+		'logoPath'
 	],
 	#category : #'POOTPF-UI-Components'
 }
@@ -41,12 +40,6 @@ Class {
 { #category : #accessing }
 Theme >> background [
 	^background
-]
-
-{ #category : #constants }
-Theme >> backgroundPath [
-	"Asigna ruta del banner de fondo"
-	"background := 'pharo-local/iceberg/franco-benitez/POO-TPFinal/resources/background1.jpg'."
 ]
 
 { #category : #accessing }
@@ -82,6 +75,7 @@ Theme >> default [
 	borderShape := Color fromString: '666666'.
 	background := Color fromString: 'FFFFFF'.
 	header := Color fromString: 'FFFFFF'.
+	logoPath := 'pharo-local/iceberg/POO-TP-Final/resources/faibondilogosmall.png'.
 ]
 
 { #category : #accessing }
@@ -94,24 +88,14 @@ Theme >> headerLine [
 	^headerLine.
 ]
 
-{ #category : #accessing }
-Theme >> icon [
-	^icon
-]
-
-{ #category : #accessing }
-Theme >> iconColor [
-	^iconColor
-]
-
-{ #category : #constants }
-Theme >> iconPath [
-	"icon := 'pharo-local/iceberg/franco-benitez/POO-TPFinal/resources/icon.png'"
-]
-
 { #category : #initialization }
 Theme >> initialize [
 	self default.
+]
+
+{ #category : #accessing }
+Theme >> logoPath [
+	^logoPath
 ]
 
 { #category : #accessing }
