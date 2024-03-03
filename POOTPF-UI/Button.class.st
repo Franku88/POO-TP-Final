@@ -21,7 +21,7 @@ Button class >> text: nombre color: col extent: dim [
 { #category : #creating }
 Button class >> text: nombre extent: dim [  
 	"Crea boton de color predeterminado (gris claro)"
-	^ (self new) label: nombre ;  color: Color lightGray; extent: dim
+	^ (self new) label: nombre; color: Color lightGray; extent: dim.
 ]
 
 { #category : #initialization }

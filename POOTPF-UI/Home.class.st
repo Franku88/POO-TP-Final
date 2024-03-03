@@ -32,7 +32,7 @@ Home >> addButtons [
 
 	"posicionarlo segun el contenedor"
 	botonCliente center: ((contenedor center) - (0@25)).
-	self addMorph: botonCliente .
+	contenedor addMorph: botonCliente .
 
 	"botonCliente  mouseAction: [ "
 	"Creo la instancia de menu2 pasandole el sistema, lo agrego centrado para que tape al anterior morph"
@@ -43,7 +43,7 @@ Home >> addButtons [
 
 	"posicionarlo segun el contenedor"
 	botonSistema center: ((contenedor center) + (0@25)).
-	self addMorph: botonSistema.
+	contenedor addMorph: botonSistema.
 
 	"botonSistema  mouseAction: [ "
 	"Creo la instancia de menu2 pasandole el sistema, lo agrego centrado para que tape al anterior morph"
@@ -62,4 +62,5 @@ Home >> initialize [
 	"Agrega botones"
 	self addButtons.
 	self addBotonAtras: 'Volver'.
+	self addTitulo: 'Bienvenido a FAIBONDI©'
 ]

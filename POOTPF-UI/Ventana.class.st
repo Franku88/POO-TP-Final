@@ -5,6 +5,7 @@ tema:		<Theme>
 header:	<Morph>
 body:		<Morph>
 logo: 	 	<Form>
+titulo: 	<String>
 "
 Class {
 	#name : #Ventana,
@@ -16,7 +17,8 @@ Class {
 		'body',
 		'botonAtras',
 		'contenedor',
-		'logo'
+		'logo',
+		'titulo'
 	],
 	#category : #'POOTPF-UI-Views'
 }
@@ -48,7 +50,7 @@ Ventana >> addBotonAtras: etiqueta [
 	boton := Button text: etiqueta extent: 80@30.
 	boton center: header center.
 	boton left: header left+30.
-	self addMorph: boton.
+	header addMorph: boton.
 ]
 
 { #category : #adding }
@@ -67,15 +69,22 @@ Ventana >> addHeader [
 	header := Morph new.
 	header color: tema header; extent: 800@110; borderWidth: 1; borderColor: Color black.
 
-	"Logo cargado desde el directorio"
-	logo := (Form fromFileNamed: tema logoPath) asMorph.
 	"Posiciono logo"
-	logo center: header center.
-	logo right: header right-10.
-	
-	header addMorph: logo.
+	(tema logo) center: header center.
+	(tema logo) right: header right-10.	
+	header addMorph: (tema logo).
 
 	self addMorph: header.
+	
+]
+
+{ #category : #adding }
+Ventana >> addTitulo: unString [
+	titulo := unString asMorph.
+	titulo center: (body center).
+	titulo top: ((contenedor top + body top)/2); color: Color black.
+	body addMorph: titulo.
+	
 	
 ]
 
@@ -86,7 +95,7 @@ Ventana >> initialize [
 	self extent: 800@600.
 	self color: Color transparent.
 	
-	tema := Theme new default.
+	tema := Theme new defaultWLogo.
 	self addHeader.
 	self addBody.
 
