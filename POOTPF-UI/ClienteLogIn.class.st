@@ -19,11 +19,19 @@ Class {
 ClienteLogIn >> addButtons [
 	botonIngreso := Button text: 'Ingresar' extent: 80@30.
 	botonIngreso mouseAction: [ 
+		"Verifica que el input no este vacio"
 		(campoDni isEmpty) ifTrue: [
 			self addPopUp: 'No se ha ingresado DNI'.
 			] ifFalse: [
+				"Verifica que el input sea numerico"
 				(Helper stringIsNumeric:  (campoDni input)) ifTrue: [ 
-					self addPopUp: 'Lindo numero'.
+					|unCliente|.
+					unCliente := sistema buscarClienteConDni: ((campoDni input) asInteger).
+					(unCliente) ifNotNil: [ 
+						self addPopUp: 'Cliente encontrado'.
+					] ifNil: [
+						self addPopUp: 'No existe cliente con DNI ',(campoDni input).
+					].
 				] ifFalse: [
 					self addPopUp: 'Eso no es un numero :C'.
 				].

@@ -29,7 +29,7 @@ Ventana class >> initializeWith: sis [
 	|window|.
 	window := self new.
 	window initializeWithSystem: sis.
- 	^ window.
+ 	^window.
 ]
 
 { #category : #adding }

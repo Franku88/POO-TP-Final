@@ -16,7 +16,10 @@ Class {
 Home class >> create [
 	|sis win|.
 	win := self new.
-	sis := 'ALGO'.
+	"Creo empresa/sistema y lo precargo"
+	sis := EmpresaTurismo crear.
+	TestEmpresa cargaInicial: sis.
+	"Inicializo ventana con el sistema creado"
 	win initializeWithSystem: sis.
 	win openInWindowLabeled: 'FAIBONDI'.
 	^win
