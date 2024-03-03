@@ -75,7 +75,7 @@ Theme >> default [
 	borderShape := Color fromString: '666666'.
 	background := Color fromString: 'FFFFFF'.
 	header := Color fromString: 'FFFFFF'.
-	logoPath := 'pharo-local/iceberg/POO-TP-Final/resources/faibondilogosmall.png'.
+	logoPath := 'pharo-local/iceberg/POO-TP-Final/resources/faibondilogo.png'.
 ]
 
 { #category : #accessing }
