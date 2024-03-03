@@ -16,11 +16,27 @@ Class {
 }
 
 { #category : #adding }
+ClienteLogIn >> addButtons [
+	botonIngreso := Button text: 'Ingresar' extent: 80@30.
+	"botonIngreso mouseAction: [  ]."
+	botonIngreso left: contenedor left + 15.
+	botonIngreso bottom: contenedor bottom - 15.
+	contenedor addMorph: botonIngreso.
+	
+	botonRegistro := Button text: 'Registrar' extent: 80@30.
+	"botonRegistro mouseAction: [  ]."
+	botonRegistro right: contenedor right - 15.
+	botonRegistro bottom: contenedor bottom - 15.	
+	contenedor addMorph: botonRegistro.
+]
+
+{ #category : #adding }
 ClienteLogIn >> addCampoDni [
 	|label|.
 	"Creo campoDni"
-	campoDni := TextField createTransparentExtent: 100@50 borderColor: Color black.
+	campoDni := TextField createTransparentExtent: 130@50 borderColor: Color black.
 	campoDni center: (contenedor center).
+	campoDni top: contenedor top + 40.
 	"Creo etiqueta del campo y posiciono en contenedor segun campo"
 	label := 'DNI' asMorph.
 	label color: Color black.
@@ -39,7 +55,9 @@ ClienteLogIn >> initialize [
 	"Agrega boton de back"
 	self addBotonAtras: 'Volver'.
 	"Agrega contenedor de TextField y botones"
-	self addContenedor: 200@100.
+	self addContenedor: 210@130.
 	"contenedor del campo de registro/ingreso"
 	self addCampoDni.
+	"botones de ingreso y registro"
+	self addButtons.
 ]

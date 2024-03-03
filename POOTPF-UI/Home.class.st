@@ -23,31 +23,28 @@ Home class >> create [
 ]
 
 { #category : #adding }
-Home >> addButtons [ 
-	"botones"
+Home >> addButtons [
+	"Agrega boton cliente y boton sistema"
+	"Boton Cliente"
 	botonCliente := Button text: 'Cliente' extent: 80@30.
-	"Agrego funcion a botonCliente"
 	botonCliente  mouseAction: [ 
-		"Creo la instancia de ClienteLogin pasandole el sistema, lo agrego centrado para que tape al anterior morph"
+		"Creo la instancia de ClienteLogin pasandole el sistema, centrado para tapar al anterior morph"
 		self addMorphCentered:  (ClienteLogIn initializeWith: sistema) 
 	].
-
-	"posicionarlo segun el contenedor"
+	"Posicionarlo segun el contenedor"
 	botonCliente center: ((contenedor center) - (0@25)).
-	contenedor addMorph: botonCliente.	
+	contenedor addMorph: botonCliente.		
 
-	
-
+	"Boton Sistema"
 	botonSistema := Button text: 'Sistema' extent: 80@30.
-
-	"posicionarlo segun el contenedor"
-	botonSistema center: ((contenedor center) + (0@25)).
-	contenedor addMorph: botonSistema.
-
 	"botonSistema  mouseAction: [ "
 	"Creo la instancia de menu2 pasandole el sistema, lo agrego centrado para que tape al anterior morph"
 	"self addMorphCentered:  (MenuCliente initializeWith: sistema) 
-	]"
+	]."
+	"Posicionarlo segun el contenedor"
+	botonSistema center: ((contenedor center) + (0@25)).
+	contenedor addMorph: botonSistema.
+
 	
 ]
 
