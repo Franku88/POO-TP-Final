@@ -92,7 +92,7 @@ TextField >> clear [
 
 { #category : #accessing }
 TextField >> input [
-	^ self text asString. 
+	^ (self text asString). 
 ]
 
 { #category : #testing }

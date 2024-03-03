@@ -60,7 +60,7 @@ Ventana >> addContenedor: dim [
 	contenedor := Morph new.
 	contenedor extent: dim.
 	contenedor center: body center.
-	contenedor color: (Color fromString: 'DAE8FC'); borderWidth: 1; borderColor: (Color fromString: '6C8EBF').
+	contenedor color: tema container; borderWidth: 1; borderColor: tema containerBorder.
 	body addMorph: contenedor.
 	
 ]
@@ -73,11 +73,42 @@ Ventana >> addHeader [
 
 	"Posiciono logo"
 	(tema logo) center: header center.
-	(tema logo) right: header right-10.	
+	(tema logo) right: header right-20.	
 	header addMorph: (tema logo).
 
 	self addMorph: header.
 	
+]
+
+{ #category : #adding }
+Ventana >> addPopUp: text [
+	self addPopUp: text extent: 200@100.
+]
+
+{ #category : #adding }
+Ventana >> addPopUp: text extent: dim [
+	|popup textM button|.
+	"Creo ventana de emergente"
+	popup := Morph new.
+	popup extent: dim; center: body center; top: body top + 50; color: tema containerBorder; borderWidth: 1; borderColor: tema container.
+	
+	"Creo texto del popup y lo agrego"
+	textM := text asMorph.
+	textM center: popup center; top: popup top + 20.
+	popup addMorph: textM.
+	
+	"Creo boton de confirmar y lo agrego"
+	button := Button text: 'OK'.
+	button center: popup center; bottom: popup bottom - 20.
+	button mouseAction: [  
+		popup delete.	
+	].
+	popup addMorph: button.
+	
+	"Agrego popup al body"
+	body addMorph: popup.
+	
+
 ]
 
 { #category : #adding }
@@ -97,7 +128,7 @@ Ventana >> initialize [
 	self extent: 800@600.
 	self color: Color transparent.
 	
-	tema := Theme new defaultWLogo.
+	tema := Theme new default.
 	self addHeader.
 	self addBody.
 

@@ -83,3 +83,9 @@ Helper class >> stringIsEmpty: cad [
 	^(cad trim) isEmpty.
 
 ]
+
+{ #category : #boolean }
+Helper class >> stringIsNumeric: string [
+	"Retorna verdadero si la cadena ingresada contiene solo digitos"
+   ^(string isNotEmpty) and: (string isAllDigits).
+]

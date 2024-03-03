@@ -22,7 +22,9 @@ Class {
 		'panel',
 		'shape',
 		'table',
-		'logo'
+		'logo',
+		'container',
+		'containerBorder'
 	],
 	#category : #'POOTPF-UI-Components'
 }
@@ -30,6 +32,16 @@ Class {
 { #category : #accessing }
 Theme >> background [
 	^background
+]
+
+{ #category : #accessing }
+Theme >> container [
+	^container.
+]
+
+{ #category : #accessing }
+Theme >> containerBorder [
+	^containerBorder.
 ]
 
 { #category : #constants }
@@ -40,18 +52,15 @@ Theme >> default [
 	borderShape := Color fromString: '666666'.
 	background := Color fromString: 'FFFFFF'.
 	header := Color fromString: 'FFFFFF'.
-	logo := ('FAIBONDI' asMorph) color: Color black.
+	container:= Color fromString: 'DAE8FC'.
+	containerBorder := Color fromString: '6C8EBF'.
+	logo := ('FAIBONDI©' asMorph) color: Color black.
 
 ]
 
 { #category : #constants }
 Theme >> defaultWLogo [
-	button1 := Color fromString: 'FFFFFF'.
-	borderButton := Color fromString: '666666'.
-	shape := Color fromString: 'FFFFFF'.
-	borderShape := Color fromString: '666666'.
-	background := Color fromString: 'FFFFFF'.
-	header := Color fromString: 'FFFFFF'.
+	self default.
 	logo := (Form fromFileNamed: 'pharo-local/iceberg/POO-TP-Final/resources/faibondilogo.png') asMorph.
 ]
 

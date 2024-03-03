@@ -18,7 +18,17 @@ Class {
 { #category : #adding }
 ClienteLogIn >> addButtons [
 	botonIngreso := Button text: 'Ingresar' extent: 80@30.
-	"botonIngreso mouseAction: [  ]."
+	botonIngreso mouseAction: [ 
+		(campoDni isEmpty) ifTrue: [
+			self addPopUp: 'No se ha ingresado DNI'.
+			] ifFalse: [
+				(Helper stringIsNumeric:  (campoDni input)) ifTrue: [ 
+					self addPopUp: 'Lindo numero'.
+				] ifFalse: [
+					self addPopUp: 'Eso no es un numero :C'.
+				].
+			].
+	].
 	botonIngreso left: contenedor left + 15.
 	botonIngreso bottom: contenedor bottom - 15.
 	contenedor addMorph: botonIngreso.
@@ -36,7 +46,8 @@ ClienteLogIn >> addCampoDni [
 	"Creo campoDni"
 	campoDni := TextField createTransparentExtent: 130@50 borderColor: Color black.
 	campoDni center: (contenedor center).
-	campoDni top: contenedor top + 40.
+	campoDni top: contenedor top + 40; textColor: Color black.
+	
 	"Creo etiqueta del campo y posiciono en contenedor segun campo"
 	label := 'DNI' asMorph.
 	label color: Color black.

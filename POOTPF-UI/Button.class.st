@@ -13,6 +13,12 @@ Class {
 	#category : #'POOTPF-UI-Components'
 }
 
+{ #category : #accessing }
+Button class >> text: nombre [
+	"Crea boton de color y tamanio predeterminado (gris claro)"
+	^ (self new) label: nombre; color: Color lightGray; extent: 80@30.
+]
+
 { #category : #creating }
 Button class >> text: nombre color: col extent: dim [  
 ^ (self new) label: nombre ;  color: col; extent: dim
