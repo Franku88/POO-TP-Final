@@ -28,12 +28,12 @@ ClienteLogIn >> addButtons [
 					|unCliente|.
 					unCliente := sistema buscarClienteConDni: ((campoDni input) asInteger).
 					(unCliente) ifNotNil: [ 
-						self addPopUp: 'Cliente encontrado'.
+						self addMorphCentered:  (PerfilCliente initializeWith: sistema cliente: unCliente).
 					] ifNil: [
 						self addPopUp: 'No existe cliente con DNI ',(campoDni input).
 					].
 				] ifFalse: [
-					self addPopUp: 'Eso no es un numero :C'.
+					self addPopUp: 'Ingrese un valor numerico'.
 				].
 			].
 	].
