@@ -6,6 +6,7 @@ header:	<Morph>
 body:		<Morph>
 logo: 	 	<Form>
 titulo: 	<String>
+vistaAnterior: <Ventana>
 "
 Class {
 	#name : #Ventana,
@@ -23,25 +24,23 @@ Class {
 	#category : #'POOTPF-UI-Views'
 }
 
-{ #category : #operations }
+{ #category : #initialization }
 Ventana class >> initializeWith: sis [
-	|win|.
-	win := self new.
-	win initializeSystem: sis.
-	^win.
+	|window|.
+	window := self new.
+	window initializeWithSystem: sis.
+ 	^ window.
 ]
 
 { #category : #adding }
 Ventana >> addBody [
 	"Body agregado luego del header, ya que sus dimensiones estan relacionadas"
-	|bod|.
-	bod := Morph new.
-	bod color: tema background.
+	body := Morph new.
+	body color: tema background.
 	"Dejo lugar para header"
-	bod position: (0@(header height)).
-	bod extent: 800@(600 - (header height)); borderWidth: 1; borderColor: Color black.
-	self addMorph: bod.
-	body := bod.
+	body position: (0@(header height)).
+	body extent: 800@(600 - (header height)); borderWidth: 1; borderColor: Color black.
+	self addMorph: body.
 ]
 
 { #category : #adding }
@@ -50,6 +49,9 @@ Ventana >> addBotonAtras: etiqueta [
 	boton := Button text: etiqueta extent: 80@30.
 	boton center: header center.
 	boton left: header left+30.
+	boton mouseAction: [ 
+		self delete 
+	].
 	header addMorph: boton.
 ]
 
@@ -103,7 +105,7 @@ Ventana >> initialize [
 ]
 
 { #category : #initialization }
-Ventana >> initializeSystem: sis [
+Ventana >> initializeWithSystem: sis [
 	"Inicializacion con sistema"
 	self initialize.
 	sistema := sis.

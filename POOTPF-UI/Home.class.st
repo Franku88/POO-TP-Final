@@ -15,29 +15,28 @@ Class {
 { #category : #operations }
 Home class >> create [
 	|sis win|.
-	
-	sis := 'ALGO'.
 	win := self new.
-	win initializeSystem: sis.
+	sis := 'ALGO'.
+	win initializeWithSystem: sis.
 	win openInWindowLabeled: 'FAIBONDI'.
 	^win
-	
-	
 ]
 
 { #category : #adding }
 Home >> addButtons [ 
 	"botones"
 	botonCliente := Button text: 'Cliente' extent: 80@30.
+	"Agrego funcion a botonCliente"
+	botonCliente  mouseAction: [ 
+		"Creo la instancia de ClienteLogin pasandole el sistema, lo agrego centrado para que tape al anterior morph"
+		self addMorphCentered:  (ClienteLogIn initializeWith: sistema) 
+	].
 
 	"posicionarlo segun el contenedor"
 	botonCliente center: ((contenedor center) - (0@25)).
-	contenedor addMorph: botonCliente .
+	contenedor addMorph: botonCliente.	
 
-	"botonCliente  mouseAction: [ "
-	"Creo la instancia de menu2 pasandole el sistema, lo agrego centrado para que tape al anterior morph"
-	"self addMorphCentered:  (MenuCliente initializeWith: sistema) 
-	]"
+	
 
 	botonSistema := Button text: 'Sistema' extent: 80@30.
 
@@ -55,12 +54,11 @@ Home >> addButtons [
 { #category : #initialization }
 Home >> initialize [ 
 	"super para aplicar las config de superclase"
-	super initialize.
-
+	super initialize.	
 	"Crea el contenedor para los botones"
 	self addContenedor: 200@200.
 	"Agrega botones"
 	self addButtons.
-	self addBotonAtras: 'Volver'.
-	self addTitulo: 'Bienvenido a FAIBONDI©'
+	"Agrega titulo sobre contenedor"
+	self addTitulo: 'Bienvenido a FAIBONDI©'.
 ]
