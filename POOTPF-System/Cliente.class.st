@@ -55,6 +55,7 @@ Cliente >> apellido [
 { #category : #accessing }
 Cliente >> apellido: unApellido [
 	apellido := unApellido.
+	self changed.
 ]
 
 { #category : #updating }
@@ -314,6 +315,7 @@ Cliente >> reembolsar: unValor [
 Cliente >> sumarDinero: unValor [
 	"Aumenta el dinero del Cliente en unValor"
 	dinero := dinero + unValor.
+	self changed.
 
 ]
 

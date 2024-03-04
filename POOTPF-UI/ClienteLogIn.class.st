@@ -21,7 +21,7 @@ ClienteLogIn >> addButtons [
 	botonIngreso mouseAction: [ 
 		"Verifica que el input no este vacio"
 		(campoDni isEmpty) ifTrue: [
-			self addPopUp: 'No se ha ingresado DNI'.
+			self addMessage: 'No se ha ingresado DNI'.
 			] ifFalse: [
 				"Verifica que el input sea numerico"
 				(Helper stringIsNumeric:  (campoDni input)) ifTrue: [ 
@@ -33,10 +33,10 @@ ClienteLogIn >> addButtons [
 						perfil := (PerfilCliente createWithSystem: sistema cliente: unCliente).
 						self addMorphCentered: perfil.
 					] ifNil: [
-						self addPopUp: 'No existe cliente con DNI ',(campoDni input).
+						self addMessage: 'No existe cliente con DNI ',(campoDni input).
 					].
 				] ifFalse: [
-					self addPopUp: 'Ingrese un valor numerico'.
+					self addMessage: 'Ingrese un valor numerico'.
 				].
 			].
 	].

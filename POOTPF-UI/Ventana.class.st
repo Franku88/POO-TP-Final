@@ -81,16 +81,16 @@ Ventana >> addHeader [
 ]
 
 { #category : #adding }
-Ventana >> addPopUp: text [
-	self addPopUp: text extent: 200@100.
+Ventana >> addMessage: text [
+	self addMessage: text extent: 200@100.
 ]
 
 { #category : #adding }
-Ventana >> addPopUp: text extent: dim [
+Ventana >> addMessage: text extent: dim [
 	|popup textM button|.
 	"Creo ventana de emergente"
 	popup := Morph new.
-	popup extent: dim; center: body center; top: body top + 50; color: tema containerBorder; borderWidth: 1; borderColor: tema container.
+	popup extent: dim; center: body center; color: tema container; borderWidth: 2; borderColor: Color black.
 	
 	"Creo texto del popup y lo agrego"
 	textM := text asMorph.
@@ -106,7 +106,7 @@ Ventana >> addPopUp: text extent: dim [
 	popup addMorph: button.
 	
 	"Agrego popup al body"
-	body addMorph: popup.
+	self addMorph: popup.
 	
 
 ]
