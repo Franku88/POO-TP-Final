@@ -343,6 +343,7 @@ Cliente >> tieneDni: unDni [
 
 { #category : #printing }
 Cliente >> toString [
+	"Usado para debug"
 	|cadena contratos|.
 	contratos := self toStringContratos.
 	cadena := '----- Apellido: ',apellido,', DNI: ',dni asString,', Contacto: ',datosContacto,', ',String cr,'Contratos: ',String cr,contratos,'Frecuente: ',esFrecuente asString,', Millas: ',millas asString,', Dinero: $',(dinero printShowingDecimalPlaces: 2),' -----',String cr.

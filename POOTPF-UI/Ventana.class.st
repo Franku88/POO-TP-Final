@@ -24,8 +24,8 @@ Class {
 	#category : #'POOTPF-UI-Views'
 }
 
-{ #category : #initialization }
-Ventana class >> initializeWith: sis [
+{ #category : #creating }
+Ventana class >> createWithSystem: sis [
 	|window|.
 	window := self new.
 	window initializeWithSystem: sis.
@@ -128,7 +128,7 @@ Ventana >> initialize [
 	self extent: 800@600.
 	self color: Color transparent.
 	
-	tema := Theme new defaultWLogo.
+	tema := Theme new default.
 	self addHeader.
 	self addBody.
 

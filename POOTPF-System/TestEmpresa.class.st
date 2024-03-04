@@ -24,7 +24,7 @@ TestEmpresa class >> crearColClientes: colViajes [
 	colClientes := OrderedCollection new.
 	
 	"Creo cliente"
-	unCliente := Cliente crear: 32391392 apellido: 'Casillas' ciudad: 'San Martin De los Andes' datosContacto: '299120201 casillas@gmail.com' preferencias: 'Ninguna'.
+	unCliente := Cliente crear: "32391392"1 apellido: 'Casillas' ciudad: 'San Martin De los Andes' datosContacto: '299120201, casillas@gmail.com' preferencias: 'Ninguna'.
 	unCliente dinero: 50000.
 	"Creo contrato para cliente"
 	unContrato := Contrato crear: 1 viaje: (colViajes detect: [:viaje| viaje nombre = 'Bahia Blanca']) cantPersonas: 2 cantCuotas: 3 fechaSeleccionada: (Date year: 2023 month: 8 day: 5).
