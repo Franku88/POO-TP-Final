@@ -1,6 +1,9 @@
 "
 Vista que muestra datos de un cliente
 	cliente:		<Cliente>
+	botonVerContratos: 	<Button>
+	botonIngresarDinero: 	<Button>
+	
 "
 Class {
 	#name : #PerfilCliente,
@@ -23,24 +26,37 @@ PerfilCliente class >> createWithSystem: unSistema cliente: unCliente [
 
 { #category : #adding }
 PerfilCliente >> addButtons [
-
+	"Agrega botones al body"
+	botonVerContratos := Button text: 'Ver contratos' extent: 160@30.
+	botonIngresarDinero := Button text: 'Ingresar dinero' extent: 160@30.
+	"botonVerContratos"
+	botonVerContratos center: (body center)*(1.5).
+	botonVerContratos top: contenedor top+100.
+	body addMorph: botonVerContratos. 
+	"botonIngresarDinero"
+	botonIngresarDinero center: (body center)*(1.5).
+	botonIngresarDinero bottom: contenedor bottom - 100.
+	body addMorph: botonIngresarDinero. 
+	
+	
+	
 ]
 
 { #category : #strings }
 PerfilCliente >> clienteToStringPerfil [
 	"Convierte a cliente en una cadena para posicionar dentro del contenedor de perfil"
 	|string rta|.	
-	string := 'DNI: ',String cr,'   ', (cliente dni asString), String cr.
-	string := string, 'Apellido: ',String cr,'   ', (cliente apellido asString), String cr.
-	string := string, 'Ciudad: ',String cr,'   ', (cliente ciudad asString), String cr.
-	string := string, 'Contacto: ',String cr,'   ', (cliente datosContacto asString), String cr.
+	string := 'DNI: ',String cr,'        ', (cliente dni asString), String cr.
+	string := string, 'Apellido: ',String cr,'        ', (cliente apellido asString), String cr.
+	string := string, 'Ciudad: ',String cr,'        ', (cliente ciudad asString), String cr.
+	string := string, 'Contacto: ',String cr,'        ', (cliente datosContacto asString), String cr.
 	"rta segun boolean esFrecuente"
 	rta := 'No'.
 	(cliente esFrecuente) ifTrue: [rta := 'Si'.].
-	string := string, 'Frecuente: ',String cr,'   ',rta, String cr.
-	string := string, 'Millas: ',String cr,'   ', (cliente millas asString), String cr.
-	string := string, 'Dinero: ',String cr,'   ', (cliente dinero asString), String cr.
-	string := string, 'Preferencias: ',String cr,'   ', (cliente preferencias asString).
+	string := string, 'Frecuente: ',String cr,'        ',rta, String cr.
+	string := string, 'Millas: ',String cr,'        ', (cliente millas asString), String cr.
+	string := string, 'Dinero: ',String cr,'        ', (cliente dinero asString), String cr.
+	string := string, 'Preferencias: ',String cr,'        ', (cliente preferencias asString).
 	^string.
 	
 ]
