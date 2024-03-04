@@ -32,7 +32,7 @@ Home >> addButtons [
 	botonCliente := Button text: 'Cliente' extent: 80@30.
 	botonCliente  mouseAction: [ 
 		"Creo la instancia de ClienteLogin pasandole el sistema, centrado para tapar al anterior morph"
-		self addMorphCentered:  (ClienteLogIn initializeWith: sistema) 
+		self addMorphCentered:  (ClienteLogIn initializeWith: sistema).
 	].
 	"Posicionarlo segun el contenedor"
 	botonCliente center: ((contenedor center) - (0@25)).

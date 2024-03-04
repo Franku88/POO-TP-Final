@@ -128,7 +128,7 @@ Ventana >> initialize [
 	self extent: 800@600.
 	self color: Color transparent.
 	
-	tema := Theme new default.
+	tema := Theme new defaultWLogo.
 	self addHeader.
 	self addBody.
 
