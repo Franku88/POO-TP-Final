@@ -41,6 +41,7 @@ Table >> initializeColumns: colColumns dataSource: aDataSource [
 		clickBlock value: self selectedIndex 
 	];
 	dataSource: aDataSource.
+
 	"Agrega tabla actual como dependiente del modelo/dataSoruce"
 	aDataSource addDependent: self.
 	"No hacen nada predeterminadamente"

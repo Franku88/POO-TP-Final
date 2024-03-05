@@ -30,8 +30,8 @@ TableDataSource class >> createCollection: aCollection object: anObj [
 TableDataSource >> cellColumn: columnIndex row: rowIndex [
 	|celda elem| 
 	elem := self elementAt: rowIndex.
-	celda := FTCellMorph new addMorph: (self getString: elem at: columnIndex id) asMorph.	
-	^celda
+	celda := FTCellMorph new addMorph: (self getString: elem at: columnIndex id) asMorph.
+	^celda.
 ]
 
 { #category : #accessing }

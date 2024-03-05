@@ -35,13 +35,13 @@ VerContratos class >> createWithSystem: unSistema cliente: unCliente [
 { #category : #adding }
 VerContratos >> addButtons [
 	"botonPagar botonModificar botonCancelar botonCrearContrato"
-	botonPagar := Button text: 'Pagar' extent: 80@30.
+	botonPagar := Button text: 'Pagar' color: (tema container) extent: 80@30.
 	botonModificar := Button text: 'Modificar'.
 	botonCancelar := Button text: 'Cancelar'.
 	botonCrearContrato := Button text: 'botonCrearContrato'.
 	
 	"Posiciono morphs"
-	botonPagar bottom: body bottom.
+	botonPagar top: tablaContratos bottom + 10; left: tablaContratos left.
 	
 	
 	"Agrego morphs"
@@ -56,14 +56,13 @@ VerContratos >> addMasInfo [
 VerContratos >> addTablaContratos [
 	"Agrega una tabla de contratos del cliente actual"
 	cliente ifNotNil: [
-		tablaContratos := Table createColumns: (#(Numero Contratado Fecha Personas Cuotas Efectivo) 		asOrderedCollection) extent: 710@300 dataSource: (DataSourceContrato createCollection: 		cliente colContratos object: cliente).
-		
+		tablaContratos := Table createColumns: (#(Numero Contratado Fecha Personas Cuotas Efectivo) asOrderedCollection) extent: (body width*(0.6))@(body height*(0.7)) dataSource: (DataSourceContrato createCollection: cliente colContratos object: cliente).
 		tablaContratos left: body left + 20; top: body top + 20.
+		tablaContratos borderColor: Color black; borderWidth: 1.
 		tablaContratos setClick: [:index |
 			contratoSeleccionado  := tablaContratos elementAt: index.
 	 	].
-	
-		body addMorph: tablaContratos.		
+		body addMorph: tablaContratos.
 	].
 ]
 
@@ -72,8 +71,8 @@ VerContratos >> initializeWithSystem: unSistema cliente: unCliente [
 	super initializeWithSystem: unSistema cliente: unCliente.
 	"Agrega Morphs"
 	self addBotonBorrarVentana: 'Atras'.
-	self addButtons.
 	self addTablaContratos.
+	self addButtons.
 	self addMasInfo.
 	
 

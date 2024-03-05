@@ -1,30 +1,19 @@
 "
 Menu inicial de Faibondi
+Instance Variables
+botonCliente: 	<Button>
+botonSistema 	<Button>
+
 "
 Class {
 	#name : #Home,
 	#superclass : #Ventana,
 	#instVars : [
 		'botonCliente',
-		'botonSistema',
-		'contenedorBotones'
+		'botonSistema'
 	],
 	#category : #'POOTPF-UI-Views'
 }
-
-{ #category : #operations }
-Home class >> create [
-	"Con este constructor se ejecuta el trabajo"
-	|sis win|.
-	win := self new.
-	"Creo empresa/sistema y lo precargo, en este caso, TestEmpresa cargaInicial: percarga una empresa"
-	sis := EmpresaTurismo crear.
-	TestEmpresa cargaInicial: sis.
-	"Inicializo ventana con el sistema creado"
-	win initializeWithSystem: sis.
-	win openInWindowLabeled: 'FAIBONDI'.
-	^win
-]
 
 { #category : #adding }
 Home >> addButtons [

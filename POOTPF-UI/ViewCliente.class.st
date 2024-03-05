@@ -1,6 +1,6 @@
 "
-Ventanas que mostraran datos de un cliente. Las mismas poseen la variable cliente.
-
+Ventanas que mostraran datos de un cliente.
+Instance Variables
 cliente:		<Cliente>
 "
 Class {

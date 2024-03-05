@@ -1,5 +1,6 @@
 "
-Vista que muestra datos de un cliente
+Vista que muestra datos de un cliente.
+Instance Variables
 	botonVerContratos: 	<Button>
 	botonIngresarDinero: 	<Button>
 	datosCliente: 		<TextMorph>
