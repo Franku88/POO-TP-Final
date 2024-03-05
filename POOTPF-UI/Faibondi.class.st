@@ -10,13 +10,16 @@ Class {
 { #category : #executing }
 Faibondi class >> ejecutar [
 	"Con este constructor se ejecuta el trabajo"
-	|sis win|.
-	win := Home new.
+	|sis win|
 	"Creo empresa/sistema y lo precargo, en este caso, TestEmpresa cargaInicial: percarga una empresa"
 	sis := EmpresaTurismo crear.
 	TestEmpresa cargaInicial: sis.
-	"Inicializo ventana con el sistema creado"
+	"Creo ventana Home y la inicializo con el sistema precargado"
+	win := Home new.
 	win initializeWithSystem: sis.
 	win openInWindowLabeled: 'FAIBONDI'.
-	^win
+]
+
+{ #category : #'see class side' }
+Faibondi >> seeClassSide [
 ]
