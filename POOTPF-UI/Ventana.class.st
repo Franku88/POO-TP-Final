@@ -1,12 +1,11 @@
 "
 Instance Variables
-sistema:		<Object>
+sistema:		<EmpresaTurismo>
 tema:		<Theme>
 header:	<Morph>
 body:		<Morph>
 logo: 	 	<Form>
 titulo: 	<String>
-vistaAnterior: <Ventana>
 "
 Class {
 	#name : #Ventana,
@@ -16,7 +15,7 @@ Class {
 		'tema',
 		'header',
 		'body',
-		'botonAtras',
+		'botonBorrarVentana',
 		'contenedor',
 		'logo',
 		'titulo'
@@ -44,15 +43,14 @@ Ventana >> addBody [
 ]
 
 { #category : #adding }
-Ventana >> addBotonAtras: etiqueta [
-	|boton|.
-	boton := Button text: etiqueta extent: 80@30.
-	boton center: header center.
-	boton left: header left+30.
-	boton mouseAction: [ 
+Ventana >> addBotonBorrarVentana: etiqueta [
+	botonBorrarVentana := Button text: etiqueta extent: 80@30.
+	botonBorrarVentana center: header center.
+	botonBorrarVentana left: header left+30.
+	botonBorrarVentana mouseAction: [ 
 		self delete 
 	].
-	header addMorph: boton.
+	header addMorph: botonBorrarVentana.
 ]
 
 { #category : #adding }
@@ -70,11 +68,10 @@ Ventana >> addHeader [
 	"Primero se agrega el header a la ventana, luego el body"
 	header := Morph new.
 	header color: tema header; extent: 800@110; borderWidth: 1; borderColor: Color black.
-
 	"Posiciono logo"
-	(tema logo) center: header center.
-	(tema logo) right: header right-20.	
-	header addMorph: (tema logo).
+	logo center: header center.
+	logo right: header right-20.	
+	header addMorph: logo.
 
 	self addMorph: header.
 	
@@ -91,12 +88,10 @@ Ventana >> addMessage: text extent: dim [
 	"Creo ventana de emergente"
 	popup := Morph new.
 	popup extent: dim; center: body center; color: tema container; borderWidth: 2; borderColor: Color black.
-	
 	"Creo texto del popup y lo agrego"
 	textM := text asMorph.
 	textM center: popup center; top: popup top + 20.
 	popup addMorph: textM.
-	
 	"Creo boton de confirmar y lo agrego"
 	button := Button text: 'OK'.
 	button center: popup center; bottom: popup bottom - 20.
@@ -104,7 +99,6 @@ Ventana >> addMessage: text extent: dim [
 		popup delete.	
 	].
 	popup addMorph: button.
-	
 	"Agrego popup al body"
 	self addMorph: popup.
 	
@@ -128,7 +122,8 @@ Ventana >> initialize [
 	self extent: 800@600.
 	self color: Color transparent.
 	
-	tema := Theme new default.
+	tema := Theme new defaultWLogo.
+	logo := tema logo.
 	self addHeader.
 	self addBody.
 

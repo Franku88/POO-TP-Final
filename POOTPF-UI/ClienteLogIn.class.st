@@ -28,16 +28,15 @@ ClienteLogIn >> addButtons [
 					|unCliente|.
 					unCliente := sistema buscarClienteConDni: ((campoDni input) asInteger).
 					(unCliente) ifNotNil: [ 
-						|perfil|.
 						"Creo view de perfilCliente con el cliente encontrado"
-						perfil := (PerfilCliente createWithSystem: sistema cliente: unCliente).
-						self addMorphCentered: perfil.
+						self addMorphCentered: (PerfilCliente createWithSystem: sistema cliente: unCliente).
 					] ifNil: [
 						self addMessage: 'No existe cliente con DNI ',(campoDni input).
 					].
 				] ifFalse: [
 					self addMessage: 'Ingrese un valor numerico'.
 				].
+				campoDni clear.
 			].
 	].
 	botonIngreso left: contenedor left + 15.
@@ -54,17 +53,16 @@ ClienteLogIn >> addButtons [
 { #category : #adding }
 ClienteLogIn >> addCampoDni [
 	|label|.
-	"Creo campoDni"
+	"Creo morphs"
 	campoDni := TextField createTransparentExtent: 130@50 borderColor: Color black.
-	campoDni center: (contenedor center).
-	campoDni top: contenedor top + 40; textColor: Color black.
-	
-	"Creo etiqueta del campo y posiciono en contenedor segun campo"
 	label := 'DNI' asMorph.
 	label color: Color black.
+	"Posiciono morphs"
+	campoDni center: (contenedor center).
+	campoDni top: contenedor top + 40; textColor: Color black.
 	label top: campoDni top - 20.
 	label left: campoDni left.
-	"Agrego campo y etiqueta al contenedor"
+	"Agrego morphs"
 	contenedor addMorph: label.
 	contenedor addMorph: campoDni.
 
@@ -75,7 +73,7 @@ ClienteLogIn >> initialize [
 	"super para aplicar las config de superclase"
 	super initialize.
 	"Agrega boton de back"
-	self addBotonAtras: 'Volver'.
+	self addBotonBorrarVentana: 'Volver'.
 	"Agrega contenedor de TextField y botones"
 	self addContenedor: 210@130.
 	"contenedor del campo de registro/ingreso"

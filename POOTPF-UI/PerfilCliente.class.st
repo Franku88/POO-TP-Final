@@ -1,6 +1,5 @@
 "
 Vista que muestra datos de un cliente
-	cliente:		<Cliente>
 	botonVerContratos: 	<Button>
 	botonIngresarDinero: 	<Button>
 	datosCliente: 		<TextMorph>
@@ -8,9 +7,8 @@ Vista que muestra datos de un cliente
 "
 Class {
 	#name : #PerfilCliente,
-	#superclass : #Ventana,
+	#superclass : #ViewCliente,
 	#instVars : [
-		'cliente',
 		'botonVerContratos',
 		'botonIngresarDinero',
 		'datosCliente'
@@ -37,7 +35,9 @@ PerfilCliente >> addButtons [
 	botonIngresarDinero center: (body center)*(1.5).
 	botonIngresarDinero bottom: contenedor bottom - 100.
 	"Da funcion"
-	botonVerContratos mouseAction: [].
+	botonVerContratos mouseAction: [
+		self addMorphCentered: (VerContratos createWithSystem: sistema cliente: cliente). 
+		].
 	
 	botonIngresarDinero mouseAction: [
 		self addPopUpIngresarDinero.
@@ -53,8 +53,11 @@ PerfilCliente >> addButtons [
 
 { #category : #adding }
 PerfilCliente >> addDatosCliente [
+	"Agrega datos centrados al contenedor"
 	datosCliente := TextMorph new.
+	datosCliente contents: (self clienteToStringPerfil: cliente).
 	contenedor addMorphCentered: datosCliente.
+
 ]
 
 { #category : #adding }
@@ -70,7 +73,7 @@ PerfilCliente >> addPopUpIngresarDinero [
 	
 		"Posiciono ventana y contenidos"
 		popup extent: 250@135; center: body center.
-		popup color: tema containerBorder; borderWidth: 2; borderColor: Color black.
+		popup color: tema container; borderWidth: 2; borderColor: Color black.
 		textM center: popup center; top: popup top + 20.
 		txtField center: popup center.
 		bAceptar right: popup left + ((popup right - popup left)/2) - 10; bottom: popup bottom - 15.
@@ -102,39 +105,11 @@ PerfilCliente >> addPopUpIngresarDinero [
 		body addMorph: popup. 
 ]
 
-{ #category : #strings }
-PerfilCliente >> clienteToStringPerfil [
-	^self clienteToStringPerfil: cliente
-	
-]
-
-{ #category : #strings }
-PerfilCliente >> clienteToStringPerfil: unCliente [
-	"Convierte a unCliente en una cadena para posicionar dentro del contenedor de perfil"
-	|string rta|.	
-	string := 'DNI: ',String cr,'        ', (unCliente dni asString), String cr.
-	string := string, 'Apellido: ',String cr,'        ', (unCliente apellido asString), String cr.
-	string := string, 'Ciudad: ',String cr,'        ', (unCliente ciudad asString), String cr.
-	string := string, 'Contacto: ',String cr,'        ', (unCliente datosContacto asString), String cr.
-	"rta segun boolean esFrecuente"
-	rta := 'No'.
-	(cliente esFrecuente) ifTrue: [rta := 'Si'.].
-	string := string, 'Frecuente: ',String cr,'        ',rta, String cr.
-	string := string, 'Millas: ',String cr,'        ', (unCliente millas asString), String cr.
-	string := string, 'Dinero: ',String cr,'         $', (unCliente dinero asString), String cr.
-	string := string, 'Preferencias: ',String cr,'        ', (unCliente preferencias asString).
-	^string.
-	
-]
-
 { #category : #initialization }
 PerfilCliente >> initializeWithSystem: unSistema cliente: unCliente [
-	self initialize.
-	"Inicializo sistema y ususario encontrado"
-	sistema := unSistema.
-	cliente := unCliente.
+	super initializeWithSystem: unSistema cliente: unCliente.
 	"Agrega Morphs"
-	self addBotonAtras: 'Salir'.
+	self addBotonBorrarVentana: 'Salir'.
 	self addContenedor: 280@400.
 	self addDatosCliente.
 	self addTitulo: 'Cliente'.
@@ -145,15 +120,11 @@ PerfilCliente >> initializeWithSystem: unSistema cliente: unCliente [
 	datosCliente left: contenedor left + 20.
 	titulo center: contenedor center.
 	titulo bottom: contenedor top - 10.
-	"Agrego dependientes y actualizo"
-	cliente addDependent: self.
-	self update: cliente.
 ]
 
 { #category : #updating }
-PerfilCliente >> update: unObjeto [
-	"En este caso, ingresa por parametro un objeto de la clase cliente"
-	unObjeto ifNotNil: [
-		datosCliente contents: (self clienteToStringPerfil: unObjeto). 	
+PerfilCliente >> update: unCliente [
+	unCliente ifNotNil:  [  
+		datosCliente contents: (self clienteToStringPerfil: unCliente).
 	].
 ]

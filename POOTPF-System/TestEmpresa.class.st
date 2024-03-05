@@ -36,7 +36,7 @@ TestEmpresa class >> crearColClientes: colViajes [
 	colClientes add: unCliente.
 	
 	"Creo cliente"
-	unCliente := Cliente crear: 43021021 apellido: 'Benitez' ciudad: 'Neuquen' datosContacto: '299401300, benitez@gmail.com' preferencias: 'Ninguna'.
+	unCliente := Cliente crear: "43021021"2 apellido: 'Benitez' ciudad: 'Neuquen' datosContacto: '299401300, benitez@gmail.com' preferencias: 'Ninguna'.
 	unCliente dinero: 100000.
 	"Creo contrato para cliente"
 	unContrato := Contrato crear: 2 viaje: (colViajes detect: [:viaje| viaje nombre = 'Bolivia']) cantPersonas: 5 cantCuotas: 1 fechaSeleccionada: ((Date year: 2023 month: 7 day: 31)).
@@ -48,7 +48,7 @@ TestEmpresa class >> crearColClientes: colViajes [
 	colClientes add: unCliente.
 	
 	"Creo cliente"
-	unCliente := Cliente crear: 43910202 apellido: 'Zuñiga' ciudad: 'Cinco Saltos' datosContacto: '299319292' preferencias: 'Ninguna'.
+	unCliente := Cliente crear: "43910202"3 apellido: 'Zuñiga' ciudad: 'Cinco Saltos' datosContacto: '299319292' preferencias: 'Ninguna'.
 	unCliente dinero: 1299122.
 	"Creo contrato para cliente"
 	unContrato := Contrato crear: 3 viaje: (colViajes detect: [:viaje| viaje nombre = 'Bahia Blanca']) cantPersonas: 2 cantCuotas: 3 fechaSeleccionada: (Date year: 2023 month: 8 day: 5).
@@ -60,7 +60,7 @@ TestEmpresa class >> crearColClientes: colViajes [
 	colClientes add: unCliente.
 	
 	"Creo cliente"
-	unCliente := Cliente crear: 2319292 apellido: 'Boretto' ciudad: 'Plottier' datosContacto: '29964128' preferencias: 'Ninguna'.
+	unCliente := Cliente crear: "2319292"4 apellido: 'Boretto' ciudad: 'Plottier' datosContacto: '29964128' preferencias: 'Ninguna'.
 	unCliente dinero: 10000.
 	"Creo contrato para cliente"
 	unContrato := Contrato crear: 4 viaje: (colViajes detect: [:viaje| viaje nombre = 'Corea del Norte']) cantPersonas: 10 cantCuotas: 6 fechaSeleccionada: (Date year: 2024 month: 3 day: 12).
@@ -73,7 +73,7 @@ TestEmpresa class >> crearColClientes: colViajes [
 	colClientes add: unCliente.
 	
 	"Creo cliente"
-	unCliente := Cliente crear: 42919292 apellido: 'Garcia' ciudad: 'Las Grutas' datosContacto: 'garcia@gmail.com' preferencias: 'Ninguna'.
+	unCliente := Cliente crear: "42919292"5 apellido: 'Garcia' ciudad: 'Las Grutas' datosContacto: 'garcia@gmail.com' preferencias: 'Ninguna'.
 	unCliente dinero: 100200.
 	unCliente esFrecuente: true.
 	"Creo contrato para cliente"
@@ -87,7 +87,7 @@ TestEmpresa class >> crearColClientes: colViajes [
 	colClientes add: unCliente.
 	
 	"Creo cliente"
-	unCliente := Cliente crear: 3922098 apellido: 'Solorza' ciudad: 'Villa Regina' datosContacto: '2994939' preferencias: 'Ninguna'.
+	unCliente := Cliente crear: "3922098"6 apellido: 'Solorza' ciudad: 'Villa Regina' datosContacto: '2994939' preferencias: 'Ninguna'.
 	unCliente dinero: 10500.
 	unCliente esFrecuente: true.
 	"Creo contrato para cliente"

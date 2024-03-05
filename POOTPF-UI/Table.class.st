@@ -13,53 +13,40 @@ Class {
 	#category : #'POOTPF-UI-Components'
 }
 
-{ #category : #accessing }
-Table >> elementAt: index [
-	^ self dataSource elementAt: index
+{ #category : #creating }
+Table class >> createColumns: columns extent: size dataSource: aDataSource [
+	"Crea una tabla con columnas nombradas por la coleccion 'columns', de tamanio 'size' y con un 	DataSource dado"
+	|unaTabla|.
+	unaTabla := self new.
+	unaTabla initializeColumns: columns dataSource: aDataSource; extent: size.
+	^unaTabla.
 ]
 
-{ #category : #'border-styles' }
-Table >> headerColor: aColor [ 
-	headerColor := aColor. 
+{ #category : #accessing }
+Table >> elementAt: index [
+	^(self dataSource) elementAt: index
 ]
 
 { #category : #initialization }
-Table >> initializeColumns: colColumns model: model [
+Table >> initializeColumns: colColumns dataSource: aDataSource [
 	self initialize.
 	colColumns do: [:name | 
 		self addColumn: (FTColumn id: name)
 	].
-	
-	self intercellSpacing: 1; 
-	beResizable; 
-	vResizing: #spaceFill; 
-	hResizing: #spaceFill;
+	self intercellSpacing: 1; beResizable; vResizing: #spaceFill; hResizing: #spaceFill;
 	onAnnouncement: FTStrongSelectionChanged do: [ :ann | 
 		doubleClickBlock value: self selectedIndex 
 	];
 	onAnnouncement: FTSelectionChanged do: [ :ann | 
 		clickBlock value: self selectedIndex 
 	];
-	dataSource: model.
-	
-	"Agrega tabla actual como dependiente del modelo"
-	model addDependent: self.
+	dataSource: aDataSource.
+	"Agrega tabla actual como dependiente del modelo/dataSoruce"
+	aDataSource addDependent: self.
 	"No hacen nada predeterminadamente"
 	doubleClickBlock := [:e | nil]. 	
 	clickBlock := [:e | nil].
 
-]
-
-{ #category : #'border-styles' }
-Table >> rounded [
-	"Aplica bordes curvos a la tabla"
-	container borderStyle: (Helper getBorderStyle: Color lightBlue)
-]
-
-{ #category : #'border-styles' }
-Table >> roundedColor: aColor [
-	"Aplica bordes curvos a la tabla con un color dado"
-	container borderStyle: (Helper getBorderStyle: aColor).
 ]
 
 { #category : #initialization }

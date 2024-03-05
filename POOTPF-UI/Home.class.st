@@ -14,9 +14,10 @@ Class {
 
 { #category : #operations }
 Home class >> create [
+	"Con este constructor se ejecuta el trabajo"
 	|sis win|.
 	win := self new.
-	"Creo empresa/sistema y lo precargo"
+	"Creo empresa/sistema y lo precargo, en este caso, TestEmpresa cargaInicial: percarga una empresa"
 	sis := EmpresaTurismo crear.
 	TestEmpresa cargaInicial: sis.
 	"Inicializo ventana con el sistema creado"

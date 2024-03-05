@@ -122,6 +122,7 @@ Cliente >> ciudad [
 { #category : #accessing }
 Cliente >> ciudad: unaCiudad [
 	ciudad := unaCiudad.
+	self changed.
 ]
 
 { #category : #updating }
@@ -131,8 +132,10 @@ Cliente >> cobrar: unMonto [
 	exito := (dinero >= unMonto).
 	(exito) ifTrue: [  
 			dinero := dinero - unMonto.
+			self changed.
 		].
 	^exito.
+		
 ]
 
 { #category : #accessing }
@@ -143,6 +146,7 @@ Cliente >> colContratos [
 { #category : #accessing }
 Cliente >> colContratos: unaCol [
 	colContratos := unaCol.
+	self changed.
 ]
 
 { #category : #accessing }
@@ -153,6 +157,7 @@ Cliente >> datosContacto [
 { #category : #accessing }
 Cliente >> datosContacto: unosDatos [
 	datosContacto := unosDatos.
+	self changed.	
 ]
 
 { #category : #accessing }
@@ -163,6 +168,7 @@ Cliente >> dinero [
 { #category : #accessing }
 Cliente >> dinero: unValor [
 	dinero := unValor.
+	self changed.
 ]
 
 { #category : #accessing }
@@ -173,6 +179,7 @@ Cliente >> dni [
 { #category : #accessing }
 Cliente >> dni: unDni [
 	dni := unDni.
+	self changed.
 ]
 
 { #category : #updating }
@@ -185,6 +192,7 @@ Cliente >> efectivizarContratoConNumero: unNum [
 			exito := unContrato efectivizar.
 			(exito & esFrecuente) ifTrue: [  
 					self sumarMillas: 100.
+					self changed.
 				].
 		].
 	^exito.
@@ -198,6 +206,7 @@ Cliente >> esFrecuente [
 { #category : #accessing }
 Cliente >> esFrecuente: booleano [
 	esFrecuente := booleano.
+	self changed.
 ]
 
 { #category : #'adding-removing' }
@@ -209,13 +218,13 @@ Cliente >> generarContrato: unNum viaje: unViaje fechaSalida: unaFechaSalida can
 	exito := unContrato isNil.
 	(exito) ifTrue: [ 
 			unaFechaSalida ocupar: cantP.
+			unContrato := Contrato crear: unNum viaje: unViaje cantPersonas: cantP cantCuotas: cantC 			fechaSeleccionada: (unaFechaSalida fecha).
 			(esFlex) ifTrue: [ 
-					unContrato := ContratoFlexible crear: unNum viaje: unViaje cantPersonas: cantP cantCuotas: cantC fechaSeleccionada: (unaFechaSalida fecha).
-				] ifFalse: [
-					unContrato := Contrato crear: unNum viaje: unViaje cantPersonas: cantP cantCuotas: cantC fechaSeleccionada: (unaFechaSalida fecha).
+					unContrato := ContratoFlexible crear: unNum viaje: unViaje cantPersonas: cantP 					cantCuotas: cantC fechaSeleccionada: (unaFechaSalida fecha).
 				].
 			esFrecuente := unViaje esOrganizado.
 			colContratos add: unContrato.
+			self changed.
 		].
 	^exito.
 ]
@@ -244,6 +253,7 @@ Cliente >> millas [
 { #category : #accessing }
 Cliente >> millas: unasMillas [
 	millas := unasMillas.
+	self changed.
 ]
 
 { #category : #updating }
@@ -263,6 +273,7 @@ Cliente >> modificarContratoConNumero: unNum fechaSeleccionada: unaFecha [
 					(exito) ifFalse: [  
 							self sumarDinero: unPlus.
 						].
+					self changed.
 				].
 			].
 		].
@@ -284,6 +295,7 @@ Cliente >> pagarCuotas: unNum cuotasAPagar: cantC [
 					(exito) ifTrue: [
 							unContrato pagar: cantC.	
 						].
+					self changed.
 				]. 
 		].
 	^exito.
@@ -298,6 +310,7 @@ Cliente >> preferencias [
 { #category : #accessing }
 Cliente >> preferencias: unasPreferencias [
 	preferencias := unasPreferencias.
+	self changed.
 ]
 
 { #category : #updating }
@@ -308,6 +321,7 @@ Cliente >> reembolsar: unValor [
 		] ifFalse: [
 			self sumarDinero: unValor.
 		].
+	self changed.
 
 ]
 
@@ -323,6 +337,7 @@ Cliente >> sumarDinero: unValor [
 Cliente >> sumarMillas: unValor [
 	"Adiciona millas al Cliente"
 	millas := millas + unValor.
+	self changed.
 
 ]
 
