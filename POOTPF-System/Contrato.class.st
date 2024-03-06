@@ -174,6 +174,12 @@ Contrato >> esEfectivo: unBooleano [
 	esEfectivo := unBooleano.
 ]
 
+{ #category : #accessing }
+Contrato >> esEfectivoString [
+	^esEfectivo ifTrue: [^'Si'] ifFalse: [^'No'].
+	
+]
+
 { #category : #verifying }
 Contrato >> esFlexible [
 	^false.

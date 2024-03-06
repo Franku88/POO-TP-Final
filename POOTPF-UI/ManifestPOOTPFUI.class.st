@@ -14,3 +14,10 @@ Class {
 	#superclass : #PackageManifest,
 	#category : #'POOTPF-UI-Manifest'
 }
+
+{ #category : #'code-critics' }
+ManifestPOOTPFUI class >> ruleStringConcatenationRuleV1FalsePositive [
+
+	<ignoreForCoverage>
+	^ #(#(#(#RGMethodDefinition #(#VerContratos #contratoToString: #false)) #'2024-03-06T03:53:14.484-03:00') )
+]

@@ -33,15 +33,15 @@ Table >> initializeColumns: colColumns dataSource: aDataSource [
 	colColumns do: [:name | 
 		self addColumn: (FTColumn id: name)
 	].
-	self intercellSpacing: 1; beResizable; vResizing: #spaceFill; hResizing: #spaceFill;
-	onAnnouncement: FTStrongSelectionChanged do: [ :ann | 
-		doubleClickBlock value: self selectedIndex 
-	];
+	self intercellSpacing: 0.5 ; beResizable; "vResizing: #spaceFill; hResizing: #spaceFill;"
 	onAnnouncement: FTSelectionChanged do: [ :ann | 
-		clickBlock value: self selectedIndex 
+		clickBlock value: self selectedIndex.
+	];
+	onAnnouncement: FTStrongSelectionChanged do: [ :ann | 
+		doubleClickBlock value: self selectedIndex.
 	];
 	dataSource: aDataSource.
-
+	"self selectFirst."
 	"Agrega tabla actual como dependiente del modelo/dataSoruce"
 	aDataSource addDependent: self.
 	"No hacen nada predeterminadamente"
