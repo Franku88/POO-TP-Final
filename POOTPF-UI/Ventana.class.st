@@ -72,7 +72,6 @@ Ventana >> addHeader [
 	logo center: header center.
 	logo right: header right-20.	
 	header addMorph: logo.
-
 	self addMorph: header.
 	
 ]
@@ -119,11 +118,10 @@ Ventana >> addTitulo: unString [
 Ventana >> initialize [
 	"Inicializa ventana sin sistema"
 	super initialize.
-	self extent: 800@600.
-	self color: Color transparent.
-	
 	tema := Theme new defaultWLogo.
 	logo := tema logo.
+	self extent: 800@600.
+	self color: Color transparent.
 	self addHeader.
 	self addBody.
 

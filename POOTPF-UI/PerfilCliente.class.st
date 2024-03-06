@@ -3,7 +3,7 @@ Vista que muestra datos de un cliente.
 Instance Variables
 	botonVerContratos: 	<Button>
 	botonIngresarDinero: 	<Button>
-	datosCliente: 		<TextMorph>
+	datosCliente: 		<ScrolledText>
 	
 "
 Class {
@@ -17,14 +17,6 @@ Class {
 	#category : #'POOTPF-UI-Views'
 }
 
-{ #category : #initialization }
-PerfilCliente class >> createWithSystem: unSistema cliente: unCliente [
-	|perfilW|.
-	perfilW := self new.
-	perfilW initializeWithSystem: unSistema cliente: unCliente.
- 	^perfilW.
-]
-
 { #category : #adding }
 PerfilCliente >> addButtons [
 	"Crea botones"
@@ -32,32 +24,29 @@ PerfilCliente >> addButtons [
 	botonIngresarDinero := Button text: 'Ingresar dinero' extent: 160@30.
 	"Posiciona"
 	botonVerContratos center: (body center)*(1.5).
-	botonVerContratos top: contenedor top+100.
+	botonVerContratos top: body top + 150.
 	botonIngresarDinero center: (body center)*(1.5).
-	botonIngresarDinero bottom: contenedor bottom - 100.
+	botonIngresarDinero bottom: body bottom - 150.
 	"Da funcion"
 	botonVerContratos mouseAction: [
 		self addMorphCentered: (VerContratos createWithSystem: sistema cliente: cliente). 
 		].
-	
 	botonIngresarDinero mouseAction: [
 		self addPopUpIngresarDinero.
 	].
-
 	"Agrega"
-	body addMorph: botonVerContratos. 
-	body addMorph: botonIngresarDinero. 
-	
-	
-	
+	body addMorph: botonVerContratos.
+	body addMorph: botonIngresarDinero.
 ]
 
 { #category : #adding }
 PerfilCliente >> addDatosCliente [
 	"Agrega datos centrados al contenedor"
-	datosCliente := TextMorph new.
-	datosCliente contents: (self clienteToStringPerfil: cliente).
-	contenedor addMorphCentered: datosCliente.
+	datosCliente := ScrolledText createExtent: 280@350 color: (tema container) title: 'Datos Personales'.
+	datosCliente beReadOnly.
+	datosCliente setText: (self clienteToStringPerfil: cliente).
+	datosCliente center: body center; left: body left + 80.
+	body addMorph: datosCliente.
 
 ]
 
@@ -111,21 +100,13 @@ PerfilCliente >> initializeWithSystem: unSistema cliente: unCliente [
 	super initializeWithSystem: unSistema cliente: unCliente.
 	"Agrega Morphs"
 	self addBotonBorrarVentana: 'Salir'.
-	self addContenedor: 280@400.
 	self addDatosCliente.
-	self addTitulo: 'Cliente'.
 	self addButtons.
-	"Posiciono"
-	contenedor left: body left + 40.
-	datosCliente top: contenedor top + 20.
-	datosCliente left: contenedor left + 20.
-	titulo center: contenedor center.
-	titulo bottom: contenedor top - 10.
 ]
 
 { #category : #updating }
 PerfilCliente >> update: unCliente [
 	unCliente ifNotNil:  [  
-		datosCliente contents: (self clienteToStringPerfil: unCliente).
+		datosCliente setText: (self clienteToStringPerfil: unCliente).
 	].
 ]
