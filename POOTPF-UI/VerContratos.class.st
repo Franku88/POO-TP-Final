@@ -54,7 +54,7 @@ VerContratos >> addMasInfo [
 	masInfo := ScrolledText createExtent: ((body width*0.3)@(body height*0.7)) color: Color transparent title: 'Más información'.
 	masInfo beReadOnly.
 	masInfo ghostText: 'Seleccione un contrato en la tabla...'.
-	masInfo right: (body right - 20); top: (body top + 20).
+	masInfo right: (body right - 20); top: (body top + 45).
 	body addMorph: masInfo.
 ]
 
@@ -63,7 +63,7 @@ VerContratos >> addTablaContratos [
 	"Agrega una tabla de contratos del cliente actual"
 	cliente ifNotNil: [
 		tablaContratos := Table createColumns: (#(Numero Contratado Fecha Personas Cuotas Efectivo) asOrderedCollection) extent: (body width*(0.6))@(body height*(0.7)) dataSource: (DataSourceContrato createCollection: cliente colContratos object: cliente).
-		tablaContratos left: body left + 20; top: body top + 20.
+		tablaContratos top: body top + 45; left: body left + 20.
 		tablaContratos borderColor: Color black; borderWidth: 1.
 		tablaContratos setClick: [:index |
 			contratoSeleccionado  := tablaContratos elementAt: index.

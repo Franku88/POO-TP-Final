@@ -30,10 +30,10 @@ Home >> addButtons [
 
 	"Boton Sistema"
 	botonSistema := Button text: 'Sistema' extent: 80@30.
-	"botonSistema  mouseAction: [ "
-	"Creo la instancia de menu2 pasandole el sistema, lo agrego centrado para que tape al anterior morph"
-	"self addMorphCentered:  (MenuCliente initializeWith: sistema) 
-	]."
+	botonSistema  mouseAction: [ 
+	"Creo la instancia otra ventana pasandole el sistema, lo agrego centrado para que tape al anterior morph"
+		self addMorphCentered:  (SistemaLogIn createWithSystem: sistema).
+	].
 	"Posicionarlo segun el contenedor"
 	botonSistema center: ((contenedor center) + (0@25)).
 	contenedor addMorph: botonSistema.

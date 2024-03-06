@@ -27,14 +27,14 @@ botonResumen bottom:contenedor bottom-15.
 contenedor addMorph: botonResumen  .
 botonResumen mouseAction: [ 
 		"Creo la instancia de ClienteLogin pasandole el sistema, centrado para tapar al anterior morph"
-		self addMorphCentered:  (ResumenDiario  initializeWith: sistema) 
+		self addMorphCentered:  (ResumenDiario  createWithSystem: sistema) 
 	].
 ]
 
 { #category : #initialization }
 SistemaLogIn >> initialize [ 
 super initialize .
-self addBotonAtras: 'Volver'.
+self addBotonBorrarVentana: 'Volver'.
 self addContenedor: 210@150.
 self addButtons .
 ]

@@ -114,11 +114,16 @@ Ventana >> addTitulo: unString [
 	
 ]
 
+{ #category : #accessing }
+Ventana >> botonBorrarVentana [
+	^botonBorrarVentana
+]
+
 { #category : #initialization }
 Ventana >> initialize [
 	"Inicializa ventana sin sistema"
 	super initialize.
-	tema := Theme new defaultWLogo.
+	tema := Theme new default.
 	logo := tema logo.
 	self extent: 800@600.
 	self color: Color transparent.

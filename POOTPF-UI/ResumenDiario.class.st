@@ -8,6 +8,6 @@ Class {
 ResumenDiario >> initialize [ 
 super initialize .
 self addContenedor: 200@200.
-self addBotonAtras: 'Volver'.
+self addBotonBorrarVentana: 'Volver'.
 
 ]

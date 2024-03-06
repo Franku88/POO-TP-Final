@@ -27,7 +27,8 @@ ViewCliente class >> createWithSystem: unSistema cliente: unCliente [
 ViewCliente >> addHeaderCliente [
 	headerCliente := ScrolledText createExtent: 150@80 color: (tema container) title: 'Cliente'.
 	headerCliente beReadOnly.
-	headerCliente center: ((logo center x)/2)@(header center y).
+	headerCliente center: header center.
+	headerCliente left: header left + 150.
 	headerCliente setText: ('  DNI: ',(cliente dni asString),String cr,'  Apellido: ', cliente apellido).
 	header addMorph: headerCliente.
 ]
