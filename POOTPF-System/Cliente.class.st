@@ -35,6 +35,12 @@ Cliente class >> crear: unDni apellido: unApellido ciudad: unaCiudad datosContac
 	^cli
 ]
 
+{ #category : #adding }
+Cliente >> addContrato: unContrato [
+	colContratos add: unContrato.
+	self changed.
+]
+
 { #category : #updating }
 Cliente >> agregarExcursionAContratoConNumero: unNum excursionOpcional: unaExc [
 	"Agrega unaExc a colExcursiones de Contrato con unNum si es posible"

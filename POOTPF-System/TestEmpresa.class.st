@@ -31,9 +31,14 @@ TestEmpresa class >> crearColClientes: colViajes [
 	unContrato fechaContrato: (Date year: 2023 month: 07 day: 30).
 	unContrato fechaProxVencimiento: (Date year: 2023 month: 09 day: 04).
 	"Agrego nuevo contrato"
-	unCliente colContratos: ({unContrato} asOrderedCollection).
+	unCliente addContrato: unContrato.
+	"Creo contrato para cliente"
+	unContrato := Contrato crear: 45 viaje: (colViajes detect: [:viaje| viaje nombre = 'Bolivia']) cantPersonas: 5 cantCuotas: 10 fechaSeleccionada: ((Date year: 2023 month: 7 day: 31)).
+	unContrato fechaContrato: (Date year: 2023 month: 7 day: 10).
+	unContrato fechaProxVencimiento: (Date year: 2023 month: 08 day: 19).
 	"Agrego cliente creado"
 	colClientes add: unCliente.
+	unCliente addContrato: unContrato.
 	
 	"Creo cliente"
 	unCliente := Cliente crear: "43021021"2 apellido: 'Benitez' ciudad: 'Neuquen' datosContacto: '299401300, benitez@gmail.com' preferencias: 'Ninguna'.
@@ -43,7 +48,14 @@ TestEmpresa class >> crearColClientes: colViajes [
 	unContrato fechaContrato: (Date year: 2023 month: 07 day: 20).
 	unContrato fechaProxVencimiento: (Date year: 2023 month: 08 day: 19).
 	"Agrego nuevo contrato"
-	unCliente colContratos: ({unContrato} asOrderedCollection).
+	unCliente addContrato: unContrato.
+	"Creo contrato para cliente"
+	unContrato := ContratoFlexible crear: 11 viaje: (colViajes detect: [:viaje| viaje nombre = 'Alemania']) cantPersonas: 2 cantCuotas: 3 fechaSeleccionada: (Date year: 2023 month: 8 day: 12).
+	unContrato fechaContrato: (Date year: 2023 month: 2 day: 1).
+	unContrato fechaProxVencimiento: (Date year: 2023 month: 3 day: 22).
+	unContrato colExcursiones: ({ExcursionOpcional crear: 'Visita a las tres pinacotecas' costo: 600 cantPersonas: 2} asOrderedCollection).
+	"Agrego nuevo contrato"
+	unCliente addContrato: unContrato.
 	"Agrego cliente creado"
 	colClientes add: unCliente.
 	
@@ -55,7 +67,7 @@ TestEmpresa class >> crearColClientes: colViajes [
 	unContrato fechaContrato: (Date year: 2023 month: 07 day: 29).
 	unContrato fechaProxVencimiento: (Date year: 2023 month: 9 day: 3).
 	"Agrego nuevo contrato"
-	unCliente colContratos: ({unContrato} asOrderedCollection).
+	unCliente addContrato: unContrato.
 	"Agrego cliente creado"
 	colClientes add: unCliente.
 	
@@ -68,7 +80,7 @@ TestEmpresa class >> crearColClientes: colViajes [
 	unContrato fechaProxVencimiento: (Date year: 2023 month: 8 day: 4).
 	unContrato cantCuotasPagadas: 1.
 	"Agrego nuevo contrato"
-	unCliente colContratos: ({unContrato} asOrderedCollection).
+	unCliente addContrato: unContrato.
 	"Agrego cliente creado"
 	colClientes add: unCliente.
 	
@@ -82,7 +94,7 @@ TestEmpresa class >> crearColClientes: colViajes [
 	unContrato fechaProxVencimiento: (Date year: 2023 month: 8 day: 30).
 	unContrato colExcursiones: ({ExcursionOpcional crear: 'Viaje en barco' costo: 400 cantPersonas: 3. ExcursionOpcional crear: 'Partido de golf' costo: 500 cantPersonas: 5} asOrderedCollection).
 	"Agrego nuevo contrato"
-	unCliente colContratos: ({unContrato} asOrderedCollection).
+	unCliente addContrato: unContrato.
 	"Agrego cliente creado"
 	colClientes add: unCliente.
 	
@@ -94,9 +106,9 @@ TestEmpresa class >> crearColClientes: colViajes [
 	unContrato := ContratoFlexible crear: 6 viaje: (colViajes detect: [:viaje| viaje nombre = 'Alemania']) cantPersonas: 10 cantCuotas: 4 fechaSeleccionada: (Date year: 2023 month: 8 day: 12).
 	unContrato fechaContrato: (Date year: 2023 month: 7 day: 23).
 	unContrato fechaProxVencimiento: (Date year: 2023 month: 8 day: 22).
-	unContrato colExcursiones: ({ExcursionOpcional crear: 'Visita a las tres pinacotecas' costo: 600 cantPersonas: 2} asOrderedCollection) .
+	unContrato colExcursiones: ({ExcursionOpcional crear: 'Visita a las tres pinacotecas' costo: 600 cantPersonas: 2} asOrderedCollection).
 	"Agrego nuevo contrato"
-	unCliente colContratos: ({unContrato} asOrderedCollection).
+	unCliente addContrato: unContrato.
 	"Agrego cliente creado"
 	colClientes add: unCliente.
 	

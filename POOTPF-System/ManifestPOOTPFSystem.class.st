@@ -14,3 +14,17 @@ Class {
 	#superclass : #PackageManifest,
 	#category : #'POOTPF-System-Manifest'
 }
+
+{ #category : #'code-critics' }
+ManifestPOOTPFSystem class >> ruleExcessiveArgumentsRuleV1FalsePositive [
+
+	<ignoreForCoverage>
+	^ #(#(#(#RGMethodDefinition #(#Cliente #inicializarDni:apellido:ciudad:datosContacto:preferencias: #false)) #'2024-03-06T04:02:19.91-03:00') )
+]
+
+{ #category : #'code-critics' }
+ManifestPOOTPFSystem class >> ruleLongMethodsRuleV1FalsePositive [
+
+	<ignoreForCoverage>
+	^ #(#(#(#RGMethodDefinition #(#'TestEmpresa class' #crearColClientes: #true)) #'2024-03-06T04:02:15.238-03:00') )
+]

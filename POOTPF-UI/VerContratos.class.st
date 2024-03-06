@@ -74,6 +74,12 @@ VerContratos >> addTablaContratos [
 	].
 ]
 
+{ #category : #adding }
+VerContratos >> addTitulo: cad [
+	super addTitulo: cad.
+	titulo bottom: tablaContratos top - 10; left: tablaContratos left + 5.
+]
+
 { #category : #strings }
 VerContratos >> contratoToString [
 	^self contratoToString: contratoSeleccionado.
@@ -82,10 +88,14 @@ VerContratos >> contratoToString [
 { #category : #strings }
 VerContratos >> contratoToString: unContrato [
 	|cadena cadenaExc|.
-	cadenaExc := '		Sin excursiones',String cr.
+	cadenaExc := ''.
 	(unContrato colExcursiones) do: [:cadaExc|
 			cadenaExc := '		',cadenaExc,cadaExc toString,String cr.
 	].
+	(cadenaExc = '') ifTrue: [
+		cadenaExc := '		Sin excursiones',String cr.
+	].
+	
 	cadena := 'Numero: ',unContrato numero asString,String cr,
 	'Fecha de contrato: ', unContrato fechaContrato ddmmyyyy,String cr,
 	'Viaje: ',String cr,(self viajeToString: unContrato viaje),String cr,
@@ -106,6 +116,7 @@ VerContratos >> initializeWithSystem: unSistema cliente: unCliente [
 	"Agrega Morphs"
 	self addBotonBorrarVentana: 'Atras'.
 	self addTablaContratos.
+	self addTitulo: 'Mis contratos'.
 	self addMasInfo.
 	self addButtons.
 

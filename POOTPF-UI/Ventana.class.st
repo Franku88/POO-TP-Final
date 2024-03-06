@@ -108,7 +108,7 @@ Ventana >> addMessage: text extent: dim [
 Ventana >> addTitulo: unString [
 	titulo := unString asMorph.
 	titulo center: (body center).
-	titulo top: ((contenedor top + body top)/2); color: Color black.
+	titulo top: (body top*1.5); color: Color black.
 	body addMorph: titulo.
 	
 	
