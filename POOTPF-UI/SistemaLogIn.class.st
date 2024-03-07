@@ -29,6 +29,14 @@ botonResumen mouseAction: [
 		"Creo la instancia de ClienteLogin pasandole el sistema, centrado para tapar al anterior morph"
 		self addMorphCentered:  (ResumenDiario  createWithSystem: sistema) 
 	].
+botonClientes  mouseAction: [ 
+		"Creo la instancia de ClienteLogin pasandole el sistema, centrado para tapar al anterior morph"
+		self addMorphCentered:  (VerCliente  createWithSystem: sistema) 
+	].
+botonViajes   mouseAction: [ 
+		"Creo la instancia de ClienteLogin pasandole el sistema, centrado para tapar al anterior morph"
+		self addMorphCentered:  (VerViajes  createWithSystem: sistema) 
+	].
 ]
 
 { #category : #initialization }
