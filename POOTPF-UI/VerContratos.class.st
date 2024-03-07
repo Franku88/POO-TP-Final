@@ -141,7 +141,7 @@ VerContratos >> addMessagePagar [
 VerContratos >> addTablaContratos [
 	"Agrega una tabla de contratos del cliente actual"
 	cliente ifNotNil: [
-		tablaContratos := Table createColumns: (#(Numero Contratado Fecha Personas Cuotas Efectivo) asOrderedCollection) extent: (body width*(0.6))@(body height*(0.7)) dataSource: (DataSourceContrato createCollection: cliente colContratos object: cliente).
+		tablaContratos := Table createColumns: (#(Numero Contratado Fecha Personas Cuotas Efectivo Vigente) asOrderedCollection) extent: (body width*(0.6))@(body height*(0.7)) dataSource: (DataSourceContrato createCollection: cliente colContratos object: cliente).
 		tablaContratos top: body top + 45; left: body left + 20.
 		tablaContratos borderColor: Color black; borderWidth: 1; allowDeselection.
 		body addMorph: tablaContratos.
@@ -180,8 +180,8 @@ VerContratos >> contratoToString: unContrato [
 	'Valor de cuota: $',(unContrato valorCuota) asString,String cr,
 	'Proximo vencimiento: ',unContrato fechaProxVencimiento ddmmyyyy,String cr,
 	'Excursiones opcionales: ',String cr,cadenaExc,
-	'Es Efectivo: ',unContrato esEfectivoString,String cr,
-	'Es Flexible: ',unContrato esFlexibleString.
+	'Es Efectivo: ',(Helper booleanToString: unContrato esEfectivo),String cr,
+	'Es Flexible: ',(Helper booleanToString: unContrato esFlexible).
 	^cadena
 ]
 

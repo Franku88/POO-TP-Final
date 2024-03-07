@@ -214,6 +214,16 @@ Cliente >> esFrecuente: booleano [
 	self changed.
 ]
 
+{ #category : #accessing }
+Cliente >> esFrecuenteString [
+	|cad|.
+	cad := 'No'.
+	(self esFrecuente) ifTrue: [ 
+		cad := 'Si'.	
+	].
+	^cad.
+]
+
 { #category : #'adding-removing' }
 Cliente >> generarContrato: unNum viaje: unViaje fechaSalida: unaFechaSalida cantPasajeros: cantP cantCuotas: cantC esFlexible: esFlex [
 	"Metodo que crea y agrega un Contrato a la coleccion de contratos de Cliente"

@@ -8,6 +8,16 @@ Class {
 }
 
 { #category : #boolean }
+Helper class >> booleanToString: unBoolean [
+	|cad|.
+	cad := 'No'.
+	(unBoolean) ifTrue: [ 
+		cad := 'Si'.
+	].
+	^cad.
+]
+
+{ #category : #boolean }
 Helper class >> stringIsEmpty: cad [
 	^(cad trim) isEmpty.
 

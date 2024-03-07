@@ -15,7 +15,8 @@ DataSourceContrato >> getString: unContrato at: columnId [
 	(columnId match: 'Fecha') ifTrue:[^ (unContrato fechaSeleccionada) ddmmyyyy]. 
 	(columnId match: 'Personas') ifTrue:[^ (unContrato cantPersonas) asString]. 
 	(columnId match: 'Cuotas') ifTrue: [^ (unContrato cantCuotasPagadas asString),'/',(unContrato cantCuotas asString)].
-	(columnId match: 'Efectivo') ifTrue: [^ (unContrato esEfectivoString)]. 
+	(columnId match: 'Efectivo') ifTrue: [^ (Helper booleanToString: unContrato esEfectivo)].
+	(columnId match: 'Vigente') ifTrue: [^ (Helper booleanToString: unContrato esVigente)]. 
 	^ '...'
 
 ]

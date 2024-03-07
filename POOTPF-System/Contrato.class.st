@@ -192,25 +192,14 @@ Contrato >> esEfectivo: unBooleano [
 	esEfectivo := unBooleano.
 ]
 
-{ #category : #accessing }
-Contrato >> esEfectivoString [
-	^esEfectivo ifTrue: [^'Si'] ifFalse: [^'No'].
-	
-]
-
 { #category : #verifying }
 Contrato >> esFlexible [
 	^false.
 ]
 
 { #category : #verifying }
-Contrato >> esFlexibleString [
-	|cad|.
-	cad := 'No'.
-	(self esFlexible) ifTrue:[
-		cad := 'Si'.
-	].
-	^cad.
+Contrato >> esVigente [
+	^ (self fechaSeleccionada) > (Date today).
 ]
 
 { #category : #accessing }

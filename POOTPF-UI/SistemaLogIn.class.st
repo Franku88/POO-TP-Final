@@ -1,3 +1,11 @@
+"
+Menu de ingreso del sistema.
+
+    Instance Variables
+	botonClientes:		<Object>
+	botonResumen:		<Object>
+	botonViajes:		<Object>
+"
 Class {
 	#name : #SistemaLogIn,
 	#superclass : #Ventana,

@@ -1,4 +1,5 @@
 "
+Menu de ingreso de cliente.
 Instance Variables
 	botonIngreso:		<Button>
 	botonRegistro:		<Button>
