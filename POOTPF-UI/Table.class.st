@@ -35,7 +35,7 @@ Table >> highlightedElement [
 { #category : #accessing }
 Table >> highlightedElement: elem [
 	highlightedElement := elem.
-	self changed: self.
+	self changed: highlightedElement.
 ]
 
 { #category : #initialization }
@@ -64,7 +64,7 @@ Table >> selectedElement [
 { #category : #accessing }
 Table >> selectedElement: elem [
 	selectedElement := elem.
-	self changed: self.
+	self changed: selectedElement.
 ]
 
 { #category : #initialization }
@@ -73,7 +73,7 @@ Table >> setHighlightedElement [
 	(self highlightedIndex > 0) ifTrue: [ 
 		self highlightedElement: (self elementAt: self highlightedIndex).
 	]. 
-	self changed: self.
+	self changed: highlightedElement.
 ]
 
 { #category : #initialization }
@@ -82,5 +82,5 @@ Table >> setSelectedElement [
 	(self selectedIndex > 0) ifTrue: [ 
 		self selectedElement: (self elementAt: self selectedIndex).
 	].
-	self changed: self.
+	self changed: selectedElement.
 ]
