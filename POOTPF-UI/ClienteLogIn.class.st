@@ -70,9 +70,9 @@ ClienteLogIn >> addCampoDni [
 ]
 
 { #category : #initialization }
-ClienteLogIn >> initialize [
+ClienteLogIn >> initializeWithSystem: sis [
 	"super para aplicar las config de superclase"
-	super initialize.
+	super initializeWithSystem: sis.
 	"Agrega boton de back"
 	self addBotonBorrarVentana: 'Volver'.
 	"Agrega contenedor de TextField y botones"

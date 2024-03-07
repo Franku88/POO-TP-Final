@@ -63,6 +63,7 @@ ScrolledText >> changeTitle: cad [
 	] ifNil: [  
 		self addTitle: cad.
 	].
+
 ]
 
 { #category : #'accessing - rulers' }
@@ -75,7 +76,9 @@ ScrolledText >> initializeExtent: dim color: col [
 	sText := RubScrolledTextMorph new.
 	sText extent: dim; color: col; borderColor: Color black; borderWidth: 1.
 	self extent: dim; color: Color transparent.
+	sText addDependent: self.
 	self addMorphCentered: sText.
+	
 ]
 
 { #category : #initialization }

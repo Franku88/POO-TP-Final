@@ -51,7 +51,6 @@ ViewCliente >> clienteToStringPerfil: unCliente [
 { #category : #initialization }
 ViewCliente >> initializeWithSystem: unSistema cliente: unCliente [
 	"Inicializo sistema y usuario ingresado"
-	self initialize.
 	self initializeWithSystem: unSistema.
 	cliente := unCliente.
 	"Todas las ViewCliente mostraran al Cliente actual en el header"

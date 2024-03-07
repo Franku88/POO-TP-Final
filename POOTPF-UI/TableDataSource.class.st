@@ -44,7 +44,8 @@ TableDataSource >> initializeWithCollection: aCollection [
 	"Dependiente de aCollection/elements"
 	self initialize.
 	elements := aCollection. 
-	aCollection addDependent: self
+	aCollection addDependent: self.
+	self update: aCollection.
 ]
 
 { #category : #initialization }
@@ -53,6 +54,7 @@ TableDataSource >> initializeWithCollection: aCollection withObject: anObject [
 	self initialize.
 	elements := aCollection.
 	anObject addDependent: self.
+	self update: anObject.
 ]
 
 { #category : #accessing }
@@ -61,6 +63,6 @@ TableDataSource >> numberOfRows [
 ]
 
 { #category : #updating }
-TableDataSource >> update: unObjeto [ 
-	self changed: #refresh
+TableDataSource >> update: o [
+	self changed: #refresh.
 ]

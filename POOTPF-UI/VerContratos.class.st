@@ -141,7 +141,7 @@ VerContratos >> addMessagePagar [
 VerContratos >> addTablaContratos [
 	"Agrega una tabla de contratos del cliente actual"
 	cliente ifNotNil: [
-		tablaContratos := Table createColumns: (#(Numero Contratado Fecha Personas Cuotas Efectivo Vigente) asOrderedCollection) extent: (body width*(0.6))@(body height*(0.7)) dataSource: (DataSourceContrato createCollection: cliente colContratos object: cliente).
+		tablaContratos := Table createColumns: (#(Numero Contratado Fecha Personas Cuotas Efectivo Vigente) asOrderedCollection) extent: (body width*(0.6))@(body height*(0.7)) dataSource: (DataSourceContrato createCollection: (cliente colContratos) object: cliente).
 		tablaContratos top: body top + 45; left: body left + 20.
 		tablaContratos borderColor: Color black; borderWidth: 1; allowDeselection.
 		body addMorph: tablaContratos.
@@ -192,9 +192,10 @@ VerContratos >> initializeWithSystem: unSistema cliente: unCliente [
 	self addBotonBorrarVentana: 'Atras'.
 	self addTablaContratos.
 	self addTitulo: 'Mis contratos'.
-	tablaContratos addDependent: self.
 	self addMasInfo.
 	self addButtons.
+	tablaContratos addDependent: self.
+	self update: tablaContratos.
 
 	
 

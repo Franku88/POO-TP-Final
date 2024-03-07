@@ -1,3 +1,6 @@
+"
+Implementacion de TableDataSource para Clientes.
+"
 Class {
 	#name : #DataSourceCliente,
 	#superclass : #TableDataSource,

@@ -1,5 +1,5 @@
 "
-Implementacion de TableDataSource para Contratos
+Implementacion de TableDataSource para Contratos.
 "
 Class {
 	#name : #DataSourceContrato,

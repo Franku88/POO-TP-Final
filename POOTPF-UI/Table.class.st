@@ -53,6 +53,7 @@ Table >> initializeColumns: colColumns dataSource: aDataSource [
 	dataSource: aDataSource.
 	"Agrega tabla actual como dependiente del modelo/dataSoruce"
 	aDataSource addDependent: self.
+	self update: aDataSource.
 
 ]
 

@@ -42,9 +42,9 @@ Home >> addButtons [
 ]
 
 { #category : #initialization }
-Home >> initialize [ 
+Home >> initializeWithSystem: sis [
 	"super para aplicar las config de superclase"
-	super initialize.	
+	super initializeWithSystem: sis.	
 	"Crea el contenedor para los botones"
 	self addContenedor: 200@200.
 	"Agrega botones"

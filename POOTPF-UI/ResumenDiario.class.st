@@ -13,9 +13,8 @@ Class {
 }
 
 { #category : #initialization }
-ResumenDiario >> initialize [ 
-super initialize .
-self addContenedor: 200@200.
-self addBotonBorrarVentana: 'Volver'.
+ResumenDiario >> initializeWithSystem: sis [
+	super initializeWithSystem: sis.
+	self addBotonBorrarVentana: 'Volver'.
 
 ]
