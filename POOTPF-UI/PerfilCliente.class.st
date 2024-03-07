@@ -17,6 +17,14 @@ Class {
 	#category : #'POOTPF-UI-Views'
 }
 
+{ #category : #creating }
+PerfilCliente class >> createWithSystem: unSistema cliente: unCliente [
+	|clienteW|.
+	clienteW := self new.
+	clienteW initializeWithSystem: unSistema cliente: unCliente.
+ 	^clienteW.
+]
+
 { #category : #adding }
 PerfilCliente >> addButtons [
 	"Crea botones"

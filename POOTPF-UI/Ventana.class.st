@@ -105,6 +105,42 @@ Ventana >> addMessage: text extent: dim [
 ]
 
 { #category : #adding }
+Ventana >> addMessageConfirm: text actionConfirm: unBloque [
+	self addMessageConfirm: text actionConfirm: unBloque extent:  200@100.
+]
+
+{ #category : #adding }
+Ventana >> addMessageConfirm: text actionConfirm: unBloque extent: dim [
+	"Agrega un popup al body, se ingresa por parametro el titulo a mostrar, su dimension y el accionar del boton aceptar, por defecto, el boton cancelar eliminara el popup"
+	"unBloque debe recibir el popup para eliminarlo si fuera necesario"
+	|popup textM bAceptar bCancelar|
+	"Creo morphs de la ventana emergente"
+	popup := Morph new.
+	textM := text asTextMorph.
+	bAceptar := Button label: 'Si'.
+	bCancelar := Button label: 'No'.
+	
+	"Posiciono ventana y contenidos"
+	popup extent: dim; center: body center.
+	popup color: tema container; borderWidth: 2; borderColor: Color black.
+	textM center: popup center; top: popup top + 20.
+
+	bAceptar right: popup left + ((popup right - popup left)/2) - 10; bottom: popup bottom - 15.
+	bCancelar left: popup left + ((popup right - popup left)/2) + 10; bottom: popup bottom - 15.	
+	
+	"Funciones de botones"	
+	bAceptar mouseAction: [unBloque value: popup.].
+	bCancelar mouseAction: [popup delete.].
+
+	"Agrego morphs"
+	popup addMorph: textM.
+	popup addMorph: bAceptar.
+	popup addMorph: bCancelar.
+	body addMorph: popup.
+	
+]
+
+{ #category : #adding }
 Ventana >> addMessageInput: mensaje actionAceptar: unBloque [
 	self addMessageInput: mensaje actionAceptar: unBloque  extent: 250@135.
 ]
@@ -153,7 +189,7 @@ Ventana >> addTitulo: unString [
 	
 ]
 
-{ #category : #accessing }
+{ #category : #deleting }
 Ventana >> botonBorrarVentana [
 	^botonBorrarVentana
 ]

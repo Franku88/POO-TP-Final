@@ -22,6 +22,14 @@ Class {
 	#category : #'POOTPF-UI-Views'
 }
 
+{ #category : #creating }
+VerContratos class >> createWithSystem: unSistema cliente: unCliente [
+	|clienteW|.
+	clienteW := self new.
+	clienteW initializeWithSystem: unSistema cliente: unCliente.
+ 	^clienteW.
+]
+
 { #category : #adding }
 VerContratos >> addButtons [
 	"botonPagar botonModificar botonCancelar botonCrearContrato"
@@ -36,7 +44,7 @@ VerContratos >> addButtons [
 	botonCancelar top: tablaContratos bottom + 30; left: botonModificar right + 15.
 	botonCrearContrato top: masInfo bottom + 30; right: masInfo right.
 	
-	"Funcion de botones"
+	"Pagar listo"
 	botonPagar mouseAction: [
 		(tablaContratos selectedElement) ifNil: [ 
 			self addMessage: 'Seleccione el contrato a pagar.'.	
@@ -48,9 +56,10 @@ VerContratos >> addButtons [
 		(tablaContratos selectedElement) ifNil: [ 
 			self addMessage: 'Seleccione el contrato a modificar.'.	
 		] ifNotNil: [
-			self addMessage: 'Lindo contrato'.
+			self addMorphCentered:  (ModificarContrato createWithSystem: sistema cliente: cliente contrato: (tablaContratos selectedElement)).
 		].
 	].
+	"Cancelar listo"
 	botonCancelar mouseAction: [
 		(tablaContratos selectedElement) ifNil: [ 
 			self addMessage: 'Seleccione el contrato a cancelar.'.	
@@ -59,7 +68,7 @@ VerContratos >> addButtons [
 		].
 	].
 	botonCrearContrato mouseAction: [
-			self addMessage: 'Crear contrato'.
+			self addMorphCentered:  (CrearContrato createWithSystem: sistema cliente: cliente).
 	].
 	
 	"Agrego morphs"
@@ -81,20 +90,22 @@ VerContratos >> addMasInfo [
 { #category : #adding }
 VerContratos >> addMessageCancelar [
 	"Implementado con changed puesto que la cancelacion deselecciona un elemento pero no modifca el indice de la Table"
-	((tablaContratos selectedElement) esEfectivo) ifTrue:[
-		self addMessage: 'No es posible cancelar el contrato seleccionado'.
-	] ifFalse:[
-		(cliente bajarContratoConNumero: ((tablaContratos selectedElement) numero)) ifTrue: [
-			(cliente esFrecuente) ifTrue: [
-				self addMessage: ('Contrato cancelado con exito.',String cr,'Se han reembolsado ',((tablaContratos selectedElement) calcularReembolso:((tablaContratos selectedElement) calcularPagado)) asString, ' Millas') extent: 200@130.
-			] ifFalse: [
+	self addMessageConfirm: '¿Esta seguro?' actionConfirm: [:popUp |
+		((tablaContratos selectedElement) esEfectivo) ifTrue:[
+			self addMessage: 'No es posible cancelar el contrato seleccionado'.
+		] ifFalse:[
+			(cliente bajarContratoConNumero: ((tablaContratos selectedElement) numero)) ifTrue: [
+				(cliente esFrecuente) ifTrue: [
+					self addMessage: ('Contrato cancelado con exito.',String cr,'Se han reembolsado ',((tablaContratos selectedElement) calcularReembolso:((tablaContratos selectedElement) calcularPagado)) asString, ' Millas') extent: 200@130.
+				] ifFalse: [
 				self addMessage: ('Contrato cancelado con exito.',String cr,'Se han reembolsado $',((tablaContratos selectedElement) calcularReembolso:((tablaContratos selectedElement) calcularPagado)) asString) extent: 200@130.
+				].
+				"Como es eliminado de la tabla, entonces no queda ninguno seleccionado"
+				tablaContratos selectedElement: nil.
+				popUp delete.
 			].
-			"Como es eliminado de la tabla, entonces no queda ninguno seleccionado"
-			tablaContratos selectedElement: nil.
-		].
+		].	
 	].
-
 ]
 
 { #category : #adding }
@@ -169,8 +180,8 @@ VerContratos >> contratoToString: unContrato [
 	'Valor de cuota: $',(unContrato valorCuota) asString,String cr,
 	'Proximo vencimiento: ',unContrato fechaProxVencimiento ddmmyyyy,String cr,
 	'Excursiones opcionales: ',String cr,cadenaExc,
-	'Es Efectivo: ',unContrato esEfectivoString.
-	
+	'Es Efectivo: ',unContrato esEfectivoString,String cr,
+	'Es Flexible: ',unContrato esFlexibleString.
 	^cadena
 ]
 

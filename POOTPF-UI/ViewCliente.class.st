@@ -1,5 +1,5 @@
 "
-Ventanas que mostraran datos de un cliente.
+Ventanas que mostraran/usaran datos de un cliente.
 
 Instance Variables
 cliente:		<Cliente>
@@ -14,14 +14,6 @@ Class {
 	],
 	#category : #'POOTPF-UI-Views'
 }
-
-{ #category : #initialization }
-ViewCliente class >> createWithSystem: unSistema cliente: unCliente [
-	|clienteW|.
-	clienteW := self new.
-	clienteW initializeWithSystem: unSistema cliente: unCliente.
- 	^clienteW.
-]
 
 { #category : #adding }
 ViewCliente >> addHeaderCliente [

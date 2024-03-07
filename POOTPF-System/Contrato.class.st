@@ -203,6 +203,16 @@ Contrato >> esFlexible [
 	^false.
 ]
 
+{ #category : #verifying }
+Contrato >> esFlexibleString [
+	|cad|.
+	cad := 'No'.
+	(self esFlexible) ifTrue:[
+		cad := 'Si'.
+	].
+	^cad.
+]
+
 { #category : #accessing }
 Contrato >> fechaContrato [
 	^fechaContrato.

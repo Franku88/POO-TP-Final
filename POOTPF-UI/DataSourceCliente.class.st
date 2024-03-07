@@ -1,7 +1,7 @@
 Class {
 	#name : #DataSourceCliente,
 	#superclass : #TableDataSource,
-	#category : #'POOTPF-UI'
+	#category : #'POOTPF-UI-Components'
 }
 
 { #category : #accessing }
