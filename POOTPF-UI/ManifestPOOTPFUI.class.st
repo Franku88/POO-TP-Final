@@ -21,3 +21,10 @@ ManifestPOOTPFUI class >> ruleStringConcatenationRuleV1FalsePositive [
 	<ignoreForCoverage>
 	^ #(#(#(#RGMethodDefinition #(#VerContratos #contratoToString: #false)) #'2024-03-06T03:53:14.484-03:00') )
 ]
+
+{ #category : #'code-critics' }
+ManifestPOOTPFUI class >> ruleUnconditionalRecursionRuleV1FalsePositive [
+
+	<ignoreForCoverage>
+	^ #(#(#(#RGMethodDefinition #(#VerCliente #initializeWithSystem: #false)) #'2024-03-07T00:51:57.712-03:00') )
+]

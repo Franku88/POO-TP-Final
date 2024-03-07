@@ -1,5 +1,5 @@
 Class {
-	#name : #VerViajes,
+	#name : #VerViaje,
 	#superclass : #Ventana,
 	#category : #'POOTPF-UI-Views'
 }
