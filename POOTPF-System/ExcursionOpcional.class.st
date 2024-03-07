@@ -10,7 +10,7 @@ Class {
 		'cantPersonas',
 		'costo'
 	],
-	#category : #'POOTPF-System'
+	#category : #'POOTPF-System-System'
 }
 
 { #category : #constructor }

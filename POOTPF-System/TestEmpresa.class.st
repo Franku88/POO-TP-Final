@@ -4,7 +4,7 @@ Clase para realizar test de EmpresaTurismo
 Class {
 	#name : #TestEmpresa,
 	#superclass : #Object,
-	#category : #'POOTPF-System'
+	#category : #'POOTPF-System-Testing'
 }
 
 { #category : #testing }

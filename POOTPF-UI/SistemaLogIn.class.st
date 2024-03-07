@@ -11,9 +11,9 @@ Class {
 
 { #category : #adding }
 SistemaLogIn >> addButtons [ 
-botonResumen   := Button text: 'Resumen Diario' extent: 100@30.
-botonViajes := Button text:'Viajes' extent: 80@30.
-botonClientes :=Button text:'Clientes' extent: 80@30.
+botonResumen   := Button label: 'Resumen Diario' extent: 100@30.
+botonViajes := Button label:'Viajes' extent: 80@30.
+botonClientes :=Button label:'Clientes' extent: 80@30.
 "ubico boton clientes"
 botonClientes center:contenedor center.
 contenedor addMorph: botonClientes .
@@ -31,7 +31,7 @@ botonResumen mouseAction: [
 	].
 botonClientes  mouseAction: [ 
 		"Creo la instancia de ClienteLogin pasandole el sistema, centrado para tapar al anterior morph"
-		self addMorphCentered:  (VerCliente  createWithSystem: sistema) 
+		self addMorphCentered:  (VerClientes  createWithSystem: sistema) 
 	].
 botonViajes   mouseAction: [ 
 		"Creo la instancia de ClienteLogin pasandole el sistema, centrado para tapar al anterior morph"

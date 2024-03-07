@@ -8,7 +8,7 @@ Class {
 	#instVars : [
 		'descripcion'
 	],
-	#category : #'POOTPF-System'
+	#category : #'POOTPF-System-System'
 }
 
 { #category : #creating }

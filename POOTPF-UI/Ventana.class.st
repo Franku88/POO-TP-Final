@@ -44,7 +44,7 @@ Ventana >> addBody [
 
 { #category : #adding }
 Ventana >> addBotonBorrarVentana: etiqueta [
-	botonBorrarVentana := Button text: etiqueta extent: 80@30.
+	botonBorrarVentana := Button label: etiqueta extent: 80@30.
 	botonBorrarVentana center: header center.
 	botonBorrarVentana left: header left+30.
 	botonBorrarVentana mouseAction: [ 
@@ -88,11 +88,11 @@ Ventana >> addMessage: text extent: dim [
 	popup := Morph new.
 	popup extent: dim; center: body center; color: tema container; borderWidth: 2; borderColor: Color black.
 	"Creo texto del popup y lo agrego"
-	textM := text asMorph.
+	textM := text asTextMorph.
 	textM center: popup center; top: popup top + 20.
 	popup addMorph: textM.
 	"Creo boton de confirmar y lo agrego"
-	button := Button text: 'OK'.
+	button := Button label: 'OK'.
 	button center: popup center; bottom: popup bottom - 20.
 	button mouseAction: [  
 		popup delete.	
@@ -100,6 +100,45 @@ Ventana >> addMessage: text extent: dim [
 	popup addMorph: button.
 	"Agrego popup al body"
 	self addMorph: popup.
+	
+
+]
+
+{ #category : #adding }
+Ventana >> addMessageInput: mensaje actionAceptar: unBloque [
+	self addMessageInput: mensaje actionAceptar: unBloque  extent: 250@135.
+]
+
+{ #category : #adding }
+Ventana >> addMessageInput: mensaje actionAceptar: unBloque extent: dim [
+	"Agrega un popup al body con un campo de texto, se ingresa por parametro el titulo a mostrar, su dimension y el accionar del boton aceptar, por defecto, el boton cancelar eliminara el popup"
+	"unBloque debe recibir dos parametros, primero (txtField input) y segundo (popup), popup para eliminarlo si fuera necesario e input para ejecutar accion con el contenido ingresado por el usuario"
+	|popup textM txtField bAceptar bCancelar|
+	"Creo morphs de la ventana emergente"
+	popup := Morph new.
+	textM := mensaje asTextMorph.
+	txtField := TextField createTransparentExtent: 100@30 borderColor: Color black.
+	bAceptar := Button label: 'Aceptar'.
+	bCancelar := Button label: 'Cerrar'.
+	
+	"Posiciono ventana y contenidos"
+	popup extent: dim; center: body center.
+	popup color: tema container; borderWidth: 2; borderColor: Color black.
+	textM center: popup center; top: popup top + 20.
+	txtField center: popup center.
+	bAceptar right: popup left + ((popup right - popup left)/2) - 10; bottom: popup bottom - 15.
+	bCancelar left: popup left + ((popup right - popup left)/2) + 10; bottom: popup bottom - 15.	
+	
+	"Funciones de botones"	
+	bAceptar mouseAction: [unBloque value: (txtField input) value: popup. txtField clear].
+	bCancelar mouseAction: [popup delete.].
+
+	"Agrego morphs"
+	popup addMorph: textM.
+	popup addMorph: txtField.
+	popup addMorph: bAceptar.
+	popup addMorph: bCancelar.
+	body addMorph: popup.
 	
 
 ]

@@ -12,7 +12,7 @@ Class {
 		'cantDias',
 		'colEtapas'
 	],
-	#category : #'POOTPF-System'
+	#category : #'POOTPF-System-System'
 }
 
 { #category : #creating }

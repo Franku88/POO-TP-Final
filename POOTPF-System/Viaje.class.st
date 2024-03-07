@@ -12,7 +12,7 @@ Class {
 		'costoPorPersona',
 		'valorImpuestos'
 	],
-	#category : #'POOTPF-System'
+	#category : #'POOTPF-System-System'
 }
 
 { #category : #creating }

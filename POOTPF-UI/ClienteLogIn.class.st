@@ -17,7 +17,7 @@ Class {
 
 { #category : #adding }
 ClienteLogIn >> addButtons [
-	botonIngreso := Button text: 'Ingresar' extent: 80@30.
+	botonIngreso := Button label: 'Ingresar' extent: 80@30.
 	botonIngreso mouseAction: [ 
 		"Verifica que el input no este vacio"
 		(campoDni isEmpty) ifTrue: [
@@ -43,7 +43,7 @@ ClienteLogIn >> addButtons [
 	botonIngreso bottom: contenedor bottom - 15.
 	contenedor addMorph: botonIngreso.
 	
-	botonRegistro := Button text: 'Registrar' extent: 80@30.
+	botonRegistro := Button label: 'Registrar' extent: 80@30.
 	"botonRegistro mouseAction: [  ]."
 	botonRegistro right: contenedor right - 15.
 	botonRegistro bottom: contenedor bottom - 15.	

@@ -26,7 +26,7 @@ Class {
 		'cantCuotasPagadas',
 		'esEfectivo'
 	],
-	#category : #'POOTPF-System'
+	#category : #'POOTPF-System-System'
 }
 
 { #category : #creating }
@@ -61,7 +61,7 @@ Contrato >> bajar [
 	|reembolso unMonto|.
 	reembolso := -1.
 	(esEfectivo) ifFalse: [  
-			unMonto := self calcularMontoTotal.
+			unMonto := self calcularPagado.
 			reembolso := self calcularReembolso: unMonto.
 		].
 	^reembolso.
@@ -91,6 +91,14 @@ Contrato >> calcularExtraExcursiones [
 ]
 
 { #category : #calculating }
+Contrato >> calcularMonto [
+	"Realiza el calculo del monto total a pagar del contrato sin excursiones"
+	|unMonto |.
+	unMonto := viaje calcularMontoPara: cantPersonas.
+	^unMonto.
+]
+
+{ #category : #calculating }
 Contrato >> calcularMontoTotal [
 	"Realiza el calculo del monto total a pagar del contrato"
 	|unMonto extra|.
@@ -101,11 +109,17 @@ Contrato >> calcularMontoTotal [
 ]
 
 { #category : #calculating }
+Contrato >> calcularPagado [
+	^((self calcularMonto/self cantCuotas)*(self cantCuotasPagadas) asFloat truncateTo: 0.01)
+]
+
+{ #category : #calculating }
 Contrato >> calcularReembolso: unMonto [
 	"Calcula reembolso a realizar dependiendo el caso"
 	|reembolso|.
 	reembolso := -1.
-	(fechaSeleccionada >= ((Date today) addMonths: 3)) ifTrue: [  
+	(cantCuotasPagadas > 0) ifTrue:[
+		(fechaSeleccionada >= ((Date today) addMonths: 3)) ifTrue: [  
 			reembolso := unMonto * 0.75.
 		] ifFalse: [
 			(fechaSeleccionada > (Date today addMonths: 2)) ifTrue: [
@@ -114,6 +128,9 @@ Contrato >> calcularReembolso: unMonto [
 				reembolso := unMonto * 0.25.
 			].	
 		].
+	] ifFalse:[
+		reembolso := 0.
+	].
 	^reembolso.
 ]
 
@@ -135,6 +152,7 @@ Contrato >> cantCuotasPagadas [
 { #category : #accessing }
 Contrato >> cantCuotasPagadas: unaCant [
 	cantCuotasPagadas := unaCant.
+	self changed.
 ]
 
 { #category : #accessing }
@@ -193,6 +211,7 @@ Contrato >> fechaContrato [
 { #category : #accessing }
 Contrato >> fechaContrato: unaFecha [
 	fechaContrato := unaFecha.
+	self changed.
 ]
 
 { #category : #accessing }
@@ -203,6 +222,7 @@ Contrato >> fechaProxVencimiento [
 { #category : #accessing }
 Contrato >> fechaProxVencimiento: unaFecha [
 	fechaProxVencimiento := unaFecha.
+	self changed.
 ]
 
 { #category : #accessing }
@@ -240,6 +260,7 @@ Contrato >> numero [
 { #category : #accessing }
 Contrato >> numero: unNumero [
 	numero := unNumero.
+	self changed.
 ]
 
 { #category : #updating }
@@ -248,8 +269,8 @@ Contrato >> pagar: cantC [
 	|exito|.
 	exito := (cantCuotas - cantCuotasPagadas) >= cantC.
 	(exito) ifTrue: [  
-			fechaProxVencimiento := fechaProxVencimiento addDays: (cantC*30).
-			cantCuotasPagadas := cantCuotasPagadas + cantC.
+			self fechaProxVencimiento: (fechaProxVencimiento addDays: (cantC*30)).
+			self cantCuotasPagadas: cantCuotasPagadas + cantC.
 		].
 	^exito.
 ]
@@ -303,6 +324,11 @@ Contrato >> toStringExcursiones [
 	^cadena.
 ]
 
+{ #category : #calculating }
+Contrato >> valorCuota [
+	^(self calcularMonto/cantCuotas) asFloat truncateTo: 0.01.
+]
+
 { #category : #accessing }
 Contrato >> viaje [
 	^viaje.
@@ -311,4 +337,5 @@ Contrato >> viaje [
 { #category : #accessing }
 Contrato >> viaje: unViaje [
 	viaje := unViaje.
+	self changed.
 ]

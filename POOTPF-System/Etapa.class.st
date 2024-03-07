@@ -16,7 +16,7 @@ Class {
 		'tipoPension',
 		'colExcursiones'
 	],
-	#category : #'POOTPF-System'
+	#category : #'POOTPF-System-System'
 }
 
 { #category : #creating }

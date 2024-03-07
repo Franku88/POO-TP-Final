@@ -20,8 +20,8 @@ Class {
 { #category : #adding }
 PerfilCliente >> addButtons [
 	"Crea botones"
-	botonVerContratos := Button text: 'Ver contratos' extent: 160@30.
-	botonIngresarDinero := Button text: 'Ingresar dinero' extent: 160@30.
+	botonVerContratos := Button label: 'Ver contratos' extent: 160@30.
+	botonIngresarDinero := Button label: 'Ingresar dinero' extent: 160@30.
 	"Posiciona"
 	botonVerContratos center: (body center)*(1.5).
 	botonVerContratos top: body top + 150.
@@ -29,10 +29,10 @@ PerfilCliente >> addButtons [
 	botonIngresarDinero bottom: body bottom - 150.
 	"Da funcion"
 	botonVerContratos mouseAction: [
-		self addMorphCentered: (VerContratos createWithSystem: sistema cliente: cliente). 
+		self addMorphCentered: (VerContratos createWithSystem: sistema cliente: cliente).
 		].
 	botonIngresarDinero mouseAction: [
-		self addPopUpIngresarDinero.
+		self addMessageIngresarDinero.
 	].
 	"Agrega"
 	body addMorph: botonVerContratos.
@@ -51,48 +51,21 @@ PerfilCliente >> addDatosCliente [
 ]
 
 { #category : #adding }
-PerfilCliente >> addPopUpIngresarDinero [
-	"Agrega un popup al body con un campo de texto, se ingresa por parametro el titulo a mostrar, su 	dimension y el accionar del boton aceptar, por defecto, el boton cancelar eliminara el popup"
-		|popup textM txtField bAceptar bCancelar|
-		"Creo morphs de la ventana emergente"
-		popup := Morph new.
-		textM := '¿Cuanto dinero desea ingresar?' asMorph.
-		txtField := TextField createTransparentExtent: 100@30 borderColor: Color black.
-		bAceptar := Button text: 'Aceptar'.
-		bCancelar := Button text: 'Cancelar'.
-	
-		"Posiciono ventana y contenidos"
-		popup extent: 250@135; center: body center.
-		popup color: tema container; borderWidth: 2; borderColor: Color black.
-		textM center: popup center; top: popup top + 20.
-		txtField center: popup center.
-		bAceptar right: popup left + ((popup right - popup left)/2) - 10; bottom: popup bottom - 15.
-		bCancelar left: popup left + ((popup right - popup left)/2) + 10; bottom: popup bottom - 15.	
-	
-		"Funciones de botones"	
-		bAceptar mouseAction: [  
-			(txtField input) ifNil: [ 
-				body addMessage: 'Ingrese un valor numerico'.
-			] ifNotNil: [ 
-				(Helper stringIsNumeric: txtField input) ifFalse:[
-					self addMessage: 'Ingrese un valor numerico'.
-				] ifTrue: [
-					cliente sumarDinero: (txtField input) asInteger.
-					self addMessage: 'Usted ha ingresado $',(txtField input).
-					popup delete.
-				].
+PerfilCliente >> addMessageIngresarDinero [
+	"Accion del boton ingresarDinero"
+	self addMessageInput: '¿Cuanto dinero desea ingresar?' actionAceptar: [ :fInput :popUp|
+		(fInput) ifNil: [ 
+			body addMessage: 'Ingrese un valor numerico'.
+		] ifNotNil: [ 
+			(Helper stringIsNumeric: fInput) ifFalse:[
+				self addMessage: 'Ingrese un valor numerico'.
+			] ifTrue: [
+				cliente sumarDinero: fInput asInteger.
+				self addMessage: 'Usted ha ingresado $',fInput.
+				popUp delete.
 			].
 		].
-		bCancelar mouseAction: [  
-			popup delete.
-		].
-	
-		"Agrego morphs"
-		popup addMorph: textM.
-		popup addMorph: txtField.
-		popup addMorph: bAceptar.
-		popup addMorph: bCancelar.
-		body addMorph: popup. 
+	].
 ]
 
 { #category : #initialization }
@@ -106,6 +79,7 @@ PerfilCliente >> initializeWithSystem: unSistema cliente: unCliente [
 
 { #category : #updating }
 PerfilCliente >> update: unCliente [
+	super update: unCliente.
 	unCliente ifNotNil:  [  
 		datosCliente setText: (self clienteToStringPerfil: unCliente).
 	].

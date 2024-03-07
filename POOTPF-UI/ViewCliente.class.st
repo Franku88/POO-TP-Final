@@ -25,11 +25,11 @@ ViewCliente class >> createWithSystem: unSistema cliente: unCliente [
 
 { #category : #adding }
 ViewCliente >> addHeaderCliente [
-	headerCliente := ScrolledText createExtent: 150@80 color: (tema container) title: 'Cliente'.
+	headerCliente := ScrolledText createExtent: 150@90 color: (tema container) title: 'Cliente'.
 	headerCliente beReadOnly.
 	headerCliente center: header center.
 	headerCliente left: header left + 150.
-	headerCliente setText: ('  DNI: ',(cliente dni asString),String cr,'  Apellido: ', cliente apellido).
+	headerCliente setText: ('  DNI: ',(cliente dni asString),String cr,'  Apellido: ',cliente apellido,String cr,'  Dinero: $',((cliente dinero) asFloat truncateTo: 0.01) asString).
 	header addMorph: headerCliente.
 ]
 
@@ -66,4 +66,9 @@ ViewCliente >> initializeWithSystem: unSistema cliente: unCliente [
 	self addHeaderCliente.
 	"Las ViewCliente son dependientes del Cliente encontrado"
 	cliente addDependent: self.
+]
+
+{ #category : #updating }
+ViewCliente >> update: anObject [
+	headerCliente setText: '  DNI: ',(cliente dni asString),String cr,'  Apellido: ',cliente apellido,String cr,'  Dinero: $',((cliente dinero)asFloat truncateTo: 0.01) asString.
 ]

@@ -10,7 +10,7 @@ Class {
 		'colClientes',
 		'colViajes'
 	],
-	#category : #'POOTPF-System'
+	#category : #'POOTPF-System-System'
 }
 
 { #category : #constructor }

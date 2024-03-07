@@ -19,7 +19,7 @@ Class {
 Home >> addButtons [
 	"Agrega boton cliente y boton sistema"
 	"Boton Cliente"
-	botonCliente := Button text: 'Cliente' extent: 80@30.
+	botonCliente := Button label: 'Cliente' extent: 80@30.
 	botonCliente  mouseAction: [ 
 		"Creo la instancia de ClienteLogin pasandole el sistema, centrado para tapar al anterior morph"
 		self addMorphCentered:  (ClienteLogIn createWithSystem: sistema).
@@ -29,7 +29,7 @@ Home >> addButtons [
 	contenedor addMorph: botonCliente.		
 
 	"Boton Sistema"
-	botonSistema := Button text: 'Sistema' extent: 80@30.
+	botonSistema := Button label: 'Sistema' extent: 80@30.
 	botonSistema  mouseAction: [ 
 	"Creo la instancia otra ventana pasandole el sistema, lo agrego centrado para que tape al anterior morph"
 		self addMorphCentered:  (SistemaLogIn createWithSystem: sistema).

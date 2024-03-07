@@ -7,8 +7,8 @@ Class {
 	#name : #Table,
 	#superclass : #FTTableMorph,
 	#instVars : [
-		'clickBlock',
-		'doubleClickBlock'
+		'highlightedElement',
+		'selectedElement'
 	],
 	#category : #'POOTPF-UI-Components'
 }
@@ -27,35 +27,60 @@ Table >> elementAt: index [
 	^(self dataSource) elementAt: index
 ]
 
+{ #category : #accessing }
+Table >> highlightedElement [
+	^ highlightedElement.
+]
+
+{ #category : #accessing }
+Table >> highlightedElement: elem [
+	highlightedElement := elem.
+	self changed: self.
+]
+
 { #category : #initialization }
 Table >> initializeColumns: colColumns dataSource: aDataSource [
 	self initialize.
+	"Agrega etiquetas de columnas"
 	colColumns do: [:name | 
 		self addColumn: (FTColumn id: name)
 	].
-	self intercellSpacing: 0.5 ; beResizable; "vResizing: #spaceFill; hResizing: #spaceFill;"
+	self intercellSpacing: 0.5; beResizable; "vResizing: #spaceFill; hResizing: #spaceFill;"
 	onAnnouncement: FTSelectionChanged do: [ :ann | 
-		clickBlock value: self selectedIndex.
-	];
-	onAnnouncement: FTStrongSelectionChanged do: [ :ann | 
-		doubleClickBlock value: self selectedIndex.
+		self setHighlightedElement.
+		self setSelectedElement.
 	];
 	dataSource: aDataSource.
-	"self selectFirst."
 	"Agrega tabla actual como dependiente del modelo/dataSoruce"
 	aDataSource addDependent: self.
-	"No hacen nada predeterminadamente"
-	doubleClickBlock := [:e | nil]. 	
-	clickBlock := [:e | nil].
 
 ]
 
-{ #category : #initialization }
-Table >> setClick: block [
-	clickBlock := block.
+{ #category : #accessing }
+Table >> selectedElement [
+	^ selectedElement.
+]
+
+{ #category : #accessing }
+Table >> selectedElement: elem [
+	selectedElement := elem.
+	self changed: self.
 ]
 
 { #category : #initialization }
-Table >> setDoubleClick: block [
-	doubleClickBlock := block.
+Table >> setHighlightedElement [
+	highlightedElement := nil.
+	(self highlightedIndex > 0) ifTrue: [ 
+		self highlightedElement: (self elementAt: self highlightedIndex).
+	]. 
+	self changed: self.
+]
+
+{ #category : #initialization }
+Table >> setSelectedElement [
+	selectedElement := nil.
+	(self selectedIndex > 0) ifTrue: [ 
+		self selectedElement: (self elementAt: self selectedIndex).
+	].
+	self changed: self.
 ]

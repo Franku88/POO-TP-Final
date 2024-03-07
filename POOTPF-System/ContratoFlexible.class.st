@@ -4,7 +4,7 @@ Se diferencia de Contrato por su comportamiento
 Class {
 	#name : #ContratoFlexible,
 	#superclass : #Contrato,
-	#category : #'POOTPF-System'
+	#category : #'POOTPF-System-System'
 }
 
 { #category : #verifying }

@@ -1,16 +1,17 @@
 Class {
-	#name : #VerCliente,
+	#name : #VerClientes,
 	#superclass : #Ventana,
 	#instVars : [
 		'tablaDeDatos',
 		'masInfo',
-		'clienteSeleccionado'
+		'clienteSeleccionado',
+		'cliente'
 	],
 	#category : #'POOTPF-UI-Views'
 }
 
 { #category : #adding }
-VerCliente >> addTablaClientes [
+VerClientes >> addTablaClientes [
 	"Agrega una tabla de datos de clientes actuales"
 		tablaDeDatos  := Table createColumns: (#(DNI Apelledio Ciudad Millas Dinero ) asOrderedCollection) extent: (body width*(0.6))@(body height*(0.7)) dataSource: (DataSourceCliente createCollection: (sistema colClientes) object: sistema).
 		tablaDeDatos  top: body top + 45; left: body left + 20.
@@ -23,7 +24,7 @@ VerCliente >> addTablaClientes [
 ]
 
 { #category : #initialization }
-VerCliente >> initialize [ 
+VerClientes >> initialize [ 
 super initialize .
 self addBotonBorrarVentana: 'atras'.
 self addTitulo: 'Clientes'.
@@ -31,7 +32,7 @@ self addTablaClientes.
 ]
 
 { #category : #initialization }
-VerCliente >> initializeWithSystem: unSistema [
+VerClientes >> initializeWithSystem: unSistema [
 self initialize .
 self initializeWithSystem: unSistema .
 self addBotonBorrarVentana: 'atras'.

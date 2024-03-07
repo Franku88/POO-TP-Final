@@ -13,7 +13,6 @@ Class {
 	#superclass : #ViewCliente,
 	#instVars : [
 		'tablaContratos',
-		'contratoSeleccionado',
 		'masInfo',
 		'botonPagar',
 		'botonModificar',
@@ -26,10 +25,10 @@ Class {
 { #category : #adding }
 VerContratos >> addButtons [
 	"botonPagar botonModificar botonCancelar botonCrearContrato"
-	botonPagar := Button text: 'Pagar' color: (tema container) extent: 80@30.
-	botonModificar := Button text: 'Modificar' color: (tema container) extent: 80@30.
-	botonCancelar := Button text: 'Cancelar' color: (tema container) extent: 80@30.
-	botonCrearContrato := Button text: 'Crear Contrato' extent: 100@30.
+	botonPagar := Button label: 'Pagar' color: (tema container) extent: 80@30.
+	botonModificar := Button label: 'Modificar' color: (tema container) extent: 80@30.
+	botonCancelar := Button label: 'Cancelar' color: (tema container) extent: 80@30.
+	botonCrearContrato := Button label: 'Crear Contrato' extent: 100@30.
 	
 	"Posiciono morphs"
 	botonPagar top: tablaContratos bottom + 30; left: tablaContratos left.
@@ -38,9 +37,30 @@ VerContratos >> addButtons [
 	botonCrearContrato top: masInfo bottom + 30; right: masInfo right.
 	
 	"Funcion de botones"
-	botonCrearContrato mouseAction: [
-
+	botonPagar mouseAction: [
+		(tablaContratos selectedElement) ifNil: [ 
+			self addMessage: 'Seleccione el contrato a pagar.'.	
+		] ifNotNil: [
+			self addMessagePagar.
 		].
+	].
+	botonModificar mouseAction: [
+		(tablaContratos selectedElement) ifNil: [ 
+			self addMessage: 'Seleccione el contrato a modificar.'.	
+		] ifNotNil: [
+			self addMessage: 'Lindo contrato'.
+		].
+	].
+	botonCancelar mouseAction: [
+		(tablaContratos selectedElement) ifNil: [ 
+			self addMessage: 'Seleccione el contrato a cancelar.'.	
+		] ifNotNil: [
+			self addMessageCancelar.
+		].
+	].
+	botonCrearContrato mouseAction: [
+			self addMessage: 'Crear contrato'.
+	].
 	
 	"Agrego morphs"
 	body addMorph: botonPagar.
@@ -56,7 +76,54 @@ VerContratos >> addMasInfo [
 	masInfo ghostText: 'Seleccione un contrato en la tabla...'.
 	masInfo right: (body right - 20); top: (body top + 45).
 	body addMorph: masInfo.
-	tablaContratos addDependent: masInfo.
+]
+
+{ #category : #adding }
+VerContratos >> addMessageCancelar [
+	"Implementado con changed puesto que la cancelacion deselecciona un elemento pero no modifca el indice de la Table"
+	((tablaContratos selectedElement) esEfectivo) ifTrue:[
+		self addMessage: 'No es posible cancelar el contrato seleccionado'.
+	] ifFalse:[
+		(cliente bajarContratoConNumero: ((tablaContratos selectedElement) numero)) ifTrue: [
+			(cliente esFrecuente) ifTrue: [
+				self addMessage: ('Contrato cancelado con exito.',String cr,'Se han reembolsado ',((tablaContratos selectedElement) calcularReembolso:((tablaContratos selectedElement) calcularPagado)) asString, ' Millas') extent: 200@130.
+			] ifFalse: [
+				self addMessage: ('Contrato cancelado con exito.',String cr,'Se han reembolsado $',((tablaContratos selectedElement) calcularReembolso:((tablaContratos selectedElement) calcularPagado)) asString) extent: 200@130.
+			].
+			"Como es eliminado de la tabla, entonces no queda ninguno seleccionado"
+			tablaContratos selectedElement: nil.
+		].
+	].
+
+]
+
+{ #category : #adding }
+VerContratos >> addMessagePagar [
+	"Pago de cuotas de un contrato seleccionado en la tabla"
+	((tablaContratos selectedElement) cantCuotasPagadas = (tablaContratos selectedElement) cantCuotas) 
+	ifFalse:[
+		self addMessageInput: '¿Cuantas cuotas desea pagar?' actionAceptar: [ :fInput :popUp|
+			(fInput) ifNil: [ 
+				body addMessage: 'Ingrese un valor numerico'.
+			] ifNotNil: [ 
+				(Helper stringIsNumeric: fInput) ifFalse:[
+					self addMessage: 'Ingrese un valor numerico'.
+				] ifTrue: [
+					(cliente pagarCuotas: ((tablaContratos selectedElement) numero) 
+					cuotasAPagar: (fInput asInteger)) 
+					ifTrue:[
+						self addMessage: 'Contrato abonado con exito'.
+						popUp delete.
+					] ifFalse: [
+						self addMessage: 'Cantidad invalida o dinero insuficiente.' extent: 230@100.
+					].
+				].
+			].
+		].
+	] ifTrue: [ 
+		self addMessage: 'Contrato sin cuotas pendientes.'.
+	].
+	
 ]
 
 { #category : #adding }
@@ -65,11 +132,7 @@ VerContratos >> addTablaContratos [
 	cliente ifNotNil: [
 		tablaContratos := Table createColumns: (#(Numero Contratado Fecha Personas Cuotas Efectivo) asOrderedCollection) extent: (body width*(0.6))@(body height*(0.7)) dataSource: (DataSourceContrato createCollection: cliente colContratos object: cliente).
 		tablaContratos top: body top + 45; left: body left + 20.
-		tablaContratos borderColor: Color black; borderWidth: 1.
-		tablaContratos setClick: [:index |
-			contratoSeleccionado := (tablaContratos elementAt: index).
-			self update: tablaContratos.
-	 	].
+		tablaContratos borderColor: Color black; borderWidth: 1; allowDeselection.
 		body addMorph: tablaContratos.
 	].
 ]
@@ -82,7 +145,7 @@ VerContratos >> addTitulo: cad [
 
 { #category : #strings }
 VerContratos >> contratoToString [
-	^self contratoToString: contratoSeleccionado.
+	^self contratoToString: (tablaContratos selectedElement).
 ]
 
 { #category : #strings }
@@ -102,9 +165,10 @@ VerContratos >> contratoToString: unContrato [
 	'Fecha seleccionada: ',unContrato fechaSeleccionada ddmmyyyy,String cr,
 	'Cantidad de personas: ',unContrato cantPersonas asString,String cr,
 	'Cuotas: ',unContrato cantCuotas asString,String cr,
+	'Cuotas pagadas: ',unContrato cantCuotasPagadas asString,String cr,
+	'Valor de cuota: $',(unContrato valorCuota) asString,String cr,
 	'Proximo vencimiento: ',unContrato fechaProxVencimiento ddmmyyyy,String cr,
 	'Excursiones opcionales: ',String cr,cadenaExc,
-	'Cuotas pagadas: ',unContrato cantCuotasPagadas asString,String cr,
 	'Es Efectivo: ',unContrato esEfectivoString.
 	
 	^cadena
@@ -117,6 +181,7 @@ VerContratos >> initializeWithSystem: unSistema cliente: unCliente [
 	self addBotonBorrarVentana: 'Atras'.
 	self addTablaContratos.
 	self addTitulo: 'Mis contratos'.
+	tablaContratos addDependent: self.
 	self addMasInfo.
 	self addButtons.
 
@@ -126,7 +191,12 @@ VerContratos >> initializeWithSystem: unSistema cliente: unCliente [
 
 { #category : #updating }
 VerContratos >> update: anObject [
-	masInfo setText: (self contratoToString).
+	super update: anObject.
+	masInfo setText: ''.
+	(tablaContratos selectedElement) ifNotNil: [  
+		masInfo setText: (self contratoToString).
+	].
+	
 ]
 
 { #category : #strings }

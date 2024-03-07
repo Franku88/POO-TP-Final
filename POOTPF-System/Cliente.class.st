@@ -24,7 +24,7 @@ Class {
 		'millas',
 		'dinero'
 	],
-	#category : #'POOTPF-System'
+	#category : #'POOTPF-System-System'
 }
 
 { #category : #creating }
@@ -72,7 +72,7 @@ Cliente >> bajarContratoConNumero: unNum [
 	exito := unContrato notNil.
 	(exito) ifTrue: [  
 			unValor := unContrato bajar.
-			exito := unValor > 0.
+			exito := unValor >= 0.
 			(exito) ifTrue: [  
 					self reembolsar: unValor.
 					colContratos remove: unContrato.
@@ -92,7 +92,7 @@ Cliente >> bajarContratosConViaje: unNombre [
 			exito := cadaContrato tieneViajeConNombre: unNombre.
 			(exito) ifTrue: [  
 					unValor := cadaContrato bajar.
-					exito := unValor > 0.
+					exito := unValor >= 0.
 					(exito) ifTrue: [  
 						self reembolsar: unValor.
 						colContratosBajados add: cadaContrato.
@@ -104,7 +104,7 @@ Cliente >> bajarContratosConViaje: unNombre [
 		].
 	(bajado) ifTrue: [  
 			colContratos removeAll: colContratosBajados.
-		].	
+		].
 	^bajado.
 ]
 
@@ -137,8 +137,7 @@ Cliente >> cobrar: unMonto [
 	|exito|.
 	exito := (dinero >= unMonto).
 	(exito) ifTrue: [  
-			dinero := dinero - unMonto.
-			self changed.
+			self dinero: ((dinero - unMonto) asFloat truncateTo: 0.01).
 		].
 	^exito.
 		
@@ -301,7 +300,6 @@ Cliente >> pagarCuotas: unNum cuotasAPagar: cantC [
 					(exito) ifTrue: [
 							unContrato pagar: cantC.	
 						].
-					self changed.
 				]. 
 		].
 	^exito.
@@ -327,22 +325,22 @@ Cliente >> reembolsar: unValor [
 		] ifFalse: [
 			self sumarDinero: unValor.
 		].
-	self changed.
 
 ]
 
 { #category : #updating }
 Cliente >> sumarDinero: unValor [
 	"Aumenta el dinero del Cliente en unValor"
-	dinero := dinero + unValor.
+	self dinero: dinero + unValor.
 	self changed.
+
 
 ]
 
 { #category : #updating }
 Cliente >> sumarMillas: unValor [
 	"Adiciona millas al Cliente"
-	millas := millas + unValor.
+	self millas: millas + unValor.
 	self changed.
 
 ]

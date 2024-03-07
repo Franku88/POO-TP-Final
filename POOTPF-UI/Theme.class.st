@@ -1,27 +1,21 @@
 "
-Clase que almacena el estilo de los componentes posibles dentro de una ventana.
-Los estilos son previamente almacenados en mensajes de instancia. Una vez ejecutado el mensaje, es posible recuperar el estilo de cada componente (paleta de colores y rutas de icono/fondo).
+Clase que almacena paleta de colores y logo a utilizar en Ventanas.
 
 Instance Variables
-background:		<Color>
 header:		<Color>
+background:	<Color>
+container: 	<Color>
+containerBorder: <Color>
 logo:		<Morph>
+
+ 
 "
 Class {
 	#name : #Theme,
 	#superclass : #Object,
 	#instVars : [
 		'background',
-		'borderButton',
-		'borderShape',
-		'button1',
-		'button2',
-		'contrast',
 		'header',
-		'headerLine',
-		'panel',
-		'shape',
-		'table',
 		'logo',
 		'container',
 		'containerBorder'
@@ -46,10 +40,6 @@ Theme >> containerBorder [
 
 { #category : #constants }
 Theme >> default [
-	button1 := Color fromString: 'FFFFFF'.
-	borderButton := Color fromString: '666666'.
-	shape := Color fromString: 'FFFFFF'.
-	borderShape := Color fromString: '666666'.
 	background := Color fromString: 'FFFFFF'.
 	header := Color fromString: 'FFFFFF'.
 	container:= Color fromString: 'DAE8FC'.
