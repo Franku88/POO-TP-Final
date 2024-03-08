@@ -62,6 +62,11 @@ FechaSalida >> ocupar: unaCantP [
 ]
 
 { #category : #verifying }
+FechaSalida >> tieneCupo [
+	^ (cupo > 0)
+]
+
+{ #category : #verifying }
 FechaSalida >> tieneFecha: unaFecha [
 	"Verifica si el objeto actual tiene unaFecha"
 	^(fecha = unaFecha).

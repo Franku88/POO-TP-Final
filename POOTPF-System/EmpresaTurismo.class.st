@@ -177,6 +177,18 @@ EmpresaTurismo >> generarViajeOrganizado: unNombre costoPorPersona: costP valorI
 	^exito.
 ]
 
+{ #category : #accessing }
+EmpresaTurismo >> getColContratos [
+	|col|.
+	col := OrderedCollection new.
+	(colClientes) do: [ :cadaCli |
+		(cadaCli colContratos) do: [ :cadaCon |
+			col add: cadaCon.
+		].
+	].
+	^ col.
+]
+
 { #category : #initialization }
 EmpresaTurismo >> inicializar [
 	"Inicializa EmpresaTurismo, con ambas colecciones vacias"

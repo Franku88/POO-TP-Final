@@ -1,14 +1,17 @@
 "
 Instance Variables
+selectedElement: 	<Object>
+highlightedElement: <Object>
 clickBlock:		<BlockClosure>
-doubleClickBlock:		<BlockClosure>
+
 "
 Class {
 	#name : #Table,
 	#superclass : #FTTableMorph,
 	#instVars : [
 		'highlightedElement',
-		'selectedElement'
+		'selectedElement',
+		'clickBlock'
 	],
 	#category : #'POOTPF-UI-Components'
 }
@@ -48,7 +51,10 @@ Table >> initializeColumns: colColumns dataSource: aDataSource [
 	self dataSource: aDataSource; intercellSpacing: 0.5; beResizable; vResizing: #spaceFill; hResizing: #spaceFill; onAnnouncement: FTSelectionChanged do: [ :ann | 
 		self setHighlightedElement.
 		self setSelectedElement.
+		clickBlock value: self selectedElement.
 	].
+	clickBlock := [:e| nil].
+	
 	"Agrega tabla actual como dependiente del modelo/dataSoruce"
 	dataSource addDependent: self.
 	self update: dataSource.
@@ -64,6 +70,11 @@ Table >> selectedElement [
 Table >> selectedElement: elem [
 	selectedElement := elem.
 	self changed: selectedElement.
+]
+
+{ #category : #initialization }
+Table >> setClick: unBloque [
+	clickBlock := unBloque.
 ]
 
 { #category : #initialization }

@@ -70,6 +70,11 @@ Viaje >> esVigente [
 	^false
 ]
 
+{ #category : #accessing }
+Viaje >> getColFechasVigentes [
+	^ (OrderedCollection new).
+]
+
 { #category : #initialization }
 Viaje >> inicializarNombre: unNombre costoPorPersona: unCosto valorImpuestos: unValor [
 	"Inicializa variables de Viaje"

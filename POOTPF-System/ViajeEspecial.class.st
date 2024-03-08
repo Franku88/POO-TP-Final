@@ -71,6 +71,16 @@ ViajeEspecial >> fechaSalida: unaFecha [
 	fechaSalida := unaFecha.
 ]
 
+{ #category : #accessing }
+ViajeEspecial >> getColFechasVigentes [
+	|col|.
+	col := OrderedCollection new.
+	(self fechaSalida tieneCupo) ifTrue: [ 
+		col add: self fechaSalida.
+	].
+	^col.
+]
+
 { #category : #initialization }
 ViajeEspecial >> inicializarCiudad: unaCiudad fechaSalida: unaFechaSalida fechaRegreso: unaFecha [
 	"Inicializa variables de ViajeEspecial"

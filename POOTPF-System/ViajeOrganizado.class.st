@@ -77,6 +77,11 @@ ViajeOrganizado >> esVigente [
 	
 ]
 
+{ #category : #accessing }
+ViajeOrganizado >> getColFechasVigentes [
+	^ ((self colFechasSalida) select: [: cadaFecha | cadaFecha esVigente & cadaFecha tieneCupo]).
+]
+
 { #category : #initialization }
 ViajeOrganizado >> inicializarCantDias: unaCant colFechasSalida: unaCol colEtapas: otraCol [
 	"Inicializa variables de ViajeOrganizado"

@@ -16,6 +16,13 @@ Class {
 }
 
 { #category : #'code-critics' }
+ManifestPOOTPFSystem class >> ruleCollectionProtocolRuleV1FalsePositive [
+
+	<ignoreForCoverage>
+	^ #(#(#(#RGMethodDefinition #(#EmpresaTurismo #getColContratos #false)) #'2024-03-08T07:23:42.632-03:00') )
+]
+
+{ #category : #'code-critics' }
 ManifestPOOTPFSystem class >> ruleExcessiveArgumentsRuleV1FalsePositive [
 
 	<ignoreForCoverage>
