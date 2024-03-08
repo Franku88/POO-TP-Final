@@ -9,10 +9,9 @@ Class {
 
 { #category : #accessing }
 DataSourceViaje >> getString: unViaje at: columnId [
-	"viaje fechaProxVencimiento colExcursiones cantCuotasPagadas (no agregadas a la tabla)"
-	(columnId match: 'Nombre') ifTrue: [^ (unViaje numero) asString].
-	(columnId match: 'Costo por Persona') ifTrue:[^ (unViaje fechaContrato) ddmmyyyy]. 
-	(columnId match: 'Impuestos') ifTrue:[^ (unViaje fechaSeleccionada) ddmmyyyy]. 
+	(columnId match: 'Nombre') ifTrue: [^ (unViaje nombre) asString].
+	(columnId match: 'Costo por Persona') ifTrue:[^ (unViaje costoPorPersona asFloat truncateTo: 0.01) asString]. 
+	(columnId match: 'Impuestos') ifTrue:[^ (unViaje valorImpuestos asFloat truncateTo: 0.01) asString]. 
 	^ '...'.
 	"ViajeEspecial: ciudad, fechaSalida (rel), fechaRegreso
 	ViajeOrganizado: colFechasSalida (rel), cantDias, colEtapas (rel)

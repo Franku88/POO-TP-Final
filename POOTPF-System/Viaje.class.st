@@ -65,6 +65,11 @@ Viaje >> esOrganizado [
 	^false.
 ]
 
+{ #category : #verifying }
+Viaje >> esVigente [
+	^false
+]
+
 { #category : #initialization }
 Viaje >> inicializarNombre: unNombre costoPorPersona: unCosto valorImpuestos: unValor [
 	"Inicializa variables de Viaje"

@@ -44,8 +44,8 @@ TableDataSource >> initializeWithCollection: aCollection [
 	"Dependiente de aCollection/elements"
 	self initialize.
 	elements := aCollection. 
-	aCollection addDependent: self.
-	self update: aCollection.
+	elements addDependent: self.
+	self update: elements.
 ]
 
 { #category : #initialization }

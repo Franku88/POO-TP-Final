@@ -199,7 +199,7 @@ Contrato >> esFlexible [
 
 { #category : #verifying }
 Contrato >> esVigente [
-	^ (self fechaSeleccionada) > (Date today).
+	^ (self fechaSeleccionada > Date today).
 ]
 
 { #category : #accessing }

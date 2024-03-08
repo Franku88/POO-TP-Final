@@ -202,12 +202,13 @@ VerContratos >> initializeWithSystem: unSistema cliente: unCliente [
 ]
 
 { #category : #updating }
-VerContratos >> update: anObject [
-	super update: anObject.
+VerContratos >> update: o [
+	super update: o.
 	masInfo setText: ''.
 	(tablaContratos selectedElement) ifNotNil: [  
 		masInfo setText: (self contratoToString).
 	].
+
 	
 ]
 

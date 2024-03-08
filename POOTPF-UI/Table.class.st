@@ -45,15 +45,13 @@ Table >> initializeColumns: colColumns dataSource: aDataSource [
 	colColumns do: [:name | 
 		self addColumn: (FTColumn id: name)
 	].
-	self intercellSpacing: 0.5; beResizable; "vResizing: #spaceFill; hResizing: #spaceFill;"
-	onAnnouncement: FTSelectionChanged do: [ :ann | 
+	self dataSource: aDataSource; intercellSpacing: 0.5; beResizable; vResizing: #spaceFill; hResizing: #spaceFill; onAnnouncement: FTSelectionChanged do: [ :ann | 
 		self setHighlightedElement.
 		self setSelectedElement.
-	];
-	dataSource: aDataSource.
+	].
 	"Agrega tabla actual como dependiente del modelo/dataSoruce"
-	aDataSource addDependent: self.
-	self update: aDataSource.
+	dataSource addDependent: self.
+	self update: dataSource.
 
 ]
 
@@ -70,18 +68,18 @@ Table >> selectedElement: elem [
 
 { #category : #initialization }
 Table >> setHighlightedElement [
-	highlightedElement := nil.
 	(self highlightedIndex > 0) ifTrue: [ 
 		self highlightedElement: (self elementAt: self highlightedIndex).
-	]. 
-	self changed: highlightedElement.
+	] ifFalse: [
+		self highlightedElement: nil.
+	].
 ]
 
 { #category : #initialization }
 Table >> setSelectedElement [
-	selectedElement := nil.
 	(self selectedIndex > 0) ifTrue: [ 
 		self selectedElement: (self elementAt: self selectedIndex).
+	] ifFalse: [
+		self selectedElement: nil.
 	].
-	self changed: selectedElement.
 ]

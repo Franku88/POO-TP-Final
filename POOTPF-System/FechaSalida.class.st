@@ -32,6 +32,11 @@ FechaSalida >> cupo: unCupo [
 	cupo := unCupo.
 ]
 
+{ #category : #verifying }
+FechaSalida >> esVigente [
+	^(self fecha > Date today).
+]
+
 { #category : #accessing }
 FechaSalida >> fecha [
 	^fecha.

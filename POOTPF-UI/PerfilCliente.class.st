@@ -86,9 +86,9 @@ PerfilCliente >> initializeWithSystem: unSistema cliente: unCliente [
 ]
 
 { #category : #updating }
-PerfilCliente >> update: unCliente [
-	super update: unCliente.
-	unCliente ifNotNil:  [  
-		datosCliente setText: (self clienteToStringPerfil: unCliente).
+PerfilCliente >> update: o [
+	super update: o.
+	cliente ifNotNil:  [  
+		datosCliente setText: (self clienteToStringPerfil: cliente).
 	].
 ]

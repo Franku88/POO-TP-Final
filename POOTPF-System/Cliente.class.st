@@ -35,7 +35,7 @@ Cliente class >> crear: unDni apellido: unApellido ciudad: unaCiudad datosContac
 	^cli
 ]
 
-{ #category : #adding }
+{ #category : #'adding-removing' }
 Cliente >> addContrato: unContrato [
 	colContratos add: unContrato.
 	self changed.
@@ -75,7 +75,7 @@ Cliente >> bajarContratoConNumero: unNum [
 			exito := unValor >= 0.
 			(exito) ifTrue: [  
 					self reembolsar: unValor.
-					colContratos remove: unContrato.
+					self borrarContrato: unContrato.
 				].
 		].
 	^exito.
@@ -106,6 +106,12 @@ Cliente >> bajarContratosConViaje: unNombre [
 			colContratos removeAll: colContratosBajados.
 		].
 	^bajado.
+]
+
+{ #category : #'adding-removing' }
+Cliente >> borrarContrato: unContrato [
+	colContratos remove: unContrato.
+	self changed.
 ]
 
 { #category : #searching }

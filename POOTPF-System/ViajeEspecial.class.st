@@ -46,6 +46,11 @@ ViajeEspecial >> ciudad: unaCiudad [
 	ciudad := unaCiudad.
 ]
 
+{ #category : #verifying }
+ViajeEspecial >> esVigente [
+	^(self fechaSalida esVigente).
+]
+
 { #category : #accessing }
 ViajeEspecial >> fechaRegreso [
 	^fechaRegreso.

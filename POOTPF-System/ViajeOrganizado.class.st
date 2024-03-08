@@ -71,6 +71,12 @@ ViajeOrganizado >> esOrganizado [
 	^true.
 ]
 
+{ #category : #verifying }
+ViajeOrganizado >> esVigente [
+	^ (colFechasSalida anySatisfy: [ :f | f esVigente]).
+	
+]
+
 { #category : #initialization }
 ViajeOrganizado >> inicializarCantDias: unaCant colFechasSalida: unaCol colEtapas: otraCol [
 	"Inicializa variables de ViajeOrganizado"
