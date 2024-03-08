@@ -117,31 +117,34 @@ VerContratos >> addMessageCancelar [
 
 { #category : #adding }
 VerContratos >> addMessagePagar [
+	|unContrato|.
+	unContrato := tablaContratos selectedElement.
 	"Pago de cuotas de un contrato seleccionado en la tabla"
-	((tablaContratos selectedElement) cantCuotasPagadas = (tablaContratos selectedElement) cantCuotas) 
-	ifFalse:[
-		self addMessageInput: '¿Cuantas cuotas desea pagar?' actionAceptar: [ :fInput :popUp|
-			(fInput) ifNil: [ 
-				body addMessage: 'Ingrese un valor numerico'.
-			] ifNotNil: [ 
-				(Helper stringIsNumeric: fInput) ifFalse:[
-					self addMessage: 'Ingrese un valor numerico'.
-				] ifTrue: [
-					(cliente pagarCuotas: ((tablaContratos selectedElement) numero) 
-					cuotasAPagar: (fInput asInteger)) 
-					ifTrue:[
-						self addMessage: 'Contrato abonado con exito'.
-						popUp delete.
-					] ifFalse: [
-						self addMessage: 'Cantidad invalida o dinero insuficiente.' extent: 230@100.
+	(unContrato esEfectivo | (unContrato esVigente) not) ifTrue: [
+		self addMessage: 'No es posible pagar el contrato.',String cr,'(Es Efectivo o Fecha no vigente)' extent: 210@120.
+	] ifFalse: [
+		(unContrato cantCuotasPagadas = unContrato cantCuotas) ifFalse:[
+			self addMessageInput: '¿Cuantas cuotas desea pagar?' actionAceptar: [ :fInput :popUp|
+				(fInput) ifNil: [ 
+					body addMessage: 'Ingrese un valor numerico'.
+				] ifNotNil: [ 
+					(Helper stringIsNumeric: fInput) ifFalse:[
+						self addMessage: 'Ingrese un valor numerico'.
+					] ifTrue: [
+						(cliente pagarCuotas: (unContrato numero) cuotasAPagar: fInput asInteger) ifTrue: [
+							self addMessage: 'Contrato abonado con exito'.
+							popUp delete.
+						] ifFalse: [
+							self addMessage: 'Cantidad invalida o dinero insuficiente.' extent: 230@100.
+						].
 					].
 				].
 			].
-		].
-	] ifTrue: [ 
-		self addMessage: 'Contrato sin cuotas pendientes.'.
+		] ifTrue: [ 
+			self addMessage: 'Contrato sin cuotas pendientes.'.
+		].		
 	].
-	
+
 ]
 
 { #category : #adding }
