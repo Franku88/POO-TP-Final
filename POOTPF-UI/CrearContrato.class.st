@@ -37,7 +37,7 @@ CrearContrato >> addBotonCrearContrato [
 	botonCrear center: body center; bottom: body bottom - 40.
 	
 	botonCrear mouseAction: [ 
-		cliente generarContrato: ((sistema getColContratos) size + 1) viaje: (tablaViajesDisponibles selectedElement) fechaSalida: (tablaFechas selectedElement) cantPasajeros: (campoCantPersonas getValor) cantCuotas: (campoCantCuotas getValor) esFlexible: (checkFlexible enabled).
+		cliente generarContrato: ((sistema getColContratos) size + 1) viaje: (tablaViajesDisponibles selectedElement) fechaSalida: (tablaFechas selectedElement) cantPasajeros: (campoCantPersonas getValor) cantCuotas: (campoCantCuotas getValor) esFlexible: (checkFlexible isOn).
 		self addMessage: 'Contrato creado con exito.'.
 	].
 

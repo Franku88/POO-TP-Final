@@ -6,30 +6,70 @@ Luego, otro dato modificable unicamente es la fecha seleccionada y si el contrat
 
     Instance Variables
 	contrato:		<Object>
+	botonAgregarExcOp:		<Button>
+	botonCambiarFecha:		<Button>
 
 "
 Class {
 	#name : #ModificarContrato,
-	#superclass : #ViewCliente,
+	#superclass : #ViewContrato,
 	#instVars : [
-		'contrato'
+		'botonAgregarExcOp',
+		'botonCambiarFecha'
 	],
 	#category : #'POOTPF-UI-Views'
 }
 
-{ #category : #creating }
-ModificarContrato class >> createWithSystem: unSistema cliente: unCliente contrato: unContrato [
-	|crearContratoW|.
-	crearContratoW := self new.
-	crearContratoW initializeWithSystem: unSistema cliente: unCliente contrato: unContrato.
- 	^crearContratoW.
+{ #category : #adding }
+ModificarContrato >> addBotonCambiarFecha [
+	botonCambiarFecha := Button label: 'Cambiar fecha seleccionada' extent: 160@30.
+	
+	botonCambiarFecha left: body left + 150; bottom: body bottom - 150.
+	
+	botonCambiarFecha mouseAction: [  
+		(contrato esFlexible) ifTrue: [ 
+			self addMorphCentered: (CambiarFecha createWithSystem: sistema cliente: cliente contrato: contrato).
+		] ifFalse: [
+			self addMessage: '      El contrato no es flexible.',String cr,'No es posible cambiar su fecha.' extent: 200@120.
+		].
+	].
+	
+	body addMorph: botonCambiarFecha.
+]
+
+{ #category : #adding }
+ModificarContrato >> addBotonExcOp [
+	botonAgregarExcOp  := Button label: 'Agregar excursion opcional' extent: 160@30.
+	
+	botonAgregarExcOp left: body left + 150; top: body top + 150.
+	
+	botonAgregarExcOp mouseAction: [  
+		self addMorphCentered: (AgregarExcursionOpcional createWithSystem: sistema cliente: cliente contrato: contrato).
+	].
+	
+	body addMorph: botonAgregarExcOp.
+	
+
+]
+
+{ #category : #adding }
+ModificarContrato >> addButtons [
+	self addBotonExcOp.
+	self addBotonCambiarFecha.
 ]
 
 { #category : #initialization }
 ModificarContrato >> initializeWithSystem: unSistema cliente: unCliente contrato: unContrato [
-	self initializeWithSystem: unSistema cliente: unCliente.
-	contrato := unContrato.
-	contrato addDependent: self.
+	super initializeWithSystem: unSistema cliente: unCliente contrato: unContrato.
 	self addBotonBorrarVentana: 'Atras'.
-	"lo que siga"
+	self addButtons.
+
+	
+	
+
+	
+	
+	
+	
+	
 ]

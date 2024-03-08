@@ -194,6 +194,50 @@ Ventana >> botonBorrarVentana [
 	^botonBorrarVentana
 ]
 
+{ #category : #strings }
+Ventana >> clienteToStringPerfil: unCliente [
+	"Convierte a unCliente en una cadena para posicionar dentro del contenedor de perfil"
+	|string rta|.	
+	string := '    DNI: ',String cr,'            ', (unCliente dni asString), String cr.
+	string := string, '    Apellido: ',String cr,'            ', (unCliente apellido asString), String cr.
+	string := string, '    Ciudad: ',String cr,'            ', (unCliente ciudad asString), String cr.
+	string := string, '    Contacto: ',String cr,'            ', (unCliente datosContacto asString), String cr.
+	"rta segun boolean esFrecuente"
+	rta := 'No'.
+	(unCliente esFrecuente) ifTrue: [rta := 'Si'.].
+	string := string, '    Frecuente: ',String cr,'            ',rta, String cr.
+	string := string, '    Millas: ',String cr,'            ', (unCliente millas asString), String cr.
+	string := string, '    Dinero: ',String cr,'             $', (unCliente dinero asString), String cr.
+	string := string, '    Preferencias: ',String cr,'            ', (unCliente preferencias asString).
+	^string.
+]
+
+{ #category : #strings }
+Ventana >> contratoToString: unContrato [
+	|cadena cadenaExc|.
+	cadenaExc := ''.
+	(unContrato colExcursiones) do: [:cadaExc|
+			cadenaExc := '		',cadenaExc,cadaExc toString,String cr.
+	].
+	(cadenaExc = '') ifTrue: [
+		cadenaExc := '		Sin excursiones',String cr.
+	].
+	
+	cadena := 'Numero: ',unContrato numero asString,String cr,
+	'Fecha de contrato: ', unContrato fechaContrato ddmmyyyy,String cr,
+	'Viaje: ',String cr,(self viajeToString: unContrato viaje),String cr,
+	'Fecha seleccionada: ',unContrato fechaSeleccionada ddmmyyyy,String cr,
+	'Cantidad de personas: ',unContrato cantPersonas asString,String cr,
+	'Cuotas: ',unContrato cantCuotas asString,String cr,
+	'Cuotas pagadas: ',unContrato cantCuotasPagadas asString,String cr,
+	'Valor de cuota: $',(unContrato valorCuota) asString,String cr,
+	'Proximo vencimiento: ',unContrato fechaProxVencimiento ddmmyyyy,String cr,
+	'Excursiones opcionales: ',String cr,cadenaExc,
+	'Es Efectivo: ',(Helper booleanToString: unContrato esEfectivo),String cr,
+	'Es Flexible: ',(Helper booleanToString: unContrato esFlexible).
+	^cadena
+]
+
 { #category : #initialization }
 Ventana >> initialize [
 	"Inicializa ventana sin sistema"
@@ -214,4 +258,13 @@ Ventana >> initializeWithSystem: sis [
 	self initialize.
 	sistema := sis.
 	
+]
+
+{ #category : #strings }
+Ventana >> viajeToString: unViaje [
+	|cadena|.
+	cadena := '		Nombre: ', unViaje nombre,String cr,
+	'		Costo por persona: $', unViaje costoPorPersona asString,String cr,
+	'		Impuestos: $', unViaje valorImpuestos asString.
+	^cadena.
 ]
