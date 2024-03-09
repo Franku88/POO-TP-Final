@@ -83,7 +83,8 @@ FechaSalida >> tieneFechaRango: f1 hasta: f2 [
 { #category : #printing }
 FechaSalida >> toString [
 	|cadena|.
-	cadena := fecha ddmmyyyy,', Cupo: ',cupo asString.
+	cadena := '	Fecha: ',fecha ddmmyyyy,
+	', Cupo: ',cupo asString.
 	^cadena.
 ]
 

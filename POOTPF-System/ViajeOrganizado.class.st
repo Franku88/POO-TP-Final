@@ -126,7 +126,9 @@ ViajeOrganizado >> toString [
 	cadena := super toString.
 	salidas := self toStringSalidas.
 	etapas := self toStringEtapas.
-	cadena := '----- ',cadena,', Dias de viaje: ',cantDias asString,', ',String cr,'Salidas: ',String cr,salidas,String cr,' Etapas: ',String cr, etapas, ' -----',String cr.
+	cadena := cadena,String cr,'Dias de viaje: ',cantDias asString,String cr,
+						'Salidas: ',String cr,salidas,String cr,
+						'Etapas: ',String cr, etapas,String cr.
 	^cadena.	
 ]
 
@@ -151,7 +153,7 @@ ViajeOrganizado >> toStringSalidas [
 			cadena := cadena,cadaFechaSalida toString,String cr.
 		].
 	(cadena = '') ifTrue: [  
-		cadena := 'Sin fechas de salida',String cr.
+		cadena := 'Sin fechas de salida'.
 	].
 	^cadena.
 ]

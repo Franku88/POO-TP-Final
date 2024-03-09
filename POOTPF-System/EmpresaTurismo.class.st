@@ -22,6 +22,12 @@ EmpresaTurismo class >> crear [
 	^unaEmpresa.
 ]
 
+{ #category : #adding }
+EmpresaTurismo >> agregarCliente: unCliente [
+	self colClientes add: unCliente.
+	self changed.
+]
+
 { #category : #updating }
 EmpresaTurismo >> agregarReservaAContrato: unDni numeroContrato: unNum excursionOpcional: unaExc cantPersonas: unaCant [
 	"Agrega unaExc a colExcursiones del Contrato con unNum del cliente con unDni si fuera posible"

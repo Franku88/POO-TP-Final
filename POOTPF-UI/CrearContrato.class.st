@@ -4,6 +4,7 @@ Vista que mostrara un menu de creacion de contrato.
 Instance Variables
 tablaViajesDisponibles: <Table>
 tablaFechas:				<Table>
+masInfoViaje: 		<ScrolledText>
 campoCantPersonas:		<TextField>	
 campoCantCuotas:		<TextField>
 checkFlexible:			<CheckboxButtonMorph>
@@ -15,6 +16,7 @@ Class {
 	#instVars : [
 		'tablaViajesDisponibles',
 		'tablaFechas',
+		'masInfoViaje',
 		'campoCantPersonas',
 		'campoCantCuotas',
 		'checkFlexible',
@@ -34,7 +36,7 @@ CrearContrato class >> createWithSystem: unSistema cliente: unCliente [
 { #category : #adding }
 CrearContrato >> addBotonCrearContrato [
 	botonCrear := Button label: 'Crear contrato' extent: 100@35.
-	botonCrear center: body center; bottom: body bottom - 40.
+	botonCrear center: body center; bottom: body bottom - 25.
 	
 	botonCrear mouseAction: [ 
 		cliente generarContrato: ((sistema getColContratos) size + 1) viaje: (tablaViajesDisponibles selectedElement) fechaSalida: (tablaFechas selectedElement) cantPasajeros: (campoCantPersonas getValor) cantCuotas: (campoCantCuotas getValor) esFlexible: (checkFlexible isOn).
@@ -86,36 +88,44 @@ CrearContrato >> addCampoCantPersonas: max [
 
 { #category : #adding }
 CrearContrato >> addCheckFlexible [
-	"CONTINUAR"
 	|title|.
 	checkFlexible := CheckboxButtonMorph checkBox.
 	title := 'Contrato Flexible' asMorph.
 	
 	checkFlexible center: (tablaFechas  center).	
 	checkFlexible left: (tablaFechas right + 55).
-	title center: checkFlexible center.
 	title left: checkFlexible right + 10.
 	
-	body addMorph: checkFlexible.
-	
-	
-	
-	
-	
+	body addMorph: checkFlexible.	
 	campoCantPersonas addMorph: title.
 	body addMorph: campoCantPersonas.
 
 ]
 
 { #category : #adding }
+CrearContrato >> addMasInfoViaje: unViaje [
+	masInfoViaje := ScrolledText createExtent: ((body width*0.38)@(body height*0.8)) color: Color transparent title: 'Más información'.
+	masInfoViaje beReadOnly.
+	
+	masInfoViaje right: (body right - 25); top: (tablaViajesDisponibles top).
+	
+	masInfoViaje setText: unViaje toString.
+	body addMorph: masInfoViaje.
+]
+
+{ #category : #adding }
 CrearContrato >> addTablaFechas: unViaje [
 	"Agrega una tabla con fechas vigentes de unViaje"
+	|label|.
+	label := 'Fechas vigentes' asMorph.
 	tablaFechas := Table createColumns: (#(Fecha Cupo) asOrderedCollection) extent: ((body width*0.22)@(body height*0.3)) dataSource: (DataSourceFecha createCollection: (unViaje getColFechasVigentes) object: unViaje).
 	
-	tablaFechas top: tablaViajesDisponibles  bottom + 20; left: tablaViajesDisponibles left.
+	tablaFechas top: tablaViajesDisponibles  bottom + 40; left: tablaViajesDisponibles left.
 	tablaFechas borderColor: Color black; borderWidth: 1.
+	label bottom: tablaFechas top - 10; left: tablaFechas left.
 	
 	body addMorph: tablaFechas.
+	tablaFechas addMorph: label.
 	
 	tablaFechas setClick: [ :obj |
 		obj ifNotNil: [
@@ -134,7 +144,7 @@ CrearContrato >> addTablaViajesDisponibles [
 	tablaViajesDisponibles  := Table createColumns: (#(Nombre 'Costo por Persona' Impuestos) asOrderedCollection) extent: (body width*(0.5))@(body height*(0.4)) dataSource: (DataSourceViaje createCollection: ((sistema colViajes) select: [:v | v esVigente]) object: sistema).
 	
 	tablaViajesDisponibles center: body center.
-	tablaViajesDisponibles top: body top + 20.
+	tablaViajesDisponibles top: body top + 50; left: body left + 25.
 	tablaViajesDisponibles borderColor: Color black; borderWidth: 1.
 	
 	body addMorph: tablaViajesDisponibles.
@@ -151,6 +161,9 @@ CrearContrato >> borrarInputs [
 		checkFlexible ifNotNil: [
 			checkFlexible delete.
 		].
+		botonCrear ifNotNil:[
+			botonCrear delete.	
+		].
 ]
 
 { #category : #initialization }
@@ -159,6 +172,8 @@ CrearContrato >> initializeWithSystem: unSistema cliente: unCliente [
 	"Agrega Morphs"
 	self addBotonBorrarVentana: 'Atras'.
 	self addTablaViajesDisponibles.
+	self addTitulo: 'Crear contrato'.
+	titulo top: body top + 10.
 	tablaViajesDisponibles addDependent: self.
 	self update: tablaViajesDisponibles selectedElement.
 ]
@@ -168,8 +183,10 @@ CrearContrato >> update: o [
 	(tablaViajesDisponibles selectedElement) ifNotNil: [
 		tablaFechas ifNotNil:[
 			tablaFechas delete.
+			masInfoViaje delete.
 			self borrarInputs.
 		].
 		self addTablaFechas: (tablaViajesDisponibles selectedElement).
+		self addMasInfoViaje: (tablaViajesDisponibles selectedElement).
 	].
 ]

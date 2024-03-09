@@ -19,9 +19,9 @@ Class {
 
 { #category : #adding }
 SistemaLogIn >> addButtons [ 
-	botonResumen   := Button label: 'Resumen Diario' extent: 100@30.
+	botonResumen := Button label: 'Resumen Diario' extent: 100@30.
 	botonViajes := Button label:'Viajes' extent: 80@30.
-	botonClientes :=Button label:'Clientes' extent: 80@30.
+	botonClientes := Button label:'Clientes' extent: 80@30.
 	"ubico boton clientes"
 	botonClientes center:contenedor center.
 	contenedor addMorph: botonClientes .

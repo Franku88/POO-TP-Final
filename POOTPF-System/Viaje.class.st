@@ -114,7 +114,9 @@ Viaje >> tieneNombre: unNombre [
 { #category : #printing }
 Viaje >> toString [
 	|cadena|.
-	cadena := 'Nombre: ',nombre,', Costo por persona: $',costoPorPersona asString,', Impuestos: $',valorImpuestos asString.
+	cadena := 'Nombre: ',nombre,String cr,
+	'Costo por persona: $',costoPorPersona asString,String cr,
+	'Impuestos: $',valorImpuestos asString.
 	^cadena.
 ]
 
