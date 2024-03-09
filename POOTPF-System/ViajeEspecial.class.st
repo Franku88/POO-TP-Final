@@ -101,9 +101,9 @@ ViajeEspecial >> tieneFecha: unaFecha [
 ViajeEspecial >> toString [ 
 	|cadena|.
 	cadena := super toString.
-	cadena := cadena,String cr,'Ciudad: ',ciudad,String cr,
-		'Salida: ',fechaSalida toString,String cr,
-		'Regreso: ',fechaRegreso ddmmyyyy,String cr.
+	cadena := cadena,String cr,'	Ciudad: ',ciudad,String cr,
+		'	Salida: ',fechaSalida toString,String cr,
+		'	Regreso: ',fechaRegreso ddmmyyyy,String cr.
 	^cadena.
 ]
 

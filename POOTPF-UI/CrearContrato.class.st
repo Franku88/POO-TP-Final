@@ -42,7 +42,6 @@ CrearContrato >> addBotonCrearContrato [
 		cliente generarContrato: ((sistema getColContratos) size + 1) viaje: (tablaViajesDisponibles selectedElement) fechaSalida: (tablaFechas selectedElement) cantPasajeros: (campoCantPersonas getValor) cantCuotas: (campoCantCuotas getValor) esFlexible: (checkFlexible isOn).
 		self addMessage: 'Contrato creado con exito.'.
 	].
-
 	self addMorph: botonCrear.
 ]
 
@@ -88,18 +87,17 @@ CrearContrato >> addCampoCantPersonas: max [
 
 { #category : #adding }
 CrearContrato >> addCheckFlexible [
-	|title|.
+	|label|.
 	checkFlexible := CheckboxButtonMorph checkBox.
-	title := 'Contrato Flexible' asMorph.
+	label := 'Contrato Flexible' asMorph.
 	
 	checkFlexible center: (tablaFechas  center).	
 	checkFlexible left: (tablaFechas right + 55).
-	title left: checkFlexible right + 10.
+	label center: checkFlexible center; left: checkFlexible right + 10.
 	
 	body addMorph: checkFlexible.	
-	campoCantPersonas addMorph: title.
+	checkFlexible addMorph: label.
 	body addMorph: campoCantPersonas.
-
 ]
 
 { #category : #adding }

@@ -205,17 +205,15 @@ EmpresaTurismo >> inicializar [
 { #category : #printing }
 EmpresaTurismo >> inicioDelDia [
 	|textoRetorno textoClientes|.
-	textoRetorno := 'Clientes con contratos a vencer: ',String cr.
 	textoClientes := ''.
+	textoRetorno := 'No se encontraron clientes con contratos por vencer'.
 	colClientes do: [:cadaCliente|
 			 (cadaCliente tieneContratoPorVencer) ifTrue: [  
 					textoClientes := textoClientes,cadaCliente toString,String cr.
 				].
 		].
-	(textoClientes = '') ifTrue:[
-			textoRetorno := 'No se encontraron clientes con contratos por vencer'.
-		] ifFalse: [
-			textoRetorno := textoRetorno,textoClientes.
+	(textoClientes = '') ifFalse: [
+			textoRetorno := 'Clientes con contratos a vencer: ',String cr,textoClientes.
 		].
 	^textoRetorno.
 ]
@@ -242,6 +240,14 @@ EmpresaTurismo >> modificarViaje: unNombre costoPorPersona: unCostoP valorImpues
 			unViaje modificarCosto: unCostoP valorImpuestos: unImpuesto.
 		].
 	^exito.
+]
+
+{ #category : #'as yet unclassified' }
+EmpresaTurismo >> obtenerViajes: f1 hasta: f2 [
+	"Retorna una OrderedCollection con Viajes que tengan fechas entre f1 y f2"
+	^ colViajes select: [:cadaViaje|
+			cadaViaje verificarSalidaRango: f1 hasta: f2.
+		].
 ]
 
 { #category : #updating }

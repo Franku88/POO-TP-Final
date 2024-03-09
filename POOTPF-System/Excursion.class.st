@@ -49,7 +49,7 @@ Excursion >> tieneDescripcion: des [
 { #category : #printing }
 Excursion >> toString [
 	|cadena|.
-	cadena := '		Descripcion: ',descripcion.
+	cadena := '			Descripcion: ',descripcion.
 	^cadena.
 ]
 

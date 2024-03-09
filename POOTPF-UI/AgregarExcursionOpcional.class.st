@@ -11,5 +11,5 @@ Class {
 AgregarExcursionOpcional >> initializeWithSystem: unSistema cliente: unCliente contrato: unContrato [
 	super initializeWithSystem: unSistema cliente: unCliente contrato: unContrato.
 	self addBotonBorrarVentana: 'Atras'.
-	self addMessage: 'AGREGAR EXCURSION'.
+	self addMessage: 'FALTA IMPLEMENTAR'.
 ]

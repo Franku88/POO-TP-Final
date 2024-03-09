@@ -101,11 +101,11 @@ Etapa >> tipoPension: unTipo [
 Etapa >> toString [
 	|cadena excursiones|.
 	excursiones := self toStringExcursiones.
-	cadena := '	Llegada: ',diaLlegada,String cr,
-	'	Dias: ',cantDias asString,String cr,
-	'	Hotel: ',nombreHotel,String cr,
-	'	Tipo de pension: ',tipoPension,String cr,
-	'	Excursiones: ',String cr,excursiones.
+	cadena := '		Llegada: ',diaLlegada,String cr,
+	'		Dias: ',cantDias asString,String cr,
+	'		Hotel: ',nombreHotel,String cr,
+	'		Tipo de pension: ',tipoPension,String cr,
+	'		Excursiones: ',String cr,excursiones.
 	^cadena.
 ]
 

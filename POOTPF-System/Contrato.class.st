@@ -307,9 +307,17 @@ Contrato >> tieneViajeConNombre: unNombre [
 
 { #category : #printing }
 Contrato >> toString [
-	|cadena reservas|.
+	|cadena reservas efec|.
+	efec := 'No'.
+	(self esEfectivo) ifTrue: [efec:= 'Si'].
 	reservas := self toStringReservas.
-	cadena := 'Numero: ',numero asString,', Fecha de contrato: ',fechaContrato ddmmyyyy,', ',String cr,'Viaje: ',String cr,(viaje toString),'Fecha seleccionada: ',fechaSeleccionada ddmmyyyy,', Personas: ',cantPersonas asString,', Cuotas: ',cantCuotas asString,', Proximo vencimiento: ',fechaProxVencimiento ddmmyyyy,', ',String cr,'Reservas: ',String cr,'',reservas,'Cuotas pagadas: ',cantCuotasPagadas asString,', Efectivo: ',esEfectivo asString.
+	cadena := '	- Numero: ',numero asString,', Fecha de contrato: ',fechaContrato ddmmyyyy,', ',String cr,
+	'	Viaje: ',String cr,(viaje toString),
+	'	Fecha seleccionada: ',fechaSeleccionada ddmmyyyy,', Personas: ',cantPersonas asString,', Cuotas: ',cantCuotas asString,
+	', Proximo vencimiento: ',fechaProxVencimiento ddmmyyyy,', ',String cr,
+	'	Reservas: ',String cr,'',reservas,
+	'	Cuotas pagadas: ',cantCuotasPagadas asString,
+	', Es efectivo: ',efec, String cr.
 	^cadena
 ]
 
@@ -321,7 +329,7 @@ Contrato >> toStringReservas [
 			cadena := cadena,cadaRes toString,String cr.
 		].
 	(cadena = '') ifTrue: [  
-		cadena := 'Sin reservas',String cr.
+		cadena := '		Sin reservas',String cr.
 	].
 	^cadena.
 ]

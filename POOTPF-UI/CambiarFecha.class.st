@@ -12,5 +12,5 @@ Class {
 CambiarFecha >> initializeWithSystem: unSistema cliente: unCliente contrato: unContrato [
 	super initializeWithSystem: unSistema cliente: unCliente contrato: unContrato.
 	self addBotonBorrarVentana: 'Atras'.
-	self addMessage: 'CAMBIAR FECHA'.
+	self addMessage: 'FALTA IMPLEMENTAR'.
 ]
