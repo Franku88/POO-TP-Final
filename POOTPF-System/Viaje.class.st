@@ -75,6 +75,12 @@ Viaje >> getColFechasVigentes [
 	^ (OrderedCollection new).
 ]
 
+{ #category : #accessing }
+Viaje >> getExcursionOpcional: unaDesc [
+	^nil.
+	
+]
+
 { #category : #initialization }
 Viaje >> inicializarNombre: unNombre costoPorPersona: unCosto valorImpuestos: unValor [
 	"Inicializa variables de Viaje"

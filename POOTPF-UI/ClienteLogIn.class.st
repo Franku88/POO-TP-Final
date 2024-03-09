@@ -48,7 +48,9 @@ ClienteLogIn >> addButtons [
 			].
 	].
 
-	"botonRegistro mouseAction: [  ]."
+	botonRegistro mouseAction: [ 
+		self addMorphCentered: (RegistrarCliente createWithSystem: sistema).
+	].
 	
 	contenedor addMorph: botonIngreso.
 	contenedor addMorph: botonRegistro.

@@ -42,13 +42,13 @@ Cliente >> addContrato: unContrato [
 ]
 
 { #category : #updating }
-Cliente >> agregarExcursionAContratoConNumero: unNum excursionOpcional: unaExc [
-	"Agrega unaExc a colExcursiones de Contrato con unNum si es posible"
+Cliente >> agregarReservaAContratoConNumero: unNum excursionOpcional: unaExc cantPersonas: unaCant [
+	"Agrega unaExc a colReservas de Contrato con unNum si es posible"
 	|unContrato exito|.
 	unContrato := self buscarContratoConNumero: unNum.
 	exito := unContrato notNil.
 	(exito) ifTrue: [  
-			exito := unContrato agregarExcursion: unaExc.
+			exito := unContrato agregarReserva: unaExc cantPersonas: unaCant.
 		].
 	^exito.
 ]

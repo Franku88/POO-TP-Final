@@ -7,7 +7,7 @@ fechaProxVencimiento:		<Date>
 fechaSeleccionada:		<Date>
 numero:		<Integer>
 viaje:		<Viaje>
-colExcursiones:		<OrderedCollection>
+colReservas:		<OrderedCollection>
 cantCuotasPagadas:		<Integer>
 esEfectivo: 		<Boolean>
 "
@@ -22,9 +22,9 @@ Class {
 		'cantPersonas',
 		'cantCuotas',
 		'fechaProxVencimiento',
-		'colExcursiones',
 		'cantCuotasPagadas',
-		'esEfectivo'
+		'esEfectivo',
+		'colReservas'
 	],
 	#category : #'POOTPF-System-System'
 }
@@ -38,18 +38,21 @@ Contrato class >> crear: unNumero viaje: unViaje cantPersonas: unaCant cantCuota
 	^unContrato.
 ]
 
+{ #category : #adding }
+Contrato >> agregarReserva: unaRes [
+	colReservas add: unaRes.
+	self changed.
+]
+
 { #category : #updating }
-Contrato >> agregarExcursion: unaExc [
-	"Agrega unaExc a colExcursiones si es posible"
+Contrato >> agregarReserva: unaExc cantPersonas: unaCant [
+	"Agrega unaExc a colReservas si es posible"
 	|exito|.
 	exito := self puedeAgregarExcursion.
 	(exito) ifTrue: [  
 			exito := viaje esOrganizado.
-			(exito) ifTrue: [  
-					exito := unaExc verificarCantPersonas: cantPersonas.
-					(exito) ifTrue: [  
-							colExcursiones add: unaExc.
-						].
+			(exito) ifTrue: [
+					self agregarReserva: (ReservaExcursion crear: unaExc cantPersonas: unaCant).
 				].
 		].
 	^exito.
@@ -74,18 +77,18 @@ Contrato >> calcularCuotas: cantC [
 	unMonto := -1.
 	exito := cantC <= (cantCuotas - cantCuotasPagadas).
 	(exito) ifTrue: [  
-			unMonto := ((self calcularMontoTotal)/cantCuotas)*cantC.
+			unMonto := ((self calcularMonto)/cantCuotas)*cantC.
 		].
 	^unMonto.
 ]
 
 { #category : #calculating }
-Contrato >> calcularExtraExcursiones [
+Contrato >> calcularExtraReservas [
 	"Calcula el total de extras por excursiones opcionales"
 	|extra|.
 	extra := 0.
-	colExcursiones do: [:cadaExc|  
-			extra := extra + (cadaExc costo).
+	colReservas do: [:cadaRes|  
+			extra := extra + (cadaRes costoExtra).
 		].
 	^extra.
 ]
@@ -100,10 +103,10 @@ Contrato >> calcularMonto [
 
 { #category : #calculating }
 Contrato >> calcularMontoTotal [
-	"Realiza el calculo del monto total a pagar del contrato"
+	"Realiza el calculo del monto total a pagar del contrato con reservas pagadas"
 	|unMonto extra|.
 	unMonto := viaje calcularMontoPara: cantPersonas.
-	extra := self calcularExtraExcursiones.
+	extra := self calcularExtraReservas.
 	unMonto := unMonto + extra.
 	^unMonto.
 ]
@@ -166,13 +169,13 @@ Contrato >> cantPersonas: unaCant [
 ]
 
 { #category : #accessing }
-Contrato >> colExcursiones [
-	^colExcursiones.
+Contrato >> colReservas [
+	^colReservas
 ]
 
 { #category : #accessing }
-Contrato >> colExcursiones: unaCol [
-	colExcursiones := unaCol.
+Contrato >> colReservas: unaCol [
+	colReservas := unaCol.
 ]
 
 { #category : #updating }
@@ -246,7 +249,7 @@ Contrato >> inicializarNumero: unNumero viaje: unViaje cantPersonas: unaCant can
 	fechaContrato := Date today.
 	fechaProxVencimiento := (Date today) addDays: 30.
 	"Inicializa colExcursiones vacia, sin cuotas pagadas y no efectivo"
-	colExcursiones := OrderedCollection new.
+	colReservas := OrderedCollection new.
 	cantCuotasPagadas := 0.
 	esEfectivo := false.
 ]
@@ -299,26 +302,26 @@ Contrato >> tieneNumero: unNum [
 { #category : #verifying }
 Contrato >> tieneViajeConNombre: unNombre [
 	"Retorna verdadero si viaje de Contrato tiene unNombre"
-	^(viaje tieneNombre: unNombre)
+	^(viaje tieneNombre:  unNombre)
 ]
 
 { #category : #printing }
 Contrato >> toString [
-	|cadena excursiones|.
-	excursiones := self toStringExcursiones.
-	cadena := 'Numero: ',numero asString,', Fecha de contrato: ',fechaContrato ddmmyyyy,', ',String cr,'Viaje: ',String cr,(viaje toString),'Fecha seleccionada: ',fechaSeleccionada ddmmyyyy,', Personas: ',cantPersonas asString,', Cuotas: ',cantCuotas asString,', Proximo vencimiento: ',fechaProxVencimiento ddmmyyyy,', ',String cr,'Excursiones opcionales: ',String cr,'',excursiones,'Cuotas pagadas: ',cantCuotasPagadas asString,', Efectivo: ',esEfectivo asString.
+	|cadena reservas|.
+	reservas := self toStringReservas.
+	cadena := 'Numero: ',numero asString,', Fecha de contrato: ',fechaContrato ddmmyyyy,', ',String cr,'Viaje: ',String cr,(viaje toString),'Fecha seleccionada: ',fechaSeleccionada ddmmyyyy,', Personas: ',cantPersonas asString,', Cuotas: ',cantCuotas asString,', Proximo vencimiento: ',fechaProxVencimiento ddmmyyyy,', ',String cr,'Reservas: ',String cr,'',reservas,'Cuotas pagadas: ',cantCuotasPagadas asString,', Efectivo: ',esEfectivo asString.
 	^cadena
 ]
 
 { #category : #printing }
-Contrato >> toStringExcursiones [
+Contrato >> toStringReservas [
 	|cadena|.
 	cadena := ''.
-	colExcursiones do: [:cadaExc|
-			cadena := cadena,cadaExc toString,String cr.
+	colReservas do: [ :cadaRes |
+			cadena := cadena,cadaRes toString,String cr.
 		].
 	(cadena = '') ifTrue: [  
-		cadena := 'Sin excursiones',String cr.
+		cadena := 'Sin reservas',String cr.
 	].
 	^cadena.
 ]

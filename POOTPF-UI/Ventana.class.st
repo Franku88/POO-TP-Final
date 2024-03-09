@@ -214,13 +214,13 @@ Ventana >> clienteToStringPerfil: unCliente [
 
 { #category : #strings }
 Ventana >> contratoToString: unContrato [
-	|cadena cadenaExc|.
-	cadenaExc := ''.
-	(unContrato colExcursiones) do: [:cadaExc|
-			cadenaExc := '		',cadenaExc,cadaExc toString,String cr.
+	|cadena cadenaRes|.
+	cadenaRes := ''.
+	(unContrato colReservas) do: [ :cadaRes |
+			cadenaRes := cadenaRes,(cadaRes toString),String cr.
 	].
-	(cadenaExc = '') ifTrue: [
-		cadenaExc := '		Sin excursiones',String cr.
+	(cadenaRes = '') ifTrue: [
+		cadenaRes := '		Sin Reservas',String cr.
 	].
 	
 	cadena := 'Numero: ',unContrato numero asString,String cr,
@@ -232,7 +232,7 @@ Ventana >> contratoToString: unContrato [
 	'Cuotas pagadas: ',unContrato cantCuotasPagadas asString,String cr,
 	'Valor de cuota: $',(unContrato valorCuota) asString,String cr,
 	'Proximo vencimiento: ',unContrato fechaProxVencimiento ddmmyyyy,String cr,
-	'Excursiones opcionales: ',String cr,cadenaExc,
+	'Reservas: ',String cr,cadenaRes,
 	'Es Efectivo: ',(Helper booleanToString: unContrato esEfectivo),String cr,
 	'Es Flexible: ',(Helper booleanToString: unContrato esFlexible).
 	^cadena

@@ -58,6 +58,15 @@ Etapa >> diaLlegada: unDia [
 	diaLlegada := unDia.
 ]
 
+{ #category : #accessing }
+Etapa >> getExcursion: unaDesc [
+	^ colExcursiones detect: [ :cadaExc | 
+		cadaExc tieneDescripcion: unaDesc.
+	] ifNone: [
+		^nil.
+	].
+]
+
 { #category : #initialization }
 Etapa >> inicializarCantDias: unaCant diaLlegada: unDia nombreHotel: unNombre tipoPension: unTipo colExcursiones: unaCol [
 	"Inicializa variables de Etapa"

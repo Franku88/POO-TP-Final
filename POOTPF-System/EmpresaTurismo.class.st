@@ -23,13 +23,13 @@ EmpresaTurismo class >> crear [
 ]
 
 { #category : #updating }
-EmpresaTurismo >> agregarExcursionAContrato: unDni numeroContrato: unNum excursionOpcional: unaExc [
+EmpresaTurismo >> agregarReservaAContrato: unDni numeroContrato: unNum excursionOpcional: unaExc cantPersonas: unaCant [
 	"Agrega unaExc a colExcursiones del Contrato con unNum del cliente con unDni si fuera posible"
 	|unCliente exito|.
 	unCliente := self buscarClienteConDni: unDni.
 	exito := unCliente notNil.
 	(exito) ifTrue: [  
-			exito := unCliente agregarExcursionAContratoConNumero: unNum excursionOpcional: unaExc.
+			exito := unCliente agregarReservaAContratoConNumero: unNum excursionOpcional: unaExc cantPersonas: unaCant.
 		].
 	^exito.
 ]

@@ -20,20 +20,22 @@ TestEmpresa class >> cargaInicial: unaEmpresaTurismo [
 { #category : #testing }
 TestEmpresa class >> crearColClientes: colViajes [
 	"Crea y retorna una coleccion de clientes, con los viajes de colViajes, de manera que queden enlazados a la mismas instancias de la empresa"
-	|colClientes unCliente unContrato|.
+	|colClientes unCliente unContrato unViaje|.
 	colClientes := OrderedCollection new.
 	
 	"Creo cliente"
 	unCliente := Cliente crear: "32391392"1 apellido: 'Casillas' ciudad: 'San Martin De los Andes' datosContacto: '299120201, casillas@gmail.com' preferencias: 'Ninguna'.
 	unCliente dinero: 50000.
 	"Creo contrato para cliente"
-	unContrato := Contrato crear: 1 viaje: (colViajes detect: [:viaje| viaje nombre = 'Bahia Blanca']) cantPersonas: 2 cantCuotas: 3 fechaSeleccionada: (Date year: 2023 month: 8 day: 5).
+	unViaje := colViajes detect: [:viaje| viaje nombre = 'Bahia Blanca'].
+	unContrato := Contrato crear: 1 viaje: unViaje cantPersonas: 2 cantCuotas: 3 fechaSeleccionada: (Date year: 2023 month: 8 day: 5).
 	unContrato fechaContrato: (Date year: 2023 month: 07 day: 30).
 	unContrato fechaProxVencimiento: (Date year: 2023 month: 09 day: 04).
 	"Agrego nuevo contrato"
 	unCliente addContrato: unContrato.
 	"Creo contrato para cliente"
-	unContrato := Contrato crear: 7 viaje: (colViajes detect: [:viaje| viaje nombre = 'Bolivia']) cantPersonas: 5 cantCuotas: 10 fechaSeleccionada: ((Date year: 2023 month: 7 day: 31)).
+	unViaje := colViajes detect: [:viaje| viaje nombre = 'Bolivia'].
+	unContrato := Contrato crear: 7 viaje: unViaje cantPersonas: 5 cantCuotas: 10 fechaSeleccionada: ((Date year: 2023 month: 7 day: 31)).
 	unContrato fechaContrato: (Date year: 2023 month: 7 day: 10).
 	unContrato fechaProxVencimiento: (Date year: 2023 month: 08 day: 19).
 	"Agrego cliente creado"
@@ -44,16 +46,18 @@ TestEmpresa class >> crearColClientes: colViajes [
 	unCliente := Cliente crear: "43021021"2 apellido: 'Benitez' ciudad: 'Neuquen' datosContacto: '299401300, benitez@gmail.com' preferencias: 'Ninguna'.
 	unCliente dinero: 100000.
 	"Creo contrato para cliente"
-	unContrato := Contrato crear: 2 viaje: (colViajes detect: [:viaje| viaje nombre = 'Bolivia']) cantPersonas: 5 cantCuotas: 1 fechaSeleccionada: ((Date year: 2023 month: 7 day: 31)).
+	unViaje := colViajes detect: [:viaje| viaje nombre = 'Bolivia'].
+	unContrato := Contrato crear: 2 viaje: unViaje cantPersonas: 5 cantCuotas: 1 fechaSeleccionada: ((Date year: 2023 month: 7 day: 31)).
 	unContrato fechaContrato: (Date year: 2023 month: 07 day: 20).
 	unContrato fechaProxVencimiento: (Date year: 2023 month: 08 day: 19).
 	"Agrego nuevo contrato"
 	unCliente addContrato: unContrato.
 	"Creo contrato para cliente"
-	unContrato := ContratoFlexible crear: 8 viaje: (colViajes detect: [:viaje| viaje nombre = 'Alemania']) cantPersonas: 2 cantCuotas: 3 fechaSeleccionada: (Date year: 2023 month: 8 day: 12).
+	unViaje := colViajes detect: [:viaje| viaje nombre = 'Alemania'].
+	unContrato := ContratoFlexible crear: 8 viaje: unViaje cantPersonas: 2 cantCuotas: 3 fechaSeleccionada: (Date year: 2023 month: 8 day: 12).
 	unContrato fechaContrato: (Date year: 2023 month: 2 day: 1).
 	unContrato fechaProxVencimiento: (Date year: 2023 month: 3 day: 22).
-	unContrato colExcursiones: ({ExcursionOpcional crear: 'Visita a las tres pinacotecas' costo: 600 cantPersonas: 2} asOrderedCollection).
+	unContrato colReservas: ({ReservaExcursion crear: (unViaje getExcursionOpcional: 'Visita a las tres pinacotecas') cantPersonas: 2} asOrderedCollection).
 	"Agrego nuevo contrato"
 	unCliente addContrato: unContrato.
 	"Agrego cliente creado"
@@ -63,7 +67,8 @@ TestEmpresa class >> crearColClientes: colViajes [
 	unCliente := Cliente crear: "43910202"3 apellido: 'Zuñiga' ciudad: 'Cinco Saltos' datosContacto: '299319292' preferencias: 'Ninguna'.
 	unCliente dinero: 1299122.
 	"Creo contrato para cliente"
-	unContrato := Contrato crear: 3 viaje: (colViajes detect: [:viaje| viaje nombre = 'Bahia Blanca']) cantPersonas: 2 cantCuotas: 3 fechaSeleccionada: (Date year: 2023 month: 8 day: 5).
+	unViaje := colViajes detect: [:viaje| viaje nombre = 'Bahia Blanca'].
+	unContrato := Contrato crear: 3 viaje: unViaje cantPersonas: 2 cantCuotas: 3 fechaSeleccionada: (Date year: 2023 month: 8 day: 5).
 	unContrato fechaContrato: (Date year: 2023 month: 07 day: 29).
 	unContrato fechaProxVencimiento: (Date year: 2023 month: 9 day: 3).
 	"Agrego nuevo contrato"
@@ -75,7 +80,8 @@ TestEmpresa class >> crearColClientes: colViajes [
 	unCliente := Cliente crear: "2319292"4 apellido: 'Boretto' ciudad: 'Plottier' datosContacto: '29964128' preferencias: 'Ninguna'.
 	unCliente dinero: 10000.
 	"Creo contrato para cliente"
-	unContrato := Contrato crear: 4 viaje: (colViajes detect: [:viaje| viaje nombre = 'Corea del Norte']) cantPersonas: 10 cantCuotas: 6 fechaSeleccionada: (Date year: 2024 month: 3 day: 12).
+	unViaje := colViajes detect: [:viaje| viaje nombre = 'Corea del Norte'].
+	unContrato := Contrato crear: 4 viaje: unViaje cantPersonas: 10 cantCuotas: 6 fechaSeleccionada: (Date year: 2024 month: 3 day: 12).
 	unContrato fechaContrato: (Date year: 2023 month: 6 day: 6).
 	unContrato fechaProxVencimiento: (Date year: 2023 month: 8 day: 4).
 	unContrato cantCuotasPagadas: 1.
@@ -89,10 +95,11 @@ TestEmpresa class >> crearColClientes: colViajes [
 	unCliente dinero: 100200.
 	unCliente esFrecuente: true.
 	"Creo contrato para cliente"
-	unContrato := Contrato crear: 5 viaje: (colViajes detect: [:viaje| viaje nombre = 'Bolivia']) cantPersonas: 5 cantCuotas: 1 fechaSeleccionada: (Date year: 2024 month: 3 day: 24).
+	unViaje := colViajes detect: [:viaje| viaje nombre = 'Bolivia'].
+	unContrato := Contrato crear: 5 viaje: unViaje cantPersonas: 5 cantCuotas: 1 fechaSeleccionada: (Date year: 2024 month: 3 day: 24).
 	unContrato fechaContrato: (Date year: 2023 month: 7 day: 31).
 	unContrato fechaProxVencimiento: (Date year: 2023 month: 8 day: 30).
-	unContrato colExcursiones: ({ExcursionOpcional crear: 'Viaje en barco' costo: 400 cantPersonas: 3. ExcursionOpcional crear: 'Partido de golf' costo: 500 cantPersonas: 5} asOrderedCollection).
+	unContrato colReservas: ({ReservaExcursion crear: (unViaje getExcursionOpcional: 'Viaje en barco') cantPersonas: 3. ReservaExcursion crear: (unViaje getExcursionOpcional: 'Partido de golf') cantPersonas: 5.} asOrderedCollection).
 	"Agrego nuevo contrato"
 	unCliente addContrato: unContrato.
 	"Agrego cliente creado"
@@ -103,10 +110,11 @@ TestEmpresa class >> crearColClientes: colViajes [
 	unCliente dinero: 10500.
 	unCliente esFrecuente: true.
 	"Creo contrato para cliente"
-	unContrato := ContratoFlexible crear: 6 viaje: (colViajes detect: [:viaje| viaje nombre = 'Alemania']) cantPersonas: 10 cantCuotas: 4 fechaSeleccionada: (Date year: 2023 month: 8 day: 12).
+	unViaje := colViajes detect: [:viaje| viaje nombre = 'Alemania'].
+	unContrato := ContratoFlexible crear: 6 viaje: unViaje cantPersonas: 10 cantCuotas: 4 fechaSeleccionada: (Date year: 2023 month: 8 day: 12).
 	unContrato fechaContrato: (Date year: 2023 month: 7 day: 23).
 	unContrato fechaProxVencimiento: (Date year: 2023 month: 8 day: 22).
-	unContrato colExcursiones: ({ExcursionOpcional crear: 'Visita a las tres pinacotecas' costo: 600 cantPersonas: 2} asOrderedCollection).
+	unContrato colReservas: ({ReservaExcursion crear: (unViaje getExcursionOpcional: 'Visita a las tres pinacotecas') cantPersonas: 2} asOrderedCollection).
 	"Agrego nuevo contrato"
 	unCliente addContrato: unContrato.
 	"Agrego cliente creado"
@@ -135,12 +143,12 @@ TestEmpresa class >> crearColViajes [
 	
 	colFechasSalida := { (FechaSalida crear: (Date year: 2024 month: 3 day: 15) cupo: 40). (FechaSalida crear: (Date year: 2024 month: 3 day: 31) cupo: 34). (FechaSalida crear: (Date year: 2023 month: 7 day: 31) cupo: 10)} asOrderedCollection.
 	colEtapas := {Etapa crear: 1 diaLlegada: 'día 1' nombreHotel: 'Hotel Sarmiento' tipoPension: 'Alojamiento y desayuno' colExcursiones: ({Excursion crear: 'Visita a Casa de Gobierno'. Excursion crear: 'Visita al museo'. Excursion crear: 'Paseo por la ciudad'} asOrderedCollection). 
-	Etapa crear: 1 diaLlegada: 'dia 2' nombreHotel: 'Hotel Pequeña Plaza' tipoPension: 'Media' colExcursiones: ({Excursion crear: 'Expedicion en la jungla'} asOrderedCollection). 
-	Etapa crear: 1 diaLlegada: 'dia 3' nombreHotel: 'Hotel Paraiso' tipoPension: 'Completa' colExcursiones: ({Excursion crear: 'Paseo en canoa'} asOrderedCollection)} asOrderedCollection.
+	Etapa crear: 1 diaLlegada: 'dia 2' nombreHotel: 'Hotel Pequeña Plaza' tipoPension: 'Media' colExcursiones: ({Excursion crear: 'Expedicion en la jungla'. ExcursionOpcional crear: 'Viaje en barco' costo: 400} asOrderedCollection). 
+	Etapa crear: 1 diaLlegada: 'dia 3' nombreHotel: 'Hotel Paraiso' tipoPension: 'Completa' colExcursiones: ({Excursion crear: 'Paseo en canoa'. ExcursionOpcional crear: 'Partido de golf' costo: 500.} asOrderedCollection)} asOrderedCollection.
 	colViajes add: (ViajeOrganizado crear: 'Bolivia' costoPorPersona: 7000 valorImpuestos: 1300 cantDias: 3 colFechasSalida: colFechasSalida colEtapas: colEtapas).
 
 	colFechasSalida := { (FechaSalida crear: (Date year: 2023 month: 8 day: 12) cupo: 10). (FechaSalida crear: (Date year: 2023 month: 8 day: 20) cupo: 10). (FechaSalida crear: (Date year: 2023 month: 10 day: 5) cupo: 10)} asOrderedCollection.
-	colEtapas := {Etapa crear: 1 diaLlegada: 'día 1 - Berlin' nombreHotel: 'Hotel Grand Plaza' tipoPension: 'Media' colExcursiones: ({Excursion crear: 'Viaje en bus turístico'} asOrderedCollection). 
+	colEtapas := {Etapa crear: 1 diaLlegada: 'día 1 - Berlin' nombreHotel: 'Hotel Grand Plaza' tipoPension: 'Media' colExcursiones: ({Excursion crear: 'Viaje en bus turístico'. ExcursionOpcional crear: 'Visita a las tres pinacotecas' costo: 600.} asOrderedCollection). 
 	Etapa crear: 1 diaLlegada: 'dia 2 - Munich' nombreHotel: 'Ocean View Resort' tipoPension: 'Alojamiento y desayuno' colExcursiones: ({Excursion crear: 'Recorrido del Palacio de Nymphenburg'. Excursion crear: 'Visita al Jardín Inglés'} asOrderedCollection). 
 	Etapa crear: 1 diaLlegada: 'dia 3 - Hamburgo' nombreHotel: 'Sunset Paradise Inn' tipoPension: 'Completa' colExcursiones: ({Excursion crear: 'Visita a Iglesia de San Miguel'} asOrderedCollection)} asOrderedCollection.
 	colViajes add: (ViajeOrganizado crear: 'Alemania' costoPorPersona: 11000 valorImpuestos: 3000 cantDias: 3 colFechasSalida: colFechasSalida colEtapas: colEtapas).

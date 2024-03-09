@@ -30,16 +30,26 @@ Excursion >> descripcion: unaDescripcion [
 	descripcion := unaDescripcion.
 ]
 
+{ #category : #verifying }
+Excursion >> esOpcional [
+	^false.
+]
+
 { #category : #initialization }
 Excursion >> inicializarDescripcion: unaDescripcion [
 	"Inicializa Excursion"
 	descripcion := unaDescripcion.
 ]
 
+{ #category : #comparing }
+Excursion >> tieneDescripcion: des [
+	^(des = descripcion).
+]
+
 { #category : #printing }
 Excursion >> toString [
 	|cadena|.
-	cadena := 'Descripcion: ',descripcion.
+	cadena := '		Descripcion: ',descripcion.
 	^cadena.
 ]
 

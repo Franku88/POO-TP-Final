@@ -10,7 +10,8 @@ Class {
 	#instVars : [
 		'colFechasSalida',
 		'cantDias',
-		'colEtapas'
+		'colEtapas',
+		'colExcursionesOpcionales'
 	],
 	#category : #'POOTPF-System-System'
 }
@@ -80,6 +81,22 @@ ViajeOrganizado >> esVigente [
 { #category : #accessing }
 ViajeOrganizado >> getColFechasVigentes [
 	^ ((self colFechasSalida) select: [: cadaFecha | cadaFecha esVigente & cadaFecha tieneCupo]).
+]
+
+{ #category : #accessing }
+ViajeOrganizado >> getExcursionOpcional: unaDesc [
+	"Retorna ExcursionOpcional con desc, busca en todas las etapas, ya que cada una tiene colExc"
+	|exc|
+	exc := nil.
+	colEtapas do: [:cadaEta| 
+		|temp|.
+		temp := cadaEta getExcursion: unaDesc.
+		temp ifNotNil: [
+			exc := temp.
+		]. 
+	].
+	^exc.
+
 ]
 
 { #category : #initialization }
