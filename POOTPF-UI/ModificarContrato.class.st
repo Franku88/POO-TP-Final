@@ -43,10 +43,13 @@ ModificarContrato >> addBotonExcOp [
 	
 	botonAgregarExcOp left: body left + 150; top: body top + 150.
 	
-	botonAgregarExcOp mouseAction: [  
-		self addMorphCentered: (AgregarExcursionOpcional createWithSystem: sistema cliente: cliente contrato: contrato).
+	botonAgregarExcOp mouseAction: [ 
+		(contrato viaje esOrganizado) ifTrue: [ 
+			self addMorphCentered: (AgregarExcursionOpcional createWithSystem: sistema cliente: cliente contrato: contrato).
+		] ifFalse: [
+			self addMessage: 'Viaje del contrato no es organizado.',String cr,'No es posible agregar excursiones.' extent: 250@120.	
+		].
 	].
-	
 	body addMorph: botonAgregarExcOp.
 	
 
