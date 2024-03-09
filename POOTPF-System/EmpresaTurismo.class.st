@@ -242,7 +242,7 @@ EmpresaTurismo >> modificarViaje: unNombre costoPorPersona: unCostoP valorImpues
 	^exito.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 EmpresaTurismo >> obtenerViajes: f1 hasta: f2 [
 	"Retorna una OrderedCollection con Viajes que tengan fechas entre f1 y f2"
 	^ colViajes select: [:cadaViaje|
