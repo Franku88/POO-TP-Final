@@ -32,6 +32,17 @@ FechaSalida >> cupo: unCupo [
 	cupo := unCupo.
 ]
 
+{ #category : #updating }
+FechaSalida >> desocupar: unaCantP [
+	cupo := cupo + unaCantP.
+	self changed.
+]
+
+{ #category : #verifying }
+FechaSalida >> equals: unaFechaSalida [
+	^ unaFechaSalida tieneFecha: fecha.
+]
+
 { #category : #verifying }
 FechaSalida >> esVigente [
 	^(self fecha > Date today).
@@ -59,6 +70,7 @@ FechaSalida >> inicializarFecha: unaFecha cupo: unCupo [
 FechaSalida >> ocupar: unaCantP [
 	"Actualiza el cupo actual restando unaCantP"
 	cupo := cupo - unaCantP.
+	self changed.
 ]
 
 { #category : #verifying }

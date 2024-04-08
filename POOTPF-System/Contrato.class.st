@@ -66,6 +66,7 @@ Contrato >> bajar [
 	(esEfectivo) ifFalse: [  
 			unMonto := self calcularPagado.
 			reembolso := self calcularReembolso: unMonto.
+			viaje desocupar: fechaSeleccionada personas: cantPersonas.
 		].
 	^reembolso.
 ]

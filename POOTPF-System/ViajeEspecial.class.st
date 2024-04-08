@@ -46,6 +46,18 @@ ViajeEspecial >> ciudad: unaCiudad [
 	ciudad := unaCiudad.
 ]
 
+{ #category : #accessing }
+ViajeEspecial >> desocupar: fechaSeleccionada personas: cantPersonas [
+	"Si se encuentra la fecha ingresada, se la desocupa en cantPersonas"
+	|res|.
+	res := fechaSalida tieneFecha: fechaSeleccionada.
+	(res) ifTrue: [
+			fechaSalida desocupar: cantPersonas.
+		].
+	^res.
+	
+]
+
 { #category : #verifying }
 ViajeEspecial >> esVigente [
 	^(self fechaSalida esVigente).

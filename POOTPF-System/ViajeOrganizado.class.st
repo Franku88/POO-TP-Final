@@ -67,6 +67,22 @@ ViajeOrganizado >> colFechasSalida: unaCol [
 	colFechasSalida := unaCol.
 ]
 
+{ #category : #accessing }
+ViajeOrganizado >> desocupar: fechaSeleccionada personas: cantPersonas [
+	"Si se encuentra la fecha ingresada, se la desocupa en cantPersonas"
+	|fechaEncontrada res|.
+	fechaEncontrada := colFechasSalida detect: [:cadaFecha |  
+			cadaFecha tieneFecha: fechaSeleccionada.
+		] ifNone:[
+			nil.
+		].
+	res := fechaEncontrada isNotNil.
+	(res) ifTrue: [
+			fechaEncontrada desocupar: cantPersonas.
+		].
+	^res.
+]
+
 { #category : #verifying }
 ViajeOrganizado >> esOrganizado [
 	^true.

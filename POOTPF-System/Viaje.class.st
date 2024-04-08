@@ -60,6 +60,13 @@ Viaje >> costoPorPersona: unCosto [
 	costoPorPersona := unCosto.
 ]
 
+{ #category : #accessing }
+Viaje >> desocupar: fechaSeleccionada personas: cantPersonas [
+	"Definido en subclases"
+	"Si se encuentra la fecha ingresada, se la desocupa en cantPersonas"
+	^false.
+]
+
 { #category : #verifying }
 Viaje >> esOrganizado [
 	^false.
