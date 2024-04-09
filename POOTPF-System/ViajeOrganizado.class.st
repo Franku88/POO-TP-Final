@@ -100,6 +100,13 @@ ViajeOrganizado >> getColFechasVigentes [
 ]
 
 { #category : #accessing }
+ViajeOrganizado >> getColFechasVigentesExcepto: unaDate [
+	^ ((self colFechasSalida) select: [: cadaFecha | 
+		(cadaFecha tieneFecha: unaDate) not & cadaFecha esVigente & cadaFecha tieneCupo
+		]).
+]
+
+{ #category : #accessing }
 ViajeOrganizado >> getExcursionOpcional: unaDesc [
 	"Retorna ExcursionOpcional con desc, busca en todas las etapas, ya que cada una tiene colExc"
 	|exc|

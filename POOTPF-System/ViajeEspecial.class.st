@@ -93,6 +93,16 @@ ViajeEspecial >> getColFechasVigentes [
 	^col.
 ]
 
+{ #category : #accessing }
+ViajeEspecial >> getColFechasVigentesExcepto: unaDate [
+	|col|.
+	col := OrderedCollection new.
+	((self fechaSalida tieneCupo) & (self fechaSalida tieneFecha: unaDate) not) ifTrue: [ 
+		col add: self fechaSalida.
+	].
+	^col.
+]
+
 { #category : #initialization }
 ViajeEspecial >> inicializarCiudad: unaCiudad fechaSalida: unaFechaSalida fechaRegreso: unaFecha [
 	"Inicializa variables de ViajeEspecial"

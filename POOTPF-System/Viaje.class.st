@@ -83,6 +83,11 @@ Viaje >> getColFechasVigentes [
 ]
 
 { #category : #accessing }
+Viaje >> getColFechasVigentesExcepto: unaDate [
+	^ (OrderedCollection new).
+]
+
+{ #category : #accessing }
 Viaje >> getExcursionOpcional: unaDesc [
 	^nil.
 	
