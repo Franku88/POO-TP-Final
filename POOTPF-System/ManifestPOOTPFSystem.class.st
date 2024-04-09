@@ -16,6 +16,13 @@ Class {
 }
 
 { #category : #'code-critics' }
+ManifestPOOTPFSystem class >> ruleAssignmentInIfTrueRuleV1FalsePositive [
+
+	<ignoreForCoverage>
+	^ #(#(#(#RGMethodDefinition #(#Cliente #generarContrato:viaje:fechaSalida:cantPasajeros:cantCuotas:esFlexible: #false)) #'2024-04-08T19:59:23.807-03:00') )
+]
+
+{ #category : #'code-critics' }
 ManifestPOOTPFSystem class >> ruleCollectionProtocolRuleV1FalsePositive [
 
 	<ignoreForCoverage>

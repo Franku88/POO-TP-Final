@@ -35,6 +35,19 @@ Cliente class >> crear: unDni apellido: unApellido ciudad: unaCiudad datosContac
 	^cli
 ]
 
+{ #category : #updating }
+Cliente >> actualizarFrecuencia [
+	"Verifica si el cliente tiene algun contrato vigente con viaje organizado en menos de un anio,
+	en cualquier caso, modifica su variable esFrecuente"
+	|unCon|.
+	unCon := colContratos detect: [:cadaContrato| 
+			(cadaContrato esVigente) & (cadaContrato viaje esOrganizado) & ((cadaContrato fechaContrato addMonths: 12) > Date today).
+		] ifNone: [		
+			nil.
+		].
+	self esFrecuente: (unCon isNotNil).
+]
+
 { #category : #'adding-removing' }
 Cliente >> addContrato: unContrato [
 	colContratos add: unContrato.
@@ -76,6 +89,7 @@ Cliente >> bajarContratoConNumero: unNum [
 			(exito) ifTrue: [  
 					self reembolsar: unValor.
 					self borrarContrato: unContrato.
+					self actualizarFrecuencia.
 				].
 		].
 	^exito.
@@ -104,6 +118,7 @@ Cliente >> bajarContratosConViaje: unNombre [
 		].
 	(bajado) ifTrue: [  
 			colContratos removeAll: colContratosBajados.
+			self actualizarFrecuencia.
 		].
 	^bajado.
 ]
@@ -209,8 +224,17 @@ Cliente >> efectivizarContratoConNumero: unNum [
 	^exito.
 ]
 
+{ #category : #updating }
+Cliente >> efectivizarContratos [
+	"Efectiviz, si es posible, contratos del cliente"
+	colContratos do: [:cadaContrato |  
+			cadaContrato efectivizar.
+		].
+]
+
 { #category : #accessing }
 Cliente >> esFrecuente [
+	"Si contrato un viaje organizado en menos de un año"
 	^esFrecuente.
 ]
 
@@ -238,10 +262,12 @@ Cliente >> generarContrato: unNum viaje: unViaje fechaSalida: unaFechaSalida can
 	unContrato := self buscarContratoConNumero: unNum.
 	exito := unContrato isNil.
 	(exito) ifTrue: [ 
-			unaFechaSalida ocupar: cantP.
-			unContrato := Contrato crear: unNum viaje: unViaje cantPersonas: cantP cantCuotas: cantC 			fechaSeleccionada: (unaFechaSalida fecha).
+			unaFechaSalida ocupar: cantP.			
 			(esFlex) ifTrue: [ 
 					unContrato := ContratoFlexible crear: unNum viaje: unViaje cantPersonas: cantP 					cantCuotas: cantC fechaSeleccionada: (unaFechaSalida fecha).
+				] ifFalse: [
+					unContrato := Contrato crear: unNum viaje: unViaje cantPersonas: cantP 
+					cantCuotas: cantC fechaSeleccionada: (unaFechaSalida fecha).
 				].
 			esFrecuente := unViaje esOrganizado.
 			colContratos add: unContrato.

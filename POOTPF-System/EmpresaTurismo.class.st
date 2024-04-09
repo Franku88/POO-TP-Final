@@ -2,13 +2,15 @@
 Instance Variables
 colClientes:		<OrderedCollection>
 colViajes:		<OrderedCollection>
+inicioDia: 		<String>
 "
 Class {
 	#name : #EmpresaTurismo,
 	#superclass : #Object,
 	#instVars : [
 		'colClientes',
-		'colViajes'
+		'colViajes',
+		'inicioDia'
 	],
 	#category : #'POOTPF-System-System'
 }
@@ -20,6 +22,13 @@ EmpresaTurismo class >> crear [
 	unaEmpresa := self new.
 	unaEmpresa inicializar.
 	^unaEmpresa.
+]
+
+{ #category : #updating }
+EmpresaTurismo >> actualizarFrecuentes [
+	colClientes do: [:cadaCliente |
+			cadaCliente actualizarFrecuencia.
+		].
 ]
 
 { #category : #adding }
@@ -137,6 +146,15 @@ EmpresaTurismo >> efectivizarContrato: unDni numeroContrato: unNum [
 	^exito.
 ]
 
+{ #category : #updating }
+EmpresaTurismo >> efectivizarContratos [
+	"Efectiviza contratos de clientes si fuera posible"
+	colClientes do: [ :cadaCliente|  
+			cadaCliente efectivizarContratos.
+		].
+	
+]
+
 { #category : #adding }
 EmpresaTurismo >> generarContrato: unDni numContrato: unNum nombreViaje: unNombre fechaSeleccionada: unaFecha cantPersonas: cantP cantCuotas: cantC esFlexible: esFlex [
 	"Genera un contrato y lo agrega a colContratos del cliente con unDni, si se cumplen todas las condiciones"
@@ -200,10 +218,12 @@ EmpresaTurismo >> inicializar [
 	"Inicializa EmpresaTurismo, con ambas colecciones vacias"
 	colClientes := OrderedCollection new.
 	colViajes := OrderedCollection new.
+	inicioDia := 'Inicio del dia no realizado'.
 ]
 
 { #category : #printing }
 EmpresaTurismo >> inicioDelDia [
+	"Genera un string de clientes con contratos por vencer, ademas efectiviza contratos con fecha 	ocurrida"
 	|textoRetorno textoClientes|.
 	textoClientes := ''.
 	textoRetorno := 'No se encontraron clientes con contratos por vencer'.
@@ -213,9 +233,19 @@ EmpresaTurismo >> inicioDelDia [
 				].
 		].
 	(textoClientes = '') ifFalse: [
-			textoRetorno := 'Clientes con contratos a vencer: ',String cr,textoClientes.
+			inicioDia := 'Clientes con contratos a vencer: ',String cr,textoClientes.
 		].
-	^textoRetorno.
+]
+
+{ #category : #accessing }
+EmpresaTurismo >> inicioDia [
+	^inicioDia
+]
+
+{ #category : #accessing }
+EmpresaTurismo >> inicioDia: cad [
+	inicioDia := cad.
+	self changed.
 ]
 
 { #category : #updating }

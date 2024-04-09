@@ -182,7 +182,9 @@ Contrato >> colReservas: unaCol [
 { #category : #updating }
 Contrato >> efectivizar [
 	"Efectiviza el contrato actual si fuese el caso"
-	esEfectivo := Date today >= fechaSeleccionada.
+	(self esEfectivo) ifFalse: [ 
+			self esEfectivo: (Date today >= fechaSeleccionada).
+		].
 	^esEfectivo.
 ]
 
@@ -194,6 +196,7 @@ Contrato >> esEfectivo [
 { #category : #accessing }
 Contrato >> esEfectivo: unBooleano [
 	esEfectivo := unBooleano.
+	self changed.
 ]
 
 { #category : #verifying }

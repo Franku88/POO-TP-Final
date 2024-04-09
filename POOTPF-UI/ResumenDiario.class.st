@@ -17,7 +17,7 @@ Class {
 ResumenDiario >> addResumenDiario [
 	resumenDiario := ScrolledText createExtent: 700@450 color: (tema container) title: 'Inicio del dia'.
 	
-	resumenDiario setText: (sistema inicioDelDia).
+	resumenDiario setText: (sistema inicioDia).
 	
 	resumenDiario center: body center.
 	
