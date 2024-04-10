@@ -1,3 +1,6 @@
+"
+Implementacion de TableDataSource para ExcursionesOpcionales
+"
 Class {
 	#name : #DataSourceExcursionOpcional,
 	#superclass : #TableDataSource,

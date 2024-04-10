@@ -38,7 +38,7 @@ Contrato class >> crear: unNumero viaje: unViaje cantPersonas: unaCant cantCuota
 	^unContrato.
 ]
 
-{ #category : #adding }
+{ #category : #updating }
 Contrato >> agregarReserva: unaRes [
 	colReservas add: unaRes.
 	self changed.
@@ -48,7 +48,7 @@ Contrato >> agregarReserva: unaRes [
 Contrato >> agregarReserva: unaExc cantPersonas: unaCant [
 	"Agrega unaExc a colReservas si es posible"
 	|exito|.
-	exito := self puedeAgregarExcursion.
+	exito := self puedeAgregarReserva.
 	(exito) ifTrue: [  
 			exito := viaje esOrganizado.
 			(exito) ifTrue: [
@@ -155,6 +155,19 @@ Contrato >> calcularReembolso: unMonto [
 	^(reembolso asFloat truncateTo: 0.01).
 ]
 
+{ #category : #updating }
+Contrato >> cancelarReserva: unaReserva [
+	"Busca reserva en colReservas y la elimina de la coleccion, ademas reembolsa su valor"
+	|res|.
+	res := colReservas detect: [ :cadaReserva |
+			cadaReserva = unaReserva.
+		].
+	res ifNotNil:[
+			self quitarReserva: res.
+		].
+	^ (res isNotNil)
+]
+
 { #category : #accessing }
 Contrato >> cantCuotas [
 	^cantCuotas.
@@ -195,6 +208,14 @@ Contrato >> colReservas [
 Contrato >> colReservas: unaCol [
 	colReservas := unaCol.
 	self changed.
+]
+
+{ #category : #verifying }
+Contrato >> cumplePlazoReserva [
+	"Retorna verdadero si un contrato esta dentro del plazo permitido para agregar reservas"	
+	|res|.
+	res := (((Date today) addDays: 7) < fechaSeleccionada).
+	^res.
 ]
 
 { #category : #updating }
@@ -309,13 +330,19 @@ Contrato >> porVencer [
 ]
 
 { #category : #verifying }
-Contrato >> puedeAgregarExcursion [
+Contrato >> puedeAgregarReserva [
 	"Retorna verdadero si esta dentro del plazo para agregar excursiones opcionales, ademas
 	de poder agregar personas a excursiones"
 	"Previamente solo realizaba el calculo de fecha"
 	|esPosible|.
-	esPosible := (((Date today) addDays: 7) < fechaSeleccionada) & (self calcularPersonasSinReserva>0).
+	esPosible := (self cumplePlazoReserva) & (self calcularPersonasSinReserva > 0).
 	^esPosible.
+]
+
+{ #category : #updating }
+Contrato >> quitarReserva: unaReserva [
+	colReservas remove: unaReserva.
+	self changed.
 ]
 
 { #category : #verifying }

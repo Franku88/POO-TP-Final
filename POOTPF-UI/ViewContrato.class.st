@@ -25,7 +25,7 @@ ViewContrato class >> createWithSystem: unSistema cliente: unCliente contrato: u
 
 { #category : #adding }
 ViewContrato >> addMasInfo [
-	masInfo := ScrolledText createExtent: ((body width*0.35)@(body height*0.7)) color: Color transparent title: 'Contrato'.
+	masInfo := ScrolledText createExtent: ((body width*0.35)@(body height*0.8)) color: Color transparent title: 'Contrato'.
 	masInfo beReadOnly.
 	masInfo right: (body right - 20); top: (body top + 45).
 	body addMorph: masInfo.

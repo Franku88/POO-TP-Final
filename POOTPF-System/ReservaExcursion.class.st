@@ -37,6 +37,17 @@ ReservaExcursion >> costoExtra [
 	^ (cantPersonas * excursionOpcional costoPorPersona)
 ]
 
+{ #category : #accessing }
+ReservaExcursion >> excursionOpcional [
+	^excursionOpcional
+]
+
+{ #category : #accessing }
+ReservaExcursion >> excursionOpcional: unaExc [
+	excursionOpcional := unaExc.
+	self changed.
+]
+
 { #category : #initialization }
 ReservaExcursion >> initialize: unaExc cantPersonas: unaCant [
 	excursionOpcional := unaExc.

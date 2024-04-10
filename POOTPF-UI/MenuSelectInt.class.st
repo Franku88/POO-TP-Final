@@ -40,7 +40,8 @@ MenuSelectInt >> initializeBetween: unNum and: otroNum [
 	self initialize.
 	self borderColor: Color black; color: Color lightGray; borderWidth: 1; extent: 21@21.
 	self min: unNum max: otroNum.
-	option := Entero create: 1.
+	"En lugar de unNum estaba 1, reemplazo realizado para que cominece con el minimo"
+	option := Entero create: unNum.
 	
 	botonDec := Button label: '<' extent: 21@21.
 	botonInc := Button label: '>' extent: 21@21.

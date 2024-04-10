@@ -62,6 +62,9 @@ Cliente >> agregarReservaAContratoConNumero: unNum excursionOpcional: unaExc can
 	exito := unContrato notNil.
 	(exito) ifTrue: [  
 			exito := unContrato agregarReserva: unaExc cantPersonas: unaCant.
+			(exito) ifTrue: [
+					self cobrar: (unaExc costoPorPersona * unaCant). 
+				].
 		].
 	^exito.
 ]
@@ -139,6 +142,21 @@ Cliente >> buscarContratoConNumero: unNum [
 			unContrato := nil.
 		].
 	^unContrato.
+]
+
+{ #category : #updating }
+Cliente >> cancelarReservaAContratoConNumero: unNum unaReserva: unaRes [
+	"Quita de colReservas a contrato con unNum y reembolsa si es posible"
+	|unContrato exito|.
+	unContrato := self buscarContratoConNumero: unNum.
+	exito := unContrato notNil.
+	(exito) ifTrue: [  
+			exito := unContrato cancelarReserva: unaRes.
+			(exito) ifTrue: [
+					self sumarDinero: (unaRes costoExtra). 
+				].
+		].
+	^exito.
 ]
 
 { #category : #accessing }

@@ -47,21 +47,30 @@ CambiarFecha >> addButtons [
 { #category : #adding }
 CambiarFecha >> addTablaFechas: unViaje [
 	"Agrega una tabla con fechas vigentes de unViaje"
-	|label|.
+	|label colFechas msj|.
 	label := 'Seleccionar nueva fecha' asMorph.
-	tablaFechas := Table createColumns: (#(Fecha Cupo) asOrderedCollection) extent: ((body width*0.22)@(body height*0.3)) dataSource: (DataSourceFecha createCollection: (unViaje getColFechasVigentesExcepto: (contrato fechaSeleccionada)) object: unViaje).
+	colFechas := (unViaje getColFechasVigentesExcepto: (contrato fechaSeleccionada)).
 	
-	tablaFechas center: masInfo center; left: body left + 100.
-	tablaFechas borderColor: Color black; borderWidth: 1.
-	label bottom: tablaFechas top - 10; left: tablaFechas left.
+	(colFechas isNotEmpty) ifTrue: [
+		tablaFechas := Table createColumns: (#(Fecha Cupo) asOrderedCollection) extent: ((body width*0.22)@(body height*0.3)) dataSource: (DataSourceFecha createCollection: colFechas object: unViaje).
+		tablaFechas center: masInfo center; left: body left + 100.
+		tablaFechas borderColor: Color black; borderWidth: 1.
+		label bottom: tablaFechas top - 10; left: tablaFechas left.
 	
-	body addMorph: tablaFechas.
-	tablaFechas addMorph: label.
+		body addMorph: tablaFechas.
+		tablaFechas addMorph: label.
 	
-	tablaFechas setClick: [ :obj |
-		obj ifNotNil: [
-			self addButtons.
-		].	
+		tablaFechas setClick: [ :obj |
+			obj ifNotNil: [
+				self addButtons.
+			].	
+		]. 
+	] ifFalse:[
+		msj := ScrolledText createExtent: 200@90 color: (tema container) title: 'Seleccionar fecha'.
+		msj beReadOnly.
+		msj center: masInfo center; left: body left + 100.
+		msj setText: 'No hay fechas disponibles'.
+		self addMorph: msj.
 	].
 ]
 
