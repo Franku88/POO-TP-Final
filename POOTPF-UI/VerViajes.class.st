@@ -99,7 +99,7 @@ VerViajes >> addCamposFechas [
 			viajesFilt := sistema obtenerViajes: (Date year: (yyyyMin input asInteger) month: (mmMin input asInteger) day: (ddMin input asInteger)) hasta: (Date year: (yyyyMax input asInteger) month: (mmMax input asInteger) day: (ddMax input asInteger)).
 			tablaViajes dataSource: (DataSourceViaje createCollection: viajesFilt).
 		] ifFalse: [
-			self addMessage: 'Ingresar solo digitos en campos de fecha' extent: 250@100.
+			self addMessage: 'Ingresar digitos en campos de fecha' extent: 250@100.
 		].
 	].
 

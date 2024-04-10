@@ -158,7 +158,7 @@ Cliente >> cobrar: unMonto [
 	|exito|.
 	exito := (dinero >= unMonto).
 	(exito) ifTrue: [  
-			self dinero: ((dinero - unMonto) asFloat truncateTo: 0.01).
+			self dinero: ((dinero - unMonto) roundTo: 0.01).
 		].
 	^exito.
 		
@@ -193,7 +193,7 @@ Cliente >> dinero [
 
 { #category : #accessing }
 Cliente >> dinero: unValor [
-	dinero := unValor.
+	dinero := unValor roundTo: 0.01.
 	self changed.
 ]
 
@@ -312,15 +312,14 @@ Cliente >> modificarContratoConNumero: unNum fechaSeleccionada: unaFecha [
 	(exito) ifTrue: [  
 		exito := unContrato esFlexible.
 		(exito) ifTrue: [  
-			"Se selecciono 5000 para cobro de plus"
-			unPlus := 5000.
+			"Se realiza un calculo dependiendo de fecha y cupo restante"
+			unPlus := unContrato calcularPlusFecha: unaFecha.
 			exito := self cobrar: unPlus.				
 			(exito) ifTrue: [  
 					exito := unContrato modificarFechaSeleccionada: unaFecha.
 					(exito) ifFalse: [  
 							self sumarDinero: unPlus.
 						].
-					self changed.
 				].
 			].
 		].
@@ -373,8 +372,7 @@ Cliente >> reembolsar: unValor [
 { #category : #updating }
 Cliente >> sumarDinero: unValor [
 	"Aumenta el dinero del Cliente en unValor"
-	self dinero: dinero + unValor.
-	self changed.
+	self dinero: ((dinero + unValor) roundTo: 0.01).
 
 
 ]
@@ -382,8 +380,7 @@ Cliente >> sumarDinero: unValor [
 { #category : #updating }
 Cliente >> sumarMillas: unValor [
 	"Adiciona millas al Cliente"
-	self millas: millas + unValor.
-	self changed.
+	self millas: (millas + unValor).
 
 ]
 

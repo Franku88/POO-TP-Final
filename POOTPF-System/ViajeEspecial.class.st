@@ -36,6 +36,16 @@ ViajeEspecial >> buscarFecha: unaFecha [
 	^unaFechaSalida.
 ]
 
+{ #category : #calculating }
+ViajeEspecial >> calcularPlusFecha: unaFecha personas: cantPersonas [
+	|unPlus|
+	unPlus := super calcularPlusFecha: unaFecha personas: cantPersonas.
+	((fechaSalida tieneFecha: unaFecha) & (fechaSalida verificarCupo: cantPersonas)) ifTrue: [
+			unPlus := fechaSalida calcularPlusPara: cantPersonas.
+		].
+	^unPlus.
+]
+
 { #category : #accessing }
 ViajeEspecial >> ciudad [
 	^ciudad.
@@ -46,7 +56,7 @@ ViajeEspecial >> ciudad: unaCiudad [
 	ciudad := unaCiudad.
 ]
 
-{ #category : #accessing }
+{ #category : #updating }
 ViajeEspecial >> desocupar: fechaSeleccionada personas: cantPersonas [
 	"Si se encuentra la fecha ingresada, se la desocupa en cantPersonas"
 	|res|.
@@ -109,6 +119,18 @@ ViajeEspecial >> inicializarCiudad: unaCiudad fechaSalida: unaFechaSalida fechaR
 	ciudad := unaCiudad.
 	fechaSalida := unaFechaSalida.
 	fechaRegreso := unaFecha.
+]
+
+{ #category : #updating }
+ViajeEspecial >> ocupar: fechaSeleccionada personas: cantPersonas [
+	"Si se encuentra la fecha ingresada, se la ocupa en cantPersonas"
+	|res|.
+	res := (fechaSalida tieneFecha: fechaSeleccionada) & (fechaSalida verificarCupo: cantPersonas).
+	(res) ifTrue: [
+			fechaSalida ocupar: cantPersonas.
+		].
+	^res.
+	
 ]
 
 { #category : #verifying }

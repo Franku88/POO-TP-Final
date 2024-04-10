@@ -135,7 +135,7 @@ TestEmpresa class >> crearColViajes [
 
 	colViajes add: (ViajeEspecial crear: 'Corea del Norte' costoPorPersona: 12220 valorImpuestos: 2300 ciudad: 'Corea del Norte' fechaSalida: (FechaSalida crear: (Date year: 2024 month: 3 day: 12) cupo: 34) fechaRegreso: (Date year: 2024 month: 4 day: 01)).
 
-	colFechasSalida := { (FechaSalida crear: (Date year: 2024 month: 8 day: 15) cupo: 20). (FechaSalida crear: (Date year: 2024 month: 4 day: 20) cupo: 20). (FechaSalida crear: (Date year: 2024 month: 2 day: 2) cupo: 20)} asOrderedCollection.
+	colFechasSalida := { (FechaSalida crear: (Date year: 2024 month: 8 day: 15) cupo: 22). (FechaSalida crear: (Date year: 2024 month: 4 day: 20) cupo: 20). (FechaSalida crear: (Date year: 2024 month: 2 day: 2) cupo: 29). (FechaSalida crear: (Date year: 2024 month: 10 day: 12) cupo: 11)} asOrderedCollection.
 	colEtapas := {Etapa crear: 1 diaLlegada: 'día 1 - Estambul' nombreHotel: 'Hotel Grand Plaza' tipoPension: 'Alojamiento y desayuno' colExcursiones: ({Excursion crear: 'Visita a la basílica de Santa Sofía'. Excursion crear: 'Visita al Palacio de Topkapi'} asOrderedCollection). 
 	Etapa crear: 1 diaLlegada: 'dia 2 - Santorini' nombreHotel: 'Ocean View Resort' tipoPension: 'Completa' colExcursiones: ({Excursion crear: 'Recorrido de la isla'} asOrderedCollection). 
 	Etapa crear: 1 diaLlegada: 'dia 3 - Atenas' nombreHotel: 'Sunset Paradise Inn' tipoPension: 'Completa' colExcursiones: ({Excursion crear: 'Visita al Museo de la Acrópolis'} asOrderedCollection)} asOrderedCollection.

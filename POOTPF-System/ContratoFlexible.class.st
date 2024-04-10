@@ -7,6 +7,14 @@ Class {
 	#category : #'POOTPF-System-System'
 }
 
+{ #category : #calculating }
+ContratoFlexible >> calcularPlusFecha: unaFecha [
+	"Date unaFecha"
+	|unPlus|.
+	unPlus := viaje calcularPlusFecha: unaFecha personas: (self cantPersonas).
+	^unPlus.
+]
+
 { #category : #verifying }
 ContratoFlexible >> esFlexible [
 	^true.
@@ -16,11 +24,15 @@ ContratoFlexible >> esFlexible [
 ContratoFlexible >> modificarFechaSeleccionada: unaFecha [
 	"Cambia fechaSeleccionada por unaFecha si el viaje contratado tiene unaFecha disponible"
 	|exito|.
-	exito := fechaSeleccionada ~= unaFecha.
+	exito := (self fechaSeleccionada) ~= unaFecha.
 	(exito) ifTrue: [  
 			exito := viaje tieneFecha: unaFecha.
-			(exito) ifTrue: [  
-					fechaSeleccionada := unaFecha.
+			(exito) ifTrue: [ 
+				exito := viaje ocupar: unaFecha personas: cantPersonas.
+					(exito) ifTrue: [
+							viaje desocupar: (self fechaSeleccionada) personas: cantPersonas.
+							self fechaSeleccionada: unaFecha.	
+						]. 
 				].
 		].
 	^exito.

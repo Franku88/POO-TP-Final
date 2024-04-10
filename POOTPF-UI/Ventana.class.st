@@ -106,6 +106,7 @@ Ventana >> addMessage: text extent: dim [
 
 { #category : #adding }
 Ventana >> addMessageConfirm: text actionConfirm: unBloque [
+	"Bloque ingresado debe poder recibir una variable popup (:popup|)"
 	self addMessageConfirm: text actionConfirm: unBloque extent:  200@100.
 ]
 
@@ -183,7 +184,7 @@ Ventana >> addMessageInput: mensaje actionAceptar: unBloque extent: dim [
 Ventana >> addTitulo: unString [
 	titulo := unString asMorph.
 	titulo center: (body center).
-	titulo top: (body top*1.5); color: Color black.
+	titulo top: (body top*1.125); color: Color black.
 	body addMorph: titulo.
 	
 	

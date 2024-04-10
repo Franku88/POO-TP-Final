@@ -39,6 +39,7 @@ Table >> highlightedElement [
 Table >> highlightedElement: elem [
 	highlightedElement := elem.
 	self changed: highlightedElement.
+	"self refresh."
 ]
 
 { #category : #initialization }
@@ -70,11 +71,13 @@ Table >> selectedElement [
 Table >> selectedElement: elem [
 	selectedElement := elem.
 	self changed: selectedElement.
+	"self refresh."
 ]
 
 { #category : #initialization }
 Table >> setClick: unBloque [
 	clickBlock := unBloque.
+	self changed.
 ]
 
 { #category : #initialization }

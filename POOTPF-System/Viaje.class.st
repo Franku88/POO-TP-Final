@@ -46,8 +46,13 @@ Viaje >> buscarFechaSalidaConCupo: unaFecha cantPersonas: cantP [
 Viaje >> calcularMontoPara: cantP [
 	"Calcula el total del viaje para cantP personas"
 	|total|.
-	total := (costoPorPersona * cantP) + valorImpuestos.
+	total := ((costoPorPersona * cantP) + valorImpuestos) roundTo: 0.01.
 	^total. 
+]
+
+{ #category : #calculating }
+Viaje >> calcularPlusFecha: unaFecha personas: cantPersonas [
+	^(-1)
 ]
 
 { #category : #accessing }
@@ -57,10 +62,10 @@ Viaje >> costoPorPersona [
 
 { #category : #accessing }
 Viaje >> costoPorPersona: unCosto [
-	costoPorPersona := unCosto.
+	costoPorPersona := unCosto roundTo: 0.01.
 ]
 
-{ #category : #accessing }
+{ #category : #updating }
 Viaje >> desocupar: fechaSeleccionada personas: cantPersonas [
 	"Definido en subclases"
 	"Si se encuentra la fecha ingresada, se la desocupa en cantPersonas"
@@ -97,7 +102,7 @@ Viaje >> getExcursionOpcional: unaDesc [
 Viaje >> inicializarNombre: unNombre costoPorPersona: unCosto valorImpuestos: unValor [
 	"Inicializa variables de Viaje"
 	nombre := unNombre.
-	costoPorPersona := unCosto.
+	costoPorPersona := unCosto roundTo: 0.01.
 	valorImpuestos := unValor.
 ]
 
@@ -116,6 +121,11 @@ Viaje >> nombre [
 { #category : #accessing }
 Viaje >> nombre: unNombre [
 	nombre := unNombre.
+]
+
+{ #category : #updating }
+Viaje >> ocupar: fechaSeleccionada personas: cantPersonas [
+	^false.
 ]
 
 { #category : #comparing }

@@ -37,6 +37,21 @@ ViajeOrganizado >> buscarFecha: unaFecha [
 	^unaFechaSalida.
 ]
 
+{ #category : #calculating }
+ViajeOrganizado >> calcularPlusFecha: unaFecha personas: cantPersonas [
+	|unPlus unaFechaSalida|
+	unPlus := super calcularPlusFecha: unaFecha personas: cantPersonas.
+	unaFechaSalida := colFechasSalida detect: [:cadaFecha|
+			(cadaFecha tieneFecha: unaFecha) & (cadaFecha verificarCupo: cantPersonas)
+		] ifNone: [
+			nil
+		].
+	(unaFechaSalida) ifNotNil: [
+			unPlus := unaFechaSalida calcularPlusPara: cantPersonas.
+		].
+	^unPlus.
+]
+
 { #category : #accessing }
 ViajeOrganizado >> cantDias [
 	^cantDias.
@@ -67,7 +82,7 @@ ViajeOrganizado >> colFechasSalida: unaCol [
 	colFechasSalida := unaCol.
 ]
 
-{ #category : #accessing }
+{ #category : #updating }
 ViajeOrganizado >> desocupar: fechaSeleccionada personas: cantPersonas [
 	"Si se encuentra la fecha ingresada, se la desocupa en cantPersonas"
 	|fechaEncontrada res|.
@@ -128,6 +143,22 @@ ViajeOrganizado >> inicializarCantDias: unaCant colFechasSalida: unaCol colEtapa
 	cantDias := unaCant.
 	colFechasSalida := unaCol.
 	colEtapas := otraCol.
+]
+
+{ #category : #updating }
+ViajeOrganizado >> ocupar: fechaSeleccionada personas: cantPersonas [
+	"Si se encuentra la fecha ingresada, se la ocupa en cantPersonas"
+	|fechaEncontrada res|.
+	fechaEncontrada := colFechasSalida detect: [:cadaFecha |  
+			(cadaFecha tieneFecha: fechaSeleccionada) & (cadaFecha verificarCupo: cantPersonas).
+		] ifNone:[
+			nil.
+		].
+	res := fechaEncontrada isNotNil.
+	(res) ifTrue: [
+			fechaEncontrada ocupar: cantPersonas.
+		].	
+	^res.
 ]
 
 { #category : #verifying }

@@ -22,6 +22,22 @@ FechaSalida class >> crear: unaFecha cupo: unCupo [
 	^unaFechaSalida. 
 ]
 
+{ #category : #calculating }
+FechaSalida >> calcularPlusPara: cantPersonas [
+	"Calcula plus a cobrar por cambio de fecha, 
+	depende del espacio restante al momento de realizar el cambio,
+	Tiene un monto que disminuye dependiendo el cupo restante"
+	|resto plus|.
+	plus := -1.
+	resto := cupo - cantPersonas.
+	(resto >= 0) ifTrue:[
+			plus := ((5000/(1+(resto/10))) roundTo: 0.01).
+		].
+	^plus.
+
+	
+]
+
 { #category : #accessing }
 FechaSalida >> cupo [
 	^cupo.

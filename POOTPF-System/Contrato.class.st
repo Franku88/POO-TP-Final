@@ -118,6 +118,11 @@ Contrato >> calcularPagado [
 ]
 
 { #category : #calculating }
+Contrato >> calcularPlusFecha: unaFecha [
+	^(-1)
+]
+
+{ #category : #calculating }
 Contrato >> calcularReembolso: unMonto [
 	"Calcula reembolso a realizar dependiendo el caso"
 	|reembolso|.
@@ -135,7 +140,7 @@ Contrato >> calcularReembolso: unMonto [
 	] ifFalse:[
 		reembolso := 0.
 	].
-	^reembolso.
+	^(reembolso asFloat truncateTo: 0.01).
 ]
 
 { #category : #accessing }
@@ -239,6 +244,7 @@ Contrato >> fechaSeleccionada [
 { #category : #accessing }
 Contrato >> fechaSeleccionada: unaFecha [
 	fechaSeleccionada := unaFecha.
+	self changed.
 ]
 
 { #category : #initialization }
