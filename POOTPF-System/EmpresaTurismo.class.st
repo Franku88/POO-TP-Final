@@ -189,13 +189,13 @@ EmpresaTurismo >> generarViajeEspecial: unNombre costoPorPersona: costP valorImp
 ]
 
 { #category : #updating }
-EmpresaTurismo >> generarViajeOrganizado: unNombre costoPorPersona: costP valorImpuestos: unImpuesto fechasSalida: unasFechasSalida cantDias: unaCant etapas: unasEtapas [
+EmpresaTurismo >> generarViajeOrganizado: unNombre costoPorPersona: costP valorImpuestos: unImpuesto fechasSalida: unasFechasSalida cantDias: unaCant etapas: unasEtapas excursionesOpcionales: unasExcursionesOpcionales [
 	"Genera un ViajeOrganizado y lo agrega a colViajes si es posible"
 	|unViaje exito|.
 	unViaje := self buscarViajeConNombre: unNombre.
 	exito := unViaje isNil.
 	(exito) ifTrue: [  
-			unViaje := ViajeOrganizado crear: unNombre costoPorPersona: costP valorImpuestos: unImpuesto cantDias: unaCant colFechasSalida: unasFechasSalida colEtapas: unasEtapas.
+			unViaje := ViajeOrganizado crear: unNombre costoPorPersona: costP valorImpuestos: unImpuesto cantDias: unaCant colFechasSalida: unasFechasSalida colEtapas: unasEtapas colExcursionesOpcionales: unasExcursionesOpcionales.
 			colViajes add: unViaje.
 		].
 	^exito.

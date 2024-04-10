@@ -17,12 +17,18 @@ Class {
 }
 
 { #category : #creating }
-ViajeOrganizado class >> crear: unNombre costoPorPersona: unCosto valorImpuestos: unValor cantDias: unaCant colFechasSalida: unaCol colEtapas: otraCol [
+ViajeOrganizado class >> crear: unNombre costoPorPersona: unCosto valorImpuestos: unValor cantDias: unaCant colFechasSalida: unaCol colEtapas: otraCol colExcursionesOpcionales: otraColMas [
 	"Constructor de ViajeOrganizado"
 	|unViaje|.
 	unViaje := self crear: unNombre  costoPorPersona: unCosto valorImpuestos: unValor.
-	unViaje inicializarCantDias: unaCant colFechasSalida: unaCol colEtapas: otraCol.
+	unViaje inicializarCantDias: unaCant colFechasSalida: unaCol colEtapas: otraCol colExcursionesOpcionales: otraColMas.
 	^unViaje.
+]
+
+{ #category : #accessing }
+ViajeOrganizado >> agregarExcursionOpcional: unaExc [
+	colExcursionesOpcionales add: unaExc.
+	self changed.
 ]
 
 { #category : #searching }
@@ -70,6 +76,17 @@ ViajeOrganizado >> colEtapas [
 { #category : #accessing }
 ViajeOrganizado >> colEtapas: unaCol [
 	colEtapas := unaCol.
+]
+
+{ #category : #accessing }
+ViajeOrganizado >> colExcursionesOpcionales [
+	^colExcursionesOpcionales.
+]
+
+{ #category : #accessing }
+ViajeOrganizado >> colExcursionesOpcionales: unaCol [
+	colExcursionesOpcionales := unaCol.
+	self changed.
 ]
 
 { #category : #accessing }
@@ -123,16 +140,13 @@ ViajeOrganizado >> getColFechasVigentesExcepto: unaDate [
 
 { #category : #accessing }
 ViajeOrganizado >> getExcursionOpcional: unaDesc [
-	"Retorna ExcursionOpcional con desc, busca en todas las etapas, ya que cada una tiene colExc"
+	"Retorna ExcursionOpcional con desc, busca en colExcursionesOpcionales"
 	|exc|
-	exc := nil.
-	colEtapas do: [:cadaEta| 
-		|temp|.
-		temp := cadaEta getExcursion: unaDesc.
-		temp ifNotNil: [
-			exc := temp.
-		]. 
-	].
+	exc := colExcursionesOpcionales detect: [:cadaExc| 
+			cadaExc tieneDescripcion: unaDesc.
+		] ifNone: [
+			nil
+		].
 	^exc.
 
 ]
@@ -143,6 +157,16 @@ ViajeOrganizado >> inicializarCantDias: unaCant colFechasSalida: unaCol colEtapa
 	cantDias := unaCant.
 	colFechasSalida := unaCol.
 	colEtapas := otraCol.
+	colExcursionesOpcionales := OrderedCollection new.
+]
+
+{ #category : #initialization }
+ViajeOrganizado >> inicializarCantDias: unaCant colFechasSalida: unaCol colEtapas: otraCol colExcursionesOpcionales: otraColMas [
+	"Inicializa variables de ViajeOrganizado"
+	cantDias := unaCant.
+	colFechasSalida := unaCol.
+	colEtapas := otraCol.
+	colExcursionesOpcionales := otraColMas.
 ]
 
 { #category : #updating }
@@ -176,13 +200,15 @@ ViajeOrganizado >> tieneFecha: unaFecha [
 
 { #category : #accessing }
 ViajeOrganizado >> toString [
-	|cadena salidas etapas|.
+	|cadena salidas etapas excs|.
 	cadena := super toString.
 	salidas := self toStringSalidas.
 	etapas := self toStringEtapas.
-	cadena := cadena,String cr,'	Dias de viaje: ',cantDias asString,String cr,
+	excs := self toStringExcursionesOpcionales.
+	cadena := cadena,String cr,String cr,'	Dias de viaje: ',cantDias asString,String cr,String cr,
 						'	Salidas: ',String cr,salidas,String cr,
-						'	Etapas: ',String cr, etapas,String cr.
+						'	Etapas: ',String cr,etapas,
+						'	Excursiones Opcionales: ',String cr, excs,String cr.
 	^cadena.	
 ]
 
@@ -199,12 +225,25 @@ ViajeOrganizado >> toStringEtapas [
 	^cadena.
 ]
 
+{ #category : #'as yet unclassified' }
+ViajeOrganizado >> toStringExcursionesOpcionales [
+	|cadena|.
+	cadena := ''.
+	colExcursionesOpcionales  do: [ :cadaExc |
+			cadena := cadena,cadaExc toString,String cr.
+		].
+	(cadena = '') ifTrue: [  
+		cadena := '		Sin excursiones opcionales',String cr.
+	].
+	^cadena.
+]
+
 { #category : #accessing }
 ViajeOrganizado >> toStringSalidas [
 	|cadena|.
 	cadena := ''.
 	colFechasSalida do: [:cadaFechaSalida|  
-			cadena := cadena,cadaFechaSalida toString,String cr.
+			cadena := cadena,'	',cadaFechaSalida toString,String cr.
 		].
 	(cadena = '') ifTrue: [  
 		cadena := 'Sin fechas de salida'.

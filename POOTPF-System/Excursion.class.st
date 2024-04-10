@@ -43,7 +43,7 @@ Excursion >> inicializarDescripcion: unaDescripcion [
 
 { #category : #comparing }
 Excursion >> tieneDescripcion: des [
-	^(des = descripcion).
+	^(des = self descripcion).
 ]
 
 { #category : #printing }

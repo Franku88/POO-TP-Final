@@ -182,6 +182,7 @@ Contrato >> colReservas [
 { #category : #accessing }
 Contrato >> colReservas: unaCol [
 	colReservas := unaCol.
+	self changed.
 ]
 
 { #category : #updating }

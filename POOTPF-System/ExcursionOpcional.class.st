@@ -1,34 +1,34 @@
 "
 Instance Variables
 cantPersonas:		<Integer>
-costo:		<Double>
+costoPorPersona:		<Double>
 "
 Class {
 	#name : #ExcursionOpcional,
 	#superclass : #Excursion,
 	#instVars : [
-		'costo'
+		'costoPorPersona'
 	],
 	#category : #'POOTPF-System-System'
 }
 
 { #category : #constructor }
-ExcursionOpcional class >> crear: unaDescripcion costo: unCosto [
+ExcursionOpcional class >> crear: unaDescripcion costoPorPersona: unCosto [
 	"Constructor de ExcursionOpcional"
 	|unaExcursionOp|.
 	unaExcursionOp := self new .
-	unaExcursionOp inicializarDescripcion: unaDescripcion costo: unCosto.
+	unaExcursionOp inicializarDescripcion: unaDescripcion costoPorPersona: unCosto.
 	^unaExcursionOp.
 ]
 
 { #category : #accessing }
-ExcursionOpcional >> costo [
-	^costo.
+ExcursionOpcional >> costoPorPersona [
+	^costoPorPersona.
 ]
 
 { #category : #accessing }
-ExcursionOpcional >> costo: unCosto [
-	costo := unCosto.
+ExcursionOpcional >> costoPorPersona: unCosto [
+	costoPorPersona := unCosto.
 	self changed.
 ]
 
@@ -38,14 +38,14 @@ ExcursionOpcional >> esOpcional [
 ]
 
 { #category : #initialize }
-ExcursionOpcional >> inicializarDescripcion: unaDescripcion costo: unCosto [
+ExcursionOpcional >> inicializarDescripcion: unaDescripcion costoPorPersona: unCosto [
 	self inicializarDescripcion: unaDescripcion.
-	costo := unCosto.
+	costoPorPersona := unCosto.
 ]
 
 { #category : #printing }
 ExcursionOpcional >> toString [
 	|cadena|.
-	cadena := super toString,', Costo por Persona: $',costo asString.
+	cadena := super toString,', Costo por Persona: $',costoPorPersona asString.
 	^cadena.
 ]

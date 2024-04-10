@@ -64,6 +64,7 @@ ModificarContrato >> addButtons [
 { #category : #initialization }
 ModificarContrato >> initializeWithSystem: unSistema cliente: unCliente contrato: unContrato [
 	super initializeWithSystem: unSistema cliente: unCliente contrato: unContrato.
+	self addTitulo: 'Modificar contrato'.
 	self addBotonBorrarVentana: 'Atras'.
 	self addButtons.
 

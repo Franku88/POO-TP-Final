@@ -54,6 +54,7 @@ ViajeEspecial >> ciudad [
 { #category : #accessing }
 ViajeEspecial >> ciudad: unaCiudad [
 	ciudad := unaCiudad.
+	self changed.
 ]
 
 { #category : #updating }
@@ -145,8 +146,8 @@ ViajeEspecial >> tieneFecha: unaFecha [
 ViajeEspecial >> toString [ 
 	|cadena|.
 	cadena := super toString.
-	cadena := cadena,String cr,'	Ciudad: ',ciudad,String cr,
-		'	Salida: ',fechaSalida toString,String cr,
+	cadena := cadena,String cr,String cr,'	Ciudad: ',self ciudad,String cr,String cr,
+		'	Salida: ',fechaSalida toString,String cr,String cr,
 		'	Regreso: ',fechaRegreso ddmmyyyy,String cr.
 	^cadena.
 ]

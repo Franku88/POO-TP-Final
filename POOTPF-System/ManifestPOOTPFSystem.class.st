@@ -33,7 +33,7 @@ ManifestPOOTPFSystem class >> ruleCollectionProtocolRuleV1FalsePositive [
 ManifestPOOTPFSystem class >> ruleExcessiveArgumentsRuleV1FalsePositive [
 
 	<ignoreForCoverage>
-	^ #(#(#(#RGMethodDefinition #(#Cliente #inicializarDni:apellido:ciudad:datosContacto:preferencias: #false)) #'2024-03-06T04:02:19.91-03:00') )
+	^ #(#(#(#RGMethodDefinition #(#Cliente #inicializarDni:apellido:ciudad:datosContacto:preferencias: #false)) #'2024-03-06T04:02:19.91-03:00') #(#(#RGMethodDefinition #(#EmpresaTurismo #generarViajeOrganizado:costoPorPersona:valorImpuestos:fechasSalida:cantDias:etapas:excursionesOpcionales: #false)) #'2024-04-10T00:45:15.882-03:00') #(#(#RGMethodDefinition #(#'ViajeOrganizado class' #crear:costoPorPersona:valorImpuestos:cantDias:colFechasSalida:colEtapas:colExcursionesOpcionales: #true)) #'2024-04-10T00:46:50.732-03:00') )
 ]
 
 { #category : #'code-critics' }
