@@ -91,6 +91,7 @@ Cliente >> bajarContratoConNumero: unNum [
 			exito := unValor >= 0.
 			(exito) ifTrue: [  
 					self reembolsar: unValor.
+					self cancelarReservasDeContrato: unContrato.
 					self borrarContrato: unContrato.
 					self actualizarFrecuencia.
 				].
@@ -157,6 +158,19 @@ Cliente >> cancelarReservaAContratoConNumero: unNum unaReserva: unaRes [
 				].
 		].
 	^exito.
+]
+
+{ #category : #updating }
+Cliente >> cancelarReservasDeContrato: unContrato [
+	(unContrato colReservas) do: [:cadaReserva|
+			self sumarDinero: (cadaReserva costoExtra).
+		].
+	(unContrato colReservas isNotEmpty) ifTrue: [
+			unContrato colReservas: (OrderedCollection new).	
+		].
+	
+	
+
 ]
 
 { #category : #accessing }
