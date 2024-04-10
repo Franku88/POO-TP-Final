@@ -19,7 +19,7 @@ Class {
 ManifestPOOTPFSystem class >> ruleAssignmentInIfTrueRuleV1FalsePositive [
 
 	<ignoreForCoverage>
-	^ #(#(#(#RGMethodDefinition #(#Cliente #generarContrato:viaje:fechaSalida:cantPasajeros:cantCuotas:esFlexible: #false)) #'2024-04-08T19:59:23.807-03:00') )
+	^ #(#(#(#RGMethodDefinition #(#Cliente #generarContrato:viaje:fechaSalida:cantPasajeros:cantCuotas:esFlexible: #false)) #'2024-04-08T19:59:23.807-03:00') #(#(#RGMethodDefinition #(#Contrato #calcularReembolso: #false)) #'2024-04-09T22:00:47.52-03:00') )
 ]
 
 { #category : #'code-critics' }

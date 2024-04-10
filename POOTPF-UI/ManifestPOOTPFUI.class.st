@@ -16,6 +16,13 @@ Class {
 }
 
 { #category : #'code-critics' }
+ManifestPOOTPFUI class >> ruleLongMethodsRuleV1FalsePositive [
+
+	<ignoreForCoverage>
+	^ #(#(#(#RGMethodDefinition #(#VerViajes #addCamposFechas #false)) #'2024-04-09T22:00:20.053-03:00') )
+]
+
+{ #category : #'code-critics' }
 ManifestPOOTPFUI class >> ruleStringConcatenationRuleV1FalsePositive [
 
 	<ignoreForCoverage>
