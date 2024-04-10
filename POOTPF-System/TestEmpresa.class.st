@@ -139,7 +139,7 @@ TestEmpresa class >> crearColViajes [
 	colEtapas := {Etapa crear: 1 diaLlegada: 'día 1 - Estambul' nombreHotel: 'Hotel Grand Plaza' tipoPension: 'Alojamiento y desayuno' colExcursiones: ({Excursion crear: 'Visita a la basílica de Santa Sofía'. Excursion crear: 'Visita al Palacio de Topkapi'} asOrderedCollection). 
 	Etapa crear: 1 diaLlegada: 'dia 2 - Santorini' nombreHotel: 'Ocean View Resort' tipoPension: 'Completa' colExcursiones: ({Excursion crear: 'Recorrido de la isla'} asOrderedCollection). 
 	Etapa crear: 1 diaLlegada: 'dia 3 - Atenas' nombreHotel: 'Sunset Paradise Inn' tipoPension: 'Completa' colExcursiones: ({Excursion crear: 'Visita al Museo de la Acrópolis'} asOrderedCollection)} asOrderedCollection.
-	colViajes add: (ViajeOrganizado crear: 'Turquia y Grecia' costoPorPersona: 12000 valorImpuestos: 5000 cantDias: 3 colFechasSalida: colFechasSalida colEtapas: colEtapas colExcursionesOpcionales: ({ExcursionOpcional crear:'Viaje en ' costoPorPersona: 200} asOrderedCollection)).
+	colViajes add: (ViajeOrganizado crear: 'Turquia y Grecia' costoPorPersona: 12000 valorImpuestos: 5000 cantDias: 3 colFechasSalida: colFechasSalida colEtapas: colEtapas colExcursionesOpcionales: ({ExcursionOpcional crear:'Viaje en bus turistico' costoPorPersona: 200} asOrderedCollection)).
 	
 	colFechasSalida := { (FechaSalida crear: (Date year: 2024 month: 3 day: 15) cupo: 40). (FechaSalida crear: (Date year: 2024 month: 1 day: 24) cupo: 34). (FechaSalida crear: (Date year: 2024 month: 7 day: 31) cupo: 10)} asOrderedCollection.
 	colEtapas := {Etapa crear: 1 diaLlegada: 'día 1' nombreHotel: 'Hotel Sarmiento' tipoPension: 'Alojamiento y desayuno' colExcursiones: ({Excursion crear: 'Visita a Casa de Gobierno'. Excursion crear: 'Visita al museo'. Excursion crear: 'Paseo por la ciudad'} asOrderedCollection). 
@@ -155,4 +155,8 @@ TestEmpresa class >> crearColViajes [
 
 	^colViajes.
 
+]
+
+{ #category : #'see class side' }
+TestEmpresa >> seeClassSide [
 ]

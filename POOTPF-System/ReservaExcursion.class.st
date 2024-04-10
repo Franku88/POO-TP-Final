@@ -47,6 +47,6 @@ ReservaExcursion >> initialize: unaExc cantPersonas: unaCant [
 { #category : #printing }
 ReservaExcursion >> toString [
 	|cad|.
-	cad := '		Excursion: ',String cr,excursionOpcional toString,String cr,'		Cantidad de Personas: ', cantPersonas asString.
+	cad := '		Excursion: ',String cr,excursionOpcional toString,String cr,'			Cantidad de Personas: ', cantPersonas asString.
 	^cad.
 ]

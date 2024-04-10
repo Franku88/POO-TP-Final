@@ -46,6 +46,6 @@ ExcursionOpcional >> inicializarDescripcion: unaDescripcion costoPorPersona: unC
 { #category : #printing }
 ExcursionOpcional >> toString [
 	|cadena|.
-	cadena := super toString,', Costo por Persona: $',costoPorPersona asString.
+	cadena := super toString,String cr,'			Costo por Persona: $',costoPorPersona asString.
 	^cadena.
 ]

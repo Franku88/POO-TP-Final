@@ -76,6 +76,7 @@ Table >> selectedElement: elem [
 
 { #category : #initialization }
 Table >> setClick: unBloque [
+	"unBloque recibira como param el objeto seleccionado en la tabla"
 	clickBlock := unBloque.
 	self changed.
 ]

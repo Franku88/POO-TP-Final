@@ -225,12 +225,12 @@ ViajeOrganizado >> toStringEtapas [
 	^cadena.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 ViajeOrganizado >> toStringExcursionesOpcionales [
 	|cadena|.
 	cadena := ''.
 	colExcursionesOpcionales  do: [ :cadaExc |
-			cadena := cadena,cadaExc toString,String cr.
+			cadena := cadena,cadaExc toString,String cr,String cr.
 		].
 	(cadena = '') ifTrue: [  
 		cadena := '		Sin excursiones opcionales',String cr.

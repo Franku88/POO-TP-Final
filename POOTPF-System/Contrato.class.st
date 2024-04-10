@@ -118,6 +118,18 @@ Contrato >> calcularPagado [
 ]
 
 { #category : #calculating }
+Contrato >> calcularPersonasSinReserva [
+	"Calcula cantidad de personas sin reserva de excursion"
+	|sinReserva conReserva|.
+	conReserva := 0.
+	colReservas do: [:cadaReserva |
+			conReserva := conReserva + (cadaReserva cantPersonas).
+		].
+	sinReserva := cantPersonas - conReserva.
+	^sinReserva.
+]
+
+{ #category : #calculating }
 Contrato >> calcularPlusFecha: unaFecha [
 	^(-1)
 ]
@@ -298,9 +310,11 @@ Contrato >> porVencer [
 
 { #category : #verifying }
 Contrato >> puedeAgregarExcursion [
-	"Retorna verdadero si esta dentro del plazo para agregar excursiones opcionales"
+	"Retorna verdadero si esta dentro del plazo para agregar excursiones opcionales, ademas
+	de poder agregar personas a excursiones"
+	"Previamente solo realizaba el calculo de fecha"
 	|esPosible|.
-	esPosible := ((Date today) addDays: 7) < fechaSeleccionada.
+	esPosible := (((Date today) addDays: 7) < fechaSeleccionada) & (self calcularPersonasSinReserva>0).
 	^esPosible.
 ]
 
