@@ -227,6 +227,12 @@ Contrato >> efectivizar [
 	^esEfectivo.
 ]
 
+{ #category : #updating }
+Contrato >> eliminar [
+	"Baja del Contrato actual sin importar el caso, no realiza reembolsos, si libera viajes"
+	viaje desocupar: fechaSeleccionada personas: cantPersonas.
+]
+
 { #category : #accessing }
 Contrato >> esEfectivo [
 	^esEfectivo.

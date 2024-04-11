@@ -259,6 +259,7 @@ Ventana >> initializeWithSystem: sis [
 	self initialize.
 	sistema := sis.
 	
+	
 ]
 
 { #category : #strings }

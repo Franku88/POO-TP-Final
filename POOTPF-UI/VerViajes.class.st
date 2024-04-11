@@ -153,5 +153,7 @@ VerViajes >> initializeWithSystem: unSistema [
 VerViajes >> update: o [
 	(tablaViajes selectedElement) ifNotNil: [ 
 		masInfo setText: (tablaViajes selectedElement) toString.
+	] ifNil: [
+		masInfo setText: ''.
 	].
 ]

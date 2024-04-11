@@ -81,6 +81,18 @@ Cliente >> apellido: unApellido [
 ]
 
 { #category : #updating }
+Cliente >> bajar [
+	"Elimina todo lo referido al cliente, sin reembolsos ya que el cliente mismo sera eliminado junto con sus datos (dinero, datos personales, etc)"
+	colContratos do: [:cadaContrato|
+			cadaContrato eliminar.
+		].
+	(colContratos isNotEmpty) ifTrue: [
+			colContratos := OrderedCollection new.	
+		].
+	self changed.
+]
+
+{ #category : #updating }
 Cliente >> bajarContratoConNumero: unNum [
 	"Da de baja un Contrato con unNum y realiza reembolsos correspondientes si fuese el caso"
 	|unContrato exito unValor|.

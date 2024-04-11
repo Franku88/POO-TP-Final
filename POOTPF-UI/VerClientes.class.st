@@ -19,13 +19,21 @@ Class {
 
 { #category : #adding }
 VerClientes >> addButtons [
-	"FALTA AGREGAR Y DAR FUNCION A BOTON CANCELAR CLIENTES (crear y modificar implementados en ClienteLogin)"
+	"crear y modificar implementados en ClienteLogin"
 	botonEliminar := Button label: 'Eliminar cliente' color: tema container extent: 120@40.
 	
 	botonEliminar center: tablaClientes center; top: tablaClientes bottom + 50.
 	
-	botonEliminar mouseAction: [  
-		self addMessage: 'FALTA IMPLEMENTAR'.
+	botonEliminar mouseAction: [ 
+		self addMessageConfirm: ('¿Esta seguro? Se eliminara toda informacion ',String cr,' del cliente (contratos, datos personales, etc).') actionConfirm: [ :popup|
+				(sistema bajarClienteConDni: (tablaClientes selectedElement dni)) ifTrue: [
+						self addMessage: 'Cliente eliminado con exito' extent: 200@100.
+					] ifFalse: [
+						self addMessage: 'Ocurrio un problema al eliminar cliente (no encontrado)' extent: 200@100.
+					].
+				popup delete.
+				tablaClientes deselectAll.
+			] extent: 270@110.
 	].
 	
 	body addMorph: botonEliminar.
@@ -60,7 +68,7 @@ VerClientes >> initializeWithSystem: unSistema [
 	titulo top: body top + 15; left: tablaClientes left.
 	self addMasInfo.
 	self addButtons.
-	
+
 	tablaClientes addDependent: self.
 	self update: tablaClientes.
 ]
@@ -69,5 +77,7 @@ VerClientes >> initializeWithSystem: unSistema [
 VerClientes >> update: o [
 	(tablaClientes selectedElement) ifNotNil: [ 
 		masInfo setText: (tablaClientes selectedElement) toString.
+	] ifNil: [
+		masInfo setText: ''.
 	].
 ]

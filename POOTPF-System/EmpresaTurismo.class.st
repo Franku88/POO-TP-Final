@@ -50,6 +50,21 @@ EmpresaTurismo >> agregarReservaAContrato: unDni numeroContrato: unNum excursion
 ]
 
 { #category : #updating }
+EmpresaTurismo >> bajarClienteConDni: unDni [
+	|unCliente exito|.
+	unCliente := self buscarClienteConDni: unDni.
+	exito := unCliente isNotNil.
+	(exito) ifTrue: [
+			unCliente bajar.
+			colClientes remove: unCliente.
+			self changed.
+		].
+	^exito.
+	
+	
+]
+
+{ #category : #updating }
 EmpresaTurismo >> bajarContrato: unDni numeroContrato: unNum [
 	"Da de baja un contrato con unNum del cliente con unDni y realiza reembolsos correspondientes si fuese el caso"
 	|unCliente exito|.
@@ -224,16 +239,17 @@ EmpresaTurismo >> inicializar [
 { #category : #printing }
 EmpresaTurismo >> inicioDelDia [
 	"Genera un string de clientes con contratos por vencer, ademas efectiviza contratos con fecha 	ocurrida"
-	|textoRetorno textoClientes|.
+	|textoClientes|.
 	textoClientes := ''.
-	textoRetorno := 'No se encontraron clientes con contratos por vencer'.
 	colClientes do: [:cadaCliente|
 			 (cadaCliente tieneContratoPorVencer) ifTrue: [  
 					textoClientes := textoClientes,cadaCliente toString,String cr.
 				].
 		].
 	(textoClientes = '') ifFalse: [
-			inicioDia := 'Clientes con contratos a vencer: ',String cr,textoClientes.
+			self inicioDia: ('Clientes con contratos a vencer: ',String cr,textoClientes).
+		] ifTrue: [
+			self inicioDia: 'No se encontraron clientes con contratos por vencer'.
 		].
 ]
 
