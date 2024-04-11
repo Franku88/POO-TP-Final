@@ -122,13 +122,12 @@ Cliente >> bajarContratosConViaje: unNombre [
 			exito := cadaContrato tieneViajeConNombre: unNombre.
 			(exito) ifTrue: [  
 					unValor := cadaContrato bajar.
-					exito := unValor >= 0.
-					(exito) ifTrue: [  
-						self reembolsar: unValor.
-						colContratosBajados add: cadaContrato.
+					(unValor >= 0) ifTrue: [  
+							self reembolsar: unValor.
+						] ifFalse: [
+							cadaContrato eliminar.
 						].
-				].
-			(exito) ifTrue: [  
+					colContratosBajados add: cadaContrato.
 					bajado := true.
 				].
 		].
@@ -329,10 +328,10 @@ Cliente >> inicializarDni: unDni apellido: unApellido ciudad: unaCiudad datosCon
 	datosContacto := unosDatos.
 	preferencias := unasPreferencias.
 	"colContratos inicia vacio, esFrecuente falso hasta que se cumpla la condicion, millas y dinero en 0"
-	colContratos := OrderedCollection new.
-	esFrecuente := false.
-	millas := 0.
-	dinero := 0.
+	self colContratos: OrderedCollection new.
+	self esFrecuente: false.
+	self millas: 0.
+	self dinero: 0.
 	
 ]
 
@@ -343,7 +342,7 @@ Cliente >> millas [
 
 { #category : #accessing }
 Cliente >> millas: unasMillas [
-	millas := unasMillas.
+	millas := unasMillas roundTo: 0.01.
 	self changed.
 ]
 
@@ -424,7 +423,7 @@ Cliente >> sumarDinero: unValor [
 { #category : #updating }
 Cliente >> sumarMillas: unValor [
 	"Adiciona millas al Cliente"
-	self millas: (millas + unValor).
+	self millas: ((millas + unValor) roundTo: 0.01).
 
 ]
 

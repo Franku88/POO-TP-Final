@@ -38,7 +38,7 @@ Class {
 { #category : #adding }
 VerViajes >> addButtons [
 	"FALTA AGREGAR Y DAR FUNCIONES A BOTONES DE CREAR, MODIFICAR Y CANCELAR VIAJES"
-	botonCrear := Button label: 'Crear' color: tema container extent: 80@30 .
+	botonCrear := Button label: 'Crear' extent: 80@30 .
 	botonModificar := Button label: 'Modificar' color: tema container extent: 80@30. 
 	botonCancelar := Button label: 'Cancelar' color: tema container extent: 80@30.
 	
@@ -49,12 +49,26 @@ VerViajes >> addButtons [
 	botonCrear mouseAction: [  
 		self addMessage: 'FALTA IMPLEMENTAR'.
 	].
+
 	botonModificar mouseAction: [  
 		self addMessage: 'FALTA IMPLEMENTAR'.		
 	].
-	botonCancelar mouseAction: [  
-		self addMessage: 'FALTA IMPLEMENTAR'.		
-	].	
+
+	botonCancelar mouseAction: [ 
+		(tablaViajes selectedElement) ifNotNil: [
+			self addMessageConfirm: ('¿Esta seguro? Se cancelaran todos',String cr,'	los contratos de dicho viaje.') actionConfirm: [:popup|
+						(sistema bajarViajeConNombre: (tablaViajes selectedElement nombre)) ifTrue: [
+								self addMessage: 'Viaje cancelado con extio' extent: 170@100.
+							] ifFalse: [
+								self addMessage: 'Hubo un error al cancelar viaje (No se encontro)'.
+							].
+							popup delete.
+							tablaViajes deselectAll.
+					] extent: 220@120.
+		] ifNil: [
+			self addMessage: ('Seleccione un viaje de',String cr,'la tabla para cancelarlo.') extent: 180@120.
+		].
+	].
 
 	body addMorph: botonCrear .
 	body addMorph: botonModificar.
@@ -93,15 +107,22 @@ VerViajes >> addCamposFechas [
 	botonBuscar center: yyyyMax center; left: yyyyMax right + 10.
 	
 	botonBuscar mouseAction: [
-		|viajesFilt|.
-		((ddMin input isAllDigits) & (ddMax input isAllDigits) & (mmMin input isAllDigits) & 
+		|viajesFilt camposVacios|.
+		camposVacios := ((ddMin input),(ddMax input),(ddMax input),(mmMin input),(mmMax input),(yyyyMin input),(yyyyMax input)) = ''.
+		(camposVacios) ifTrue: [
+				"En el caso de que esten vacios, muestra todos los viajes"
+				tablaViajes dataSource: (DataSourceViaje createCollection: sistema colViajes) . 
+			] ifFalse: [
+				((ddMin input isAllDigits) & (ddMax input isAllDigits) & (mmMin input isAllDigits) & 
 (mmMax input isAllDigits) & (yyyyMin input isAllDigits) & (yyyyMax input isAllDigits)) ifTrue: [  
 			viajesFilt := sistema obtenerViajes: (Date year: (yyyyMin input asInteger) month: (mmMin input asInteger) day: (ddMin input asInteger)) hasta: (Date year: (yyyyMax input asInteger) month: (mmMax input asInteger) day: (ddMax input asInteger)).
 			tablaViajes dataSource: (DataSourceViaje createCollection: viajesFilt).
-		] ifFalse: [
-			self addMessage: 'Ingresar digitos en campos de fecha' extent: 250@100.
+					] ifFalse: [
+						self addMessage: 'Ingresar digitos en campos de fecha' extent: 250@100.
+					].
+			].
+			tablaViajes deselectAll.
 		].
-	].
 
 	body addMorph: labelDesde.
 	body addMorph: ddMin.

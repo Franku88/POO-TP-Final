@@ -65,7 +65,7 @@ TestEmpresa class >> crearColClientes: colViajes [
 	
 	"Creo cliente"
 	unCliente := Cliente crear: "43910202"3 apellido: 'Zuñiga' ciudad: 'Cinco Saltos' datosContacto: '299319292' preferencias: 'Ninguna'.
-	unCliente dinero: 1299122.
+	unCliente dinero: 12991.
 	"Creo contrato para cliente"
 	unViaje := colViajes detect: [:viaje| viaje nombre = 'Bahia Blanca'].
 	unContrato := Contrato crear: 3 viaje: unViaje cantPersonas: 2 cantCuotas: 3 fechaSeleccionada: (Date year: 2024 month: 9 day: 29).

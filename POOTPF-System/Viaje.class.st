@@ -121,6 +121,7 @@ Viaje >> nombre [
 { #category : #accessing }
 Viaje >> nombre: unNombre [
 	nombre := unNombre.
+	self changed.
 ]
 
 { #category : #updating }

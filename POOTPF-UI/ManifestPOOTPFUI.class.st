@@ -19,7 +19,7 @@ Class {
 ManifestPOOTPFUI class >> ruleLongMethodsRuleV1FalsePositive [
 
 	<ignoreForCoverage>
-	^ #(#(#(#RGMethodDefinition #(#VerViajes #addCamposFechas #false)) #'2024-04-09T22:00:20.053-03:00') )
+	^ #(#(#(#RGMethodDefinition #(#VerViajes #addCamposFechas #false)) #'2024-04-09T22:00:20.053-03:00') #(#(#RGMethodDefinition #(#VerViajes #addButtons #false)) #'2024-04-11T01:10:44.339-03:00') )
 ]
 
 { #category : #'code-critics' }
