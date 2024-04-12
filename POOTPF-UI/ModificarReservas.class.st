@@ -2,7 +2,7 @@
 Vista que mostrara un menu para agregar una excursion opcional a un contrato.
 "
 Class {
-	#name : #AgregarExcursionOpcional,
+	#name : #ModificarReservas,
 	#superclass : #ViewContrato,
 	#instVars : [
 		'tablaExcursiones',
@@ -11,11 +11,11 @@ Class {
 		'botonAgregarExcursion',
 		'botonCancelarReserva'
 	],
-	#category : #'POOTPF-UI-Views'
+	#category : #'POOTPF-UI'
 }
 
 { #category : #adding }
-AgregarExcursionOpcional >> addBotonAgregarExcursion [
+ModificarReservas >> addBotonAgregarExcursion [
 	botonAgregarExcursion := Button label: 'Agregar excursion' extent: 125@35.
 	botonAgregarExcursion bottom: tablaExcursiones bottom - 15; left: tablaExcursiones right + 30.
 	
@@ -45,7 +45,7 @@ AgregarExcursionOpcional >> addBotonAgregarExcursion [
 ]
 
 { #category : #adding }
-AgregarExcursionOpcional >> addBotonCancelarReserva [
+ModificarReservas >> addBotonCancelarReserva [
 	botonCancelarReserva := Button label: 'Cancelar reserva' extent: 125@35.
 	botonCancelarReserva center: tablaReservas center; top: tablaReservas bottom + 15.
 	
@@ -67,7 +67,7 @@ AgregarExcursionOpcional >> addBotonCancelarReserva [
 ]
 
 { #category : #adding }
-AgregarExcursionOpcional >> addCampoCantPersonas [
+ModificarReservas >> addCampoCantPersonas [
 	"Agrega campo para ingresar una cantidad de personas, queda en 0 si no se permite el ingreso"
 	|title title2 sinRes|
 	sinRes := contrato calcularPersonasSinReserva.
@@ -90,7 +90,7 @@ AgregarExcursionOpcional >> addCampoCantPersonas [
 ]
 
 { #category : #adding }
-AgregarExcursionOpcional >> addTablaExcursiones: unViaje [
+ModificarReservas >> addTablaExcursiones: unViaje [
 	"Agrega una tabla con excursiones opcionales de un viaje"
 	|label|.
 	label := 'Reservar' asMorph.
@@ -113,7 +113,7 @@ AgregarExcursionOpcional >> addTablaExcursiones: unViaje [
 ]
 
 { #category : #adding }
-AgregarExcursionOpcional >> addTablaReservas [
+ModificarReservas >> addTablaReservas [
 	"Agrega una tabla con reservas del contrato"
 	|label|.
 	label := 'Cancelar' asMorph.
@@ -135,14 +135,14 @@ AgregarExcursionOpcional >> addTablaReservas [
 ]
 
 { #category : #deleting }
-AgregarExcursionOpcional >> borrarInputsCancelar [
+ModificarReservas >> borrarInputsCancelar [
 	botonCancelarReserva ifNotNil:[
 			botonCancelarReserva delete.
 		].
 ]
 
 { #category : #deleting }
-AgregarExcursionOpcional >> borrarInputsReserva [
+ModificarReservas >> borrarInputsReserva [
 	campoCantPersonas ifNotNil: [
 			campoCantPersonas delete.
 		].
@@ -152,7 +152,7 @@ AgregarExcursionOpcional >> borrarInputsReserva [
 ]
 
 { #category : #initialization }
-AgregarExcursionOpcional >> initializeWithSystem: unSistema cliente: unCliente contrato: unContrato [
+ModificarReservas >> initializeWithSystem: unSistema cliente: unCliente contrato: unContrato [
 	super initializeWithSystem: unSistema cliente: unCliente contrato: unContrato.
 	self addBotonBorrarVentana: 'Atras'.
 	self addTitulo: 'Agregar excursiones opcionales (Reservas)'.
@@ -161,7 +161,7 @@ AgregarExcursionOpcional >> initializeWithSystem: unSistema cliente: unCliente c
 ]
 
 { #category : #updating }
-AgregarExcursionOpcional >> update: o [
+ModificarReservas >> update: o [
 	super update: o.
 	self borrarInputsReserva.
 ]

@@ -55,6 +55,16 @@ Viaje >> calcularPlusFecha: unaFecha personas: cantPersonas [
 	^(-1)
 ]
 
+{ #category : #updating }
+Viaje >> cambiarCupo: unaFechaSalida cupo: unCupo [
+	^false
+]
+
+{ #category : #updating }
+Viaje >> cambiarFechaRegreso: unaFecha [
+	^false
+]
+
 { #category : #accessing }
 Viaje >> costoPorPersona [
 	^costoPorPersona.

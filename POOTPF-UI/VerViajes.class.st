@@ -50,8 +50,12 @@ VerViajes >> addButtons [
 		self addMessage: 'FALTA IMPLEMENTAR'.
 	].
 
-	botonModificar mouseAction: [  
-		self addMessage: 'FALTA IMPLEMENTAR'.		
+	botonModificar mouseAction: [
+		(tablaViajes selectedElement esOrganizado) ifTrue: [
+				self addMorphCentered: (ModificarViajeOrganizado createWithSystem: sistema viaje: (tablaViajes selectedElement)).	
+			] ifFalse: [
+				self addMorphCentered: (ModificarViajeEspecial createWithSystem: sistema viaje: (tablaViajes selectedElement))
+			].
 	].
 
 	botonCancelar mouseAction: [ 

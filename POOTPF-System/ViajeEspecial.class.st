@@ -46,6 +46,27 @@ ViajeEspecial >> calcularPlusFecha: unaFecha personas: cantPersonas [
 	^unPlus.
 ]
 
+{ #category : #updating }
+ViajeEspecial >> cambiarCupo: unaFechaSalida cupo: unCupo [
+	|exito|.
+	exito := self fechaSalida = unaFechaSalida.
+	exito ifTrue: [
+			self fechaSalida cupo: unCupo.
+			self changed.
+		].
+	^exito.
+]
+
+{ #category : #updating }
+ViajeEspecial >> cambiarFechaRegreso: unaFecha [
+	|exito|.
+	exito := unaFecha > self fechaSalida fecha.
+	exito ifTrue: [
+			self fechaRegreso: unaFecha.
+		].
+	^exito.
+]
+
 { #category : #accessing }
 ViajeEspecial >> ciudad [
 	^ciudad.
@@ -82,6 +103,7 @@ ViajeEspecial >> fechaRegreso [
 { #category : #accessing }
 ViajeEspecial >> fechaRegreso: unaFecha [
 	fechaRegreso := unaFecha.
+	self changed.
 ]
 
 { #category : #accessing }
@@ -92,6 +114,7 @@ ViajeEspecial >> fechaSalida [
 { #category : #accessing }
 ViajeEspecial >> fechaSalida: unaFecha [
 	fechaSalida := unaFecha.
+	self changed.
 ]
 
 { #category : #accessing }

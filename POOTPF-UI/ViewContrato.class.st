@@ -35,6 +35,7 @@ ViewContrato >> addMasInfo [
 ViewContrato >> initializeWithSystem: unSistema cliente: unCliente contrato: unContrato [
 	self initializeWithSystem: unSistema cliente: unCliente.
 	self addMasInfo.
+	
 	contrato := unContrato.
 	contrato addDependent: self.
 	self update: contrato.

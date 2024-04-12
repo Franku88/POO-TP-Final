@@ -46,6 +46,7 @@ FechaSalida >> cupo [
 { #category : #accessing }
 FechaSalida >> cupo: unCupo [
 	cupo := unCupo.
+	self changed.
 ]
 
 { #category : #updating }

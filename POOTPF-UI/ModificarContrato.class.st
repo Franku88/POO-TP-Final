@@ -46,7 +46,7 @@ ModificarContrato >> addBotonExcOp [
 	botonAgregarExcOp mouseAction: [ 
 		(contrato viaje esOrganizado) ifTrue: [ 
 			(contrato cumplePlazoReserva) ifTrue:[
-					self addMorphCentered: (AgregarExcursionOpcional createWithSystem: sistema cliente: cliente contrato: contrato).
+					self addMorphCentered: (ModificarReservas createWithSystem: sistema cliente: cliente contrato: contrato).
 				] ifFalse:[
 					self addMessage: 'Plazo para agregar reservas terminado',String cr,'El viaje ocurre en menos de una semana.' extent: 250@120.
 				].
