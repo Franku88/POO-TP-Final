@@ -308,6 +308,34 @@ EmpresaTurismo >> pagarCuotasContrato: unDni numContrato: unNum cuotasAPagar: ca
 	^exito.
 ]
 
+{ #category : #updating }
+EmpresaTurismo >> quitarFechaSalidaDeViaje: unViaje fechaSalida: unaFechaSalida [
+	|exito viajeEncontrado|.
+	viajeEncontrado := self buscarViajeConNombre: (unViaje nombre).
+	exito := viajeEncontrado isNotNil.
+	exito ifTrue: [
+			exito := viajeEncontrado esOrganizado.
+			exito ifTrue: [
+					exito := (self tieneContratoConViajeYFecha: viajeEncontrado fechaSalida: unaFechaSalida) not.
+					exito ifTrue: [
+							exito := viajeEncontrado quitarFechaSalida: unaFechaSalida.	
+						].
+				].
+		].
+	^exito.
+]
+
+{ #category : #searching }
+EmpresaTurismo >> tieneContratoConViajeYFecha: unViaje fechaSalida: unaFechaSalida [
+	|encontrado|.
+	encontrado := colClientes detect: [:cadaCliente|
+			cadaCliente tieneContratoConViajeYFecha: unViaje fechaSalida: unaFechaSalida.
+		] ifNone: [
+			nil.
+		].
+	^(encontrado isNotNil).
+]
+
 { #category : #printing }
 EmpresaTurismo >> toString [
 	"Imprime todos los viajes y clientes de la EmpresaTurismo"

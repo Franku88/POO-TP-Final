@@ -5,7 +5,7 @@ costoPorPersona:		<Double>
 "
 Class {
 	#name : #ExcursionOpcional,
-	#superclass : #Excursion,
+	#superclass : #Actividad,
 	#instVars : [
 		'costoPorPersona'
 	],

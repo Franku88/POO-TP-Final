@@ -357,6 +357,16 @@ Contrato >> tieneNumero: unNum [
 	^ (numero = unNum).
 ]
 
+{ #category : #searching }
+Contrato >> tieneViaje: unViaje fechaSalida: unaFechaSalida [
+	|exito|.
+	exito := self tieneViajeConNombre: (unViaje nombre).
+	exito ifTrue: [
+			exito := unaFechaSalida tieneFecha: fechaSeleccionada. 
+		].
+	^exito.
+]
+
 { #category : #verifying }
 Contrato >> tieneViajeConNombre: unNombre [
 	"Retorna verdadero si viaje de Contrato tiene unNombre"

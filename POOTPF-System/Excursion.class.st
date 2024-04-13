@@ -4,9 +4,9 @@ descripcion:		<String>
 "
 Class {
 	#name : #Excursion,
-	#superclass : #Object,
+	#superclass : #Actividad,
 	#instVars : [
-		'descripcion'
+		'desc'
 	],
 	#category : #'POOTPF-System-System'
 }
@@ -18,42 +18,4 @@ Excursion class >> crear: unaDescripcion [
 	unaExcursion := self new.
 	unaExcursion inicializarDescripcion: unaDescripcion.
 	^unaExcursion.
-]
-
-{ #category : #accessing }
-Excursion >> descripcion [
-	^descripcion.
-]
-
-{ #category : #accessing }
-Excursion >> descripcion: unaDescripcion [
-	descripcion := unaDescripcion.
-]
-
-{ #category : #verifying }
-Excursion >> esOpcional [
-	^false.
-]
-
-{ #category : #initialization }
-Excursion >> inicializarDescripcion: unaDescripcion [
-	"Inicializa Excursion"
-	descripcion := unaDescripcion.
-]
-
-{ #category : #comparing }
-Excursion >> tieneDescripcion: des [
-	^(des = self descripcion).
-]
-
-{ #category : #printing }
-Excursion >> toString [
-	|cadena|.
-	cadena := '			Descripcion: ',descripcion.
-	^cadena.
-]
-
-{ #category : #verifying }
-Excursion >> verificarCantPersonas: unaCant [
-	^false.
 ]

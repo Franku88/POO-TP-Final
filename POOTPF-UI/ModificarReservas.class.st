@@ -11,7 +11,7 @@ Class {
 		'botonAgregarExcursion',
 		'botonCancelarReserva'
 	],
-	#category : #'POOTPF-UI'
+	#category : #'POOTPF-UI-Views'
 }
 
 { #category : #adding }
@@ -22,7 +22,7 @@ ModificarReservas >> addBotonAgregarExcursion [
 	botonAgregarExcursion mouseAction: [	
 			|cantP|.
 			cantP := (campoCantPersonas getValor).
-			(cantP > 0) ifTrue: [
+			((cantP) > 0) ifTrue: [
 					self addMessageConfirm: ('¿Esta seguro de crear la reserva?',String cr,' Se cobraran $',((tablaExcursiones selectedElement costoPorPersona)*(cantP)) asString,' para ',cantP asString,' personas.') actionConfirm: ([:popup|
 						(cliente agregarReservaAContratoConNumero: (contrato numero) excursionOpcional: (tablaExcursiones selectedElement) cantPersonas: cantP) ifTrue: [
 							self addMessage: 'Excursion agregada' extent: 150@100.

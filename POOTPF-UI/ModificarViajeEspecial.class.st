@@ -1,5 +1,8 @@
 "
 Vista que muestra menu de modificacion de viaje especial
+
+botonCambiarRegreso:	<Button> 
+botonCambiarCupo:		<Button>
 "
 Class {
 	#name : #ModificarViajeEspecial,

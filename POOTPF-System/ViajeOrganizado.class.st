@@ -3,6 +3,7 @@ Instance Variables
 cantDias:		<Integer>
 colEtapas:		<OrderedCollection>
 colFechasSalida:		<OrderedCollection>
+colExcursionesOpcionales: 	<OrderedCollection>
 "
 Class {
 	#name : #ViajeOrganizado,
@@ -29,6 +30,19 @@ ViajeOrganizado class >> crear: unNombre costoPorPersona: unCosto valorImpuestos
 ViajeOrganizado >> agregarExcursionOpcional: unaExc [
 	colExcursionesOpcionales add: unaExc.
 	self changed.
+]
+
+{ #category : #searching }
+ViajeOrganizado >> buscarExcursionConDescripcion: unaDesc [
+	|unaExc|.
+	unaExc := colExcursionesOpcionales detect: [:cadaExc|
+			cadaExc tieneDescripcion: unaDesc.			
+		] ifNone: [
+			nil.
+		].
+	^unaExc.
+	
+	
 ]
 
 { #category : #searching }
@@ -183,6 +197,41 @@ ViajeOrganizado >> ocupar: fechaSeleccionada personas: cantPersonas [
 			fechaEncontrada ocupar: cantPersonas.
 		].	
 	^res.
+]
+
+{ #category : #updating }
+ViajeOrganizado >> quitarExcursionOpcional: unaExc [
+	|exito encontrado|.
+	encontrado := colExcursionesOpcionales detect: [:cadaExc|
+			cadaExc = unaExc.
+		] ifNone: [
+			nil.
+		].
+	exito := encontrado isNotNil.
+	exito ifTrue: [
+			colExcursionesOpcionales remove: encontrado.
+		].
+	self changed.
+	^exito.
+	
+]
+
+{ #category : #updating }
+ViajeOrganizado >> quitarFechaSalida: unaFecha [
+	"unaFecha = FechaSalida"
+	|exito encontrado|.
+	encontrado := colFechasSalida detect: [:cadaFecha|
+			cadaFecha = unaFecha.
+		] ifNone: [
+			nil.
+		].
+	exito := encontrado isNotNil.
+	exito ifTrue: [
+			colFechasSalida remove: encontrado.
+		].
+	self changed.
+	^exito.
+	
 ]
 
 { #category : #verifying }

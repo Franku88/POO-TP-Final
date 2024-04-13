@@ -25,6 +25,11 @@ Viaje class >> crear: unNombre costoPorPersona: unCosto valorImpuestos: unValor 
 ]
 
 { #category : #searching }
+Viaje >> buscarExcursionConDescripcion: unaDesc [
+	^nil
+]
+
+{ #category : #searching }
 Viaje >> buscarFecha: unaFecha [
 	^nil.
 ]
@@ -137,6 +142,11 @@ Viaje >> nombre: unNombre [
 { #category : #updating }
 Viaje >> ocupar: fechaSeleccionada personas: cantPersonas [
 	^false.
+]
+
+{ #category : #updating }
+Viaje >> quitarExcursionOpcional: unaExc [
+	^false
 ]
 
 { #category : #comparing }

@@ -427,6 +427,17 @@ Cliente >> sumarMillas: unValor [
 
 ]
 
+{ #category : #searching }
+Cliente >> tieneContratoConViajeYFecha: unViaje fechaSalida: unaFechaSalida [
+	|encontrado|.
+	encontrado := colContratos detect: [:cadaContrato|
+			cadaContrato tieneViaje: unViaje fechaSalida: unaFechaSalida.
+		] ifNone: [
+			nil.
+		].
+	^(encontrado isNotNil)
+]
+
 { #category : #verifying }
 Cliente >> tieneContratoPorVencer [
 	"Retorna verdadero si el cliente tiene un contrato por vencer"
