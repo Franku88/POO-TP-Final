@@ -32,6 +32,22 @@ ViajeOrganizado >> agregarExcursionOpcional: unaExc [
 	self changed.
 ]
 
+{ #category : #adding }
+ViajeOrganizado >> agregarFechaSalida: unaFechaSalida [
+	|encontrado exito|.
+	encontrado := colFechasSalida detect: [:cadaFecha|
+			cadaFecha tieneFecha: (unaFechaSalida fecha).
+		] ifNone: [
+			nil.
+		].
+	exito := encontrado isNil.
+	exito ifTrue: [ 
+			colFechasSalida add: unaFechaSalida.
+			self changed.
+		].
+	^exito.
+]
+
 { #category : #searching }
 ViajeOrganizado >> buscarExcursionConDescripcion: unaDesc [
 	|unaExc|.
@@ -210,8 +226,8 @@ ViajeOrganizado >> quitarExcursionOpcional: unaExc [
 	exito := encontrado isNotNil.
 	exito ifTrue: [
 			colExcursionesOpcionales remove: encontrado.
+			self changed.
 		].
-	self changed.
 	^exito.
 	
 ]

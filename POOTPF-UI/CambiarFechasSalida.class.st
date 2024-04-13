@@ -32,20 +32,29 @@ CambiarFechasSalida >> addBotonAgregar [
 		(campoFecha isEmpty | campoCupo isEmpty) ifTrue: [
 			self addMessage: 'Todos los campos son obligatorios'.
 		] ifFalse: [
-			"(Helper stringIsNumeric: costoString) ifTrue: [
-				(viaje buscarExcursionConDescripcion: fechaString) ifNil: [
-					viaje agregarExcursionOpcional: (ExcursionOpcional crear: fechaString costoPorPersona: (costoString asNumber)).
-					self addMessage: 'Excursion agregada con exito.'.	
-					campoDescripcion  clear.
-					campoCosto clear.
-				] ifNotNil: [
-					self addMessage: 'Descripcion ya utilizada.'.
-					campoDescripcion clear.
+			(Helper stringIsNumeric: cupoString) ifTrue: [
+				|regex unaFecha|.
+				regex := '^(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[0-1])-(19|20)\d{2}$' asRegex.
+				(regex matches: fechaString) ifTrue: [
+					unaFecha := (Date fromString: fechaString).
+						(unaFecha > Date today) ifTrue: [
+							(viaje agregarFechaSalida: (FechaSalida crear: unaFecha cupo: (cupoString asNumber))) ifTrue: [
+									self addMessage: 'Fecha agregada con exito.'.	
+									campoFecha clear.
+									campoCupo clear.	
+								] ifFalse: [
+									self addMessage: ('Fecha ingresada ',String cr,' ya se encuentra.') extent: 200@120.
+								].
+						] ifFalse: [
+							self addMessage: ('Fecha ingresada debe',String cr,'ser luego del dia actual.') extent: 200@120.
+						].
+				] ifFalse: [
+					self addMessage: 'Ingrese una fecha en el formato indicado' extent: 230@100.				
 				].
 			] ifFalse: [
-				self addMessage: 'Costo ingresado no es numerico.'.
-				campoCosto clear.
-			]."
+				self addMessage: 'Cupo ingresado no es numerico.'.
+				campoCupo clear.
+			].
 		].
 	].
 
@@ -62,6 +71,7 @@ CambiarFechasSalida >> addBotonEliminar [
 			(sistema quitarFechaSalidaDeViaje: viaje fechaSalida: (tablaFechasSalida selectedElement)) ifTrue: [
 					self addMessage: 'Fecha eliminada con exito.'.
 					tablaFechasSalida deselectAll.
+					self borrarBotonEliminar.
 				] ifFalse: [
 					self addMessage: 'Existen contratos con dicha fecha',String cr,'Primero debe eliminar los mismos.' extent: 220@120.
 				].
@@ -77,7 +87,7 @@ CambiarFechasSalida >> addCamposAgregarFecha [
 	self addContenedor: 250@150.
 	contenedor center: tablaFechasSalida center + (0@225).
 	
-	campoFecha  := TextField createTransparentExtent: 200@30 ghostText: 'mm-dd-aaaa'.
+	campoFecha  := TextField createTransparentExtent: 200@30 ghostText: 'mes-dia-anio'.
 	campoCupo  := TextField createTransparentExtent: 150@30 ghostText: ''.
 	
 	campoFecha borderWidth: 1; borderColor: Color black.
@@ -116,10 +126,18 @@ CambiarFechasSalida >> addTablaFechas [
 	
 	tablaFechasSalida setClick: [ :obj |
 		obj ifNotNil: [
-			"self borrarInputs."
+			self borrarBotonEliminar.
 			self addBotonEliminar.
 		].	
 	].
+]
+
+{ #category : #deleting }
+CambiarFechasSalida >> borrarBotonEliminar [
+	botonEliminar ifNotNil:[
+			botonEliminar delete.
+		].
+	
 ]
 
 { #category : #initialization }
@@ -129,7 +147,6 @@ CambiarFechasSalida >> initializeWithSystem: unSistema viaje: unViaje [
 	self addBotonBorrarVentana: 'Atras'.
 	self addTablaFechas.
 	self addCamposAgregarFecha.
-	"self addButtons."
 	
 	
 	

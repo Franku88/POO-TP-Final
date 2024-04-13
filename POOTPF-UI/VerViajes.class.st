@@ -51,11 +51,16 @@ VerViajes >> addButtons [
 	].
 
 	botonModificar mouseAction: [
-		(tablaViajes selectedElement esOrganizado) ifTrue: [
-				self addMorphCentered: (ModificarViajeOrganizado createWithSystem: sistema viaje: (tablaViajes selectedElement)).	
-			] ifFalse: [
-				self addMorphCentered: (ModificarViajeEspecial createWithSystem: sistema viaje: (tablaViajes selectedElement))
+		(tablaViajes selectedElement) ifNotNil: [
+			(tablaViajes selectedElement esOrganizado) ifTrue: [
+					self addMorphCentered: (ModificarViajeOrganizado createWithSystem: sistema viaje: (tablaViajes selectedElement)).	
+				] ifFalse: [
+					self addMorphCentered: (ModificarViajeEspecial createWithSystem: sistema viaje: (tablaViajes selectedElement))
+				].
+			] ifNil: [
+				self addMessage: ('Seleccione un viaje de',String cr,'la tabla para modificarlo.') extent: 180@120.
 			].
+		tablaViajes deselectAll.
 	].
 
 	botonCancelar mouseAction: [ 
@@ -170,15 +175,18 @@ VerViajes >> initializeWithSystem: unSistema [
 	self addMasInfo.
 	self addButtons.
 	self addCamposFechas.
+	
 	tablaViajes addDependent: self.
 	self update: tablaViajes.
 ]
 
 { #category : #updating }
 VerViajes >> update: o [
+	super update: o.
 	(tablaViajes selectedElement) ifNotNil: [ 
 		masInfo setText: (tablaViajes selectedElement) toString.
 	] ifNil: [
 		masInfo setText: ''.
 	].
+	
 ]

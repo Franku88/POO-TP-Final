@@ -24,6 +24,11 @@ Viaje class >> crear: unNombre costoPorPersona: unCosto valorImpuestos: unValor 
 	^unViaje.
 ]
 
+{ #category : #adding }
+Viaje >> agregarFechaSalida: unaFechaSalida [
+	^false.
+]
+
 { #category : #searching }
 Viaje >> buscarExcursionConDescripcion: unaDesc [
 	^nil
