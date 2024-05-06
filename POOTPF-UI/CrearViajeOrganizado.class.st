@@ -269,7 +269,6 @@ CrearViajeOrganizado >> addContenedorViaje [
 	self addContenedor: 240@380.
 	contenedor center: body center; left: body left + 20.
 	self addAviso.
-	self addTitulo: 'Creando Viaje Organizado'.
 	titulo bottom: contenedor top - 20.
 	self addCampos.
 	self addBotonContinuarEtapas.
@@ -282,4 +281,5 @@ CrearViajeOrganizado >> initializeWithSystem: sis [
 	self addBotonBorrarVentana: 'Volver'.
 	self addAviso.
 	self addContenedorViaje.
+	self addTitulo: 'Creando Viaje Organizado'.
 ]
