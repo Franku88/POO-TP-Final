@@ -33,9 +33,8 @@ CambiarFechasSalida >> addBotonAgregar [
 			self addMessage: 'Todos los campos son obligatorios'.
 		] ifFalse: [
 			(Helper stringIsNumeric: cupoString) ifTrue: [
-				|regex unaFecha|.
-				regex := '^(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[0-1])-(19|20)\d{2}$' asRegex.
-				(regex matches: fechaString) ifTrue: [
+				|unaFecha|.
+				(Helper stringMMDDAAAA: fechaString) ifTrue: [
 					unaFecha := (Date fromString: fechaString).
 						(unaFecha > Date today) ifTrue: [
 							(viaje agregarFechaSalida: (FechaSalida crear: unaFecha cupo: (cupoString asNumber))) ifTrue: [
@@ -93,7 +92,7 @@ CambiarFechasSalida >> addCamposAgregarFecha [
 	campoFecha borderWidth: 1; borderColor: Color black.
 	campoCupo borderWidth: 1; borderColor: Color black.
 	
-	labelFecha := 'Fecha (mm-dd-aaa)' asMorph.
+	labelFecha := 'Fecha (mm-dd-aaaa)' asMorph.
 	labelCupo := 'Cupo' asMorph.
 	
 	campoFecha center: contenedor center - (0@30).

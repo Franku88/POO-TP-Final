@@ -60,6 +60,7 @@ VerContratos >> addButtons [
 				self addMessage: 'No es posible modificar el contrato.',String cr,'(Es Efectivo o Fecha no vigente)' extent: 210@120.
 			] ifFalse: [
 				self addMorphCentered:  (ModificarContrato createWithSystem: sistema cliente: cliente contrato: (tablaContratos selectedElement)).
+				tablaContratos deselectAll.	
 			].
 		].
 	].
@@ -181,6 +182,7 @@ VerContratos >> initializeWithSystem: unSistema cliente: unCliente [
 	tablaContratos addDependent: self.
 	self update: tablaContratos.
 
+
 	
 
 ]
@@ -192,6 +194,4 @@ VerContratos >> update: o [
 	(tablaContratos selectedElement) ifNotNil: [  
 		masInfo setText: (self contratoToString).
 	].
-
-	
 ]

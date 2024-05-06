@@ -199,6 +199,7 @@ EmpresaTurismo >> generarViajeEspecial: unNombre costoPorPersona: costP valorImp
 	(exito) ifTrue: [  
 			unViaje := ViajeEspecial crear: unNombre costoPorPersona: costP valorImpuestos: unImpuesto ciudad: unaCiudad fechaSalida: unaFechaSalida fechaRegreso: unaFechaRegreso.
 			colViajes add: unViaje.
+			self changed.
 		].
 	^exito.
 ]

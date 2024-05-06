@@ -25,8 +25,7 @@ Class {
 { #category : #adding }
 RegistrarCliente >> addBotonRegistrar [
 	botonRegistrar := Button label: 'Registrar'.
-	"campoContacto borderWidth: 1; borderColor: Color black.	"
-		
+	"campoContacto borderWidth: 1; borderColor: Color black."
 	botonRegistrar center: contenedor center + (0@155).
 	botonRegistrar mouseAction: [ 
 		|dniString|.

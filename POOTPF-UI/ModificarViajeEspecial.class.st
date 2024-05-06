@@ -50,9 +50,8 @@ ModificarViajeEspecial >> addBotonCambiarRegreso [
 	botonCambiarRegreso mouseAction: [ 
 		self addMessageInput: ('Ingrese nueva fecha de regreso',String cr,'		(mm-dd-aaaa)') 
 		actionAceptar: [:input :popup|
-				|regex unaFecha|.
-				regex := '^(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[0-1])-(19|20)\d{2}$' asRegex.
-				((input = '') | (regex matches: input) not) ifFalse: [
+				|unaFecha|.
+				((input = '') | (Helper stringMMDDAAAA: input) not) ifFalse: [
 					unaFecha := (Date fromString: input).
 					(unaFecha  > (viaje fechaSalida fecha)) ifTrue: [
 						(viaje cambiarFechaRegreso: unaFecha) ifTrue: [

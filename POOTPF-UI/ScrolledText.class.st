@@ -71,6 +71,11 @@ ScrolledText >> ghostText: cad [
 	sText ghostText: cad.
 ]
 
+{ #category : #scrollbars }
+ScrolledText >> hScrollbarShowNever [
+	sText hScrollbarShowNever.
+]
+
 { #category : #initialization }
 ScrolledText >> initializeExtent: dim color: col [
 	sText := RubScrolledTextMorph new.
@@ -90,4 +95,9 @@ ScrolledText >> initializeExtent: dim color: col title: cad [
 { #category : #initialization }
 ScrolledText >> setText: cad [
 	sText setText: cad.
+]
+
+{ #category : #scrollbars }
+ScrolledText >> vScrollbarShowNever [
+	sText vScrollbarShowNever.
 ]
