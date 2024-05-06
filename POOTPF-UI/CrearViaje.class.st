@@ -1,43 +1,62 @@
 "
-Vista para crear viaje, muestra botones para elegir entre que tipo de viaje se desea crear.
-<Instance Variables>
-botonCrearEspecial: 	<Button>
-botonCrearOrganizado: 	<Button>	
+Interfaz para vistas de CrearViaje 
+    Instance Variables
+	campoCostoPP:		<TextField>
+	campoImpuestos:		<TextField>
+	campoNombre:		<TextField>
 
 "
 Class {
 	#name : #CrearViaje,
 	#superclass : #Ventana,
 	#instVars : [
-		'botonCrearEspecial',
-		'botonCrearOrganizado'
+		'campoNombre',
+		'campoCostoPP',
+		'campoImpuestos',
+		'botonCrearViaje'
 	],
 	#category : #'POOTPF-UI-Views'
 }
 
 { #category : #adding }
-CrearViaje >> addButtons [
-	botonCrearEspecial := Button label: 'Viaje Especial' extent: 100@30.
-	botonCrearOrganizado := Button label: 'Viaje Organizado' extent: 110@30.	
-		
-	botonCrearEspecial mouseAction: [  
-			self addMorphCentered: (CrearViajeEspecial createWithSystem: sistema).
-		]; center: contenedor center; top: contenedor top + 60.	
-		
-	botonCrearOrganizado mouseAction: [  
-			self addMorphCentered: (CrearViajeOrganizado createWithSystem: sistema).
-		]; center: contenedor center; bottom: contenedor bottom - 60.
+CrearViaje >> addCampoCostoPP [
+	|label|.
+	campoCostoPP := TextField createTransparentExtent: 120@30 ghostText: 'ej: 5000'.
+	campoCostoPP borderWidth: 1; borderColor: Color black.
+	label := 'Costo por Persona' asMorph.
 	
-	self addMorph: botonCrearEspecial.
-	self addMorph: botonCrearOrganizado.
+	campoCostoPP center: contenedor center - (0@93).
+	label center: campoCostoPP center - (0@20).
+	
+	contenedor addMorph: campoCostoPP.
+	contenedor addMorph: label.
+	
 ]
 
-{ #category : #initialization }
-CrearViaje >> initializeWithSystem: sis [
-	super initializeWithSystem: sis.
-	self addBotonBorrarVentana: 'Volver'.
-	self addContenedor: 200@250.
-	self addTitulo: 'Seleccione el tipo de viaje a crear'.
-	titulo top: body top + 50.
-	self addButtons.
+{ #category : #adding }
+CrearViaje >> addCampoImpuestos [
+	|label|.
+	campoImpuestos := TextField createTransparentExtent: 120@30 ghostText: 'ej: 1500'.
+	campoImpuestos borderWidth: 1; borderColor: Color black.
+	label := 'Impuestos' asMorph.
+	
+	campoImpuestos center: contenedor center - (0@31).
+	label center: campoImpuestos center - (0@20).
+	
+	contenedor addMorph: campoImpuestos.
+	contenedor addMorph: label.
+]
+
+{ #category : #adding }
+CrearViaje >> addCampoNombre [
+	|label|.
+	campoNombre := TextField createTransparentExtent: 200@30 ghostText: 'ej: Viaje a Cordoba'.
+	campoNombre borderWidth: 1; borderColor: Color black.
+	label := 'Nombre' asMorph.
+	
+	campoNombre center: contenedor center - (0@155).
+	label center: campoNombre center - (0@20).
+	
+	contenedor addMorph: campoNombre.
+	contenedor addMorph: label.
 ]

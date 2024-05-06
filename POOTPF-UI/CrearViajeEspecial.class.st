@@ -1,9 +1,6 @@
 "
 Vista para crear viaje especial
 <Instance Variables>
-campoNombre:				<TextField>
-campoCostoPP: 			<TextField>
-campoImpuestos:			<TextField>
 campoCiudad: 			<TextField>
 campoFechaSalida:		<TextField>
 campoCupo: 				<TextField>
@@ -12,16 +9,12 @@ botonCrearViaje:		<Button>
 "
 Class {
 	#name : #CrearViajeEspecial,
-	#superclass : #Ventana,
+	#superclass : #CrearViaje,
 	#instVars : [
-		'campoNombre',
-		'campoCostoPP',
-		'campoImpuestos',
 		'campoCiudad',
 		'campoFechaSalida',
 		'campoCupo',
-		'campoFechaRegreso',
-		'botonCrearViaje'
+		'campoFechaRegreso'
 	],
 	#category : #'POOTPF-UI-Views'
 }
@@ -110,20 +103,6 @@ CrearViajeEspecial >> addCampoCiudad [
 ]
 
 { #category : #adding }
-CrearViajeEspecial >> addCampoCostoPP [
-	|label|.
-	campoCostoPP := TextField createTransparentExtent: 120@30 ghostText: 'ej: 5000'.
-	campoCostoPP borderWidth: 1; borderColor: Color black.
-	label := 'Costo por Persona' asMorph.
-	
-	campoCostoPP center: contenedor center - (0@93).
-	label center: campoCostoPP center - (0@20).
-	
-	body addMorph: campoCostoPP.
-	body addMorph: label.
-]
-
-{ #category : #adding }
 CrearViajeEspecial >> addCampoCupo [
 	|label|.
 	campoCupo := TextField createTransparentExtent: 90@30 ghostText: '10'.
@@ -162,34 +141,6 @@ CrearViajeEspecial >> addCampoFechaSalida [
 	label center: campoFechaSalida center - (0@20).
 	
 	body addMorph: campoFechaSalida.
-	body addMorph: label.
-]
-
-{ #category : #adding }
-CrearViajeEspecial >> addCampoImpuestos [
-	|label|.
-	campoImpuestos := TextField createTransparentExtent: 120@30 ghostText: 'ej: 1500'.
-	campoImpuestos borderWidth: 1; borderColor: Color black.
-	label := 'Impuestos' asMorph.
-	
-	campoImpuestos center: contenedor center - (0@31).
-	label center: campoImpuestos center - (0@20).
-	
-	body addMorph: campoImpuestos.
-	body addMorph: label.
-]
-
-{ #category : #adding }
-CrearViajeEspecial >> addCampoNombre [
-	|label|.
-	campoNombre := TextField createTransparentExtent: 200@30 ghostText: 'ej: Viaje a Cordoba'.
-	campoNombre borderWidth: 1; borderColor: Color black.
-	label := 'Nombre' asMorph.
-	
-	campoNombre center: contenedor center - (0@155).
-	label center: campoNombre center - (0@20).
-	
-	body addMorph: campoNombre.
 	body addMorph: label.
 ]
 

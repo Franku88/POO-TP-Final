@@ -47,7 +47,7 @@ VerViajes >> addButtons [
 	botonCancelar right: tablaViajes right; top: tablaViajes bottom + 50.
 
 	botonCrear mouseAction: [  
-		self addMorphCentered: (CrearViaje createWithSystem: sistema).
+		self addMorphCentered: (ElegirTipoViaje createWithSystem: sistema).
 		tablaViajes deselectAll.
 	].
 

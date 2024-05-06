@@ -16,6 +16,13 @@ Class {
 }
 
 { #category : #'code-critics' }
+ManifestPOOTPFUI class >> ruleCollectionProtocolRuleV1FalsePositive [
+
+	<ignoreForCoverage>
+	^ #(#(#(#RGMethodDefinition #(#CrearViajeOrganizado #addBotonAgregarEtapa #false)) #'2024-05-06T02:40:21.823-03:00') )
+]
+
+{ #category : #'code-critics' }
 ManifestPOOTPFUI class >> ruleLongMethodsRuleV1FalsePositive [
 
 	<ignoreForCoverage>
