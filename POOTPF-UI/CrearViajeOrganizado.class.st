@@ -50,23 +50,33 @@ CrearViajeOrganizado >> addBotonAgregarEtapa [
 					self addMessage: 'Los campos no pueden estar vacios'.
 				] ifFalse: [
 					(Helper stringIsNumeric: (campoCantDiasEtapa input)) ifTrue: [
+						((campoCantDiasEtapa input asInteger) > 0) ifTrue: [
+						((campoCantDias input asInteger) >= ((campoCantDiasEtapa input asInteger)+diaLlegada-1)) ifTrue: [
 							|colExc|.
 							colExc := OrderedCollection new.
 							((campoExcursiones input) findTokens: ',') do: [:cadaString|
 									colExc add: (Excursion crear: cadaString).
 								].
-							colEtapas add: (Etapa crear: (campoCantDiasEtapa input asInteger) diaLlegada: (diaLlegada) nombreHotel: (campoNombreHotel input) tipoPension: (campoTipoPension input) colExcursiones: colExc).
+							colEtapas add: (Etapa crear: (campoCantDiasEtapa input asInteger) diaLlegada: ('dia ',diaLlegada asString) nombreHotel: (campoNombreHotel input) tipoPension: (campoTipoPension input) colExcursiones: colExc).
 							contenedorEtapa delete.
-							(diaLlegada < (campoCantDias input asInteger)) ifTrue: [ 
+							((diaLlegada+(campoCantDiasEtapa input asInteger)-1) < (campoCantDias input asInteger)) ifTrue: [
 									"Agrega otra etapa"
 									self addContenedorEtapa: (diaLlegada + (campoCantDiasEtapa input asInteger)) 
 								] ifFalse: [
 									"No agrega más y termina de crear viaje"
 									self addBotonCrearViaje.
 								].
+							] ifFalse: [
+								self addMessage: 'Dias de etapa no disponibles, 
+    quedan ',((campoCantDias input asInteger)-diaLlegada+1) asString,' dias.' extent: 200@120.
+							].
+						] ifFalse: [
+							self addMessage: 'Cantidad de dias debe 
+ser mayor a 0' extent: 200@120.
+						].
 						] ifFalse: [
 							self addMessage: 'Cantidad de Dias de Etapa
-   debe ser numerico' extent: 200@120.
+  debe ser numerico' extent: 200@120
 						].
 				].
 
@@ -114,7 +124,7 @@ y Cantidad de Dias deben ser numericos.' extent: 250@120.
 
 { #category : #adding }
 CrearViajeOrganizado >> addBotonCrearViaje [
-	botonCrearViaje  := Button label: 'Crear Viaje'.
+	botonCrearViaje  := Button label: 'Click para Finalizar' extent: 120@25.
 	botonCrearViaje center: contenedor center + (0@155).
 	"Helper stringIsNumeric: cupoString"
 	botonCrearViaje mouseAction: [
@@ -125,8 +135,8 @@ CrearViajeOrganizado >> addBotonCrearViaje [
 					(Helper stringIsNumeric: (campoImpuestos input)) &
 					(Helper stringIsNumeric: (campoCantDias input))) ifTrue: [
 							(sistema buscarViajeConNombre: (campoNombre input)) ifNil: [
-									"sistema generarViajeEspecial: (campoNombre input) costoPorPersona: (campoCostoPP input asInteger)  valorImpuestos: (campoImpuestos input asInteger) ciudad: (campoCiudad input) fechaSalida: (FechaSalida crear: fechaSalida cupo: (campoCupo input asInteger)) fechaRegreso: (fechaRegreso)."
-									self addMessage: 'Viaje Especial creado con exito.'.	
+									sistema generarViajeOrganizado: (campoNombre input) costoPorPersona: (campoCostoPP input asInteger) valorImpuestos: (campoImpuestos input asInteger) fechasSalida: (OrderedCollection new) cantDias: (campoCantDias input asInteger)  etapas: colEtapas excursionesOpcionales: (OrderedCollection new).
+									self addMessage: 'Viaje Organizado creado con exito.'.	
 									contenedor delete.
 									self addContenedorViaje.
 							] ifNotNil: [  

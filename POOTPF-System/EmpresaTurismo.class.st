@@ -213,6 +213,7 @@ EmpresaTurismo >> generarViajeOrganizado: unNombre costoPorPersona: costP valorI
 	(exito) ifTrue: [  
 			unViaje := ViajeOrganizado crear: unNombre costoPorPersona: costP valorImpuestos: unImpuesto cantDias: unaCant colFechasSalida: unasFechasSalida colEtapas: unasEtapas colExcursionesOpcionales: unasExcursionesOpcionales.
 			colViajes add: unViaje.
+			self changed.
 		].
 	^exito.
 ]
